@@ -750,6 +750,7 @@ button#closeFullscreen {
 
 
 @media only screen and (max-width: 906px) and (orientation: landscape) {
+
     div#panelMobile {
         position: absolute;
         bottom: 51px;
@@ -799,9 +800,6 @@ button#closeFullscreen {
     #flipScreeen {
         display: none;
     }
-    h1 {
-        display: none;
-    }
 
     .ui.info.active {
         z-index: 220;
@@ -836,5 +834,51 @@ button#closeFullscreen {
 
     #playButton, #infoButton{
         padding: 10px!important;
+    }
+    .ui, .wrapper-info-text{
+        margin-top: 0px!important;
+    }
+
+    #innerText {
+        padding-top: 0px!important;
+    }
+    .wrapper-info-text {
+        overflow-y: scroll;
+    }
+    div#welcomeUi {
+        padding-top: 110px;
+        overflow-y: scroll;
+    }
+
+    .box {
+        height: 47vh;
+        margin: 0!important;
+    }
+
+    .box-header {
+        height: 50px;
+    }
+
+    h1 {
+        font-size: 32px;
+    }
+
+    button#buttonImpressum, #close {
+        background: #ffffff52!important;
+        padding: 19px!important;
+        font-size: 19px!important;
+        border: none!important;
+    }
+
+    #muteBtn  img {
+       width: 22px;
+    }
+
+    h2 {
+        font-size: 26px;
+    }
+
+    div#innerText {
+        margin-top: 20px;
     }
 }
