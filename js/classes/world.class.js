@@ -61,7 +61,7 @@ class World {
         ctx.clearRect(0, 0, canvasGame.width, canvasGame.height);
 
         init();
-        console.log("Das Spiel wurde erfolgreich zurückgesetzt!");
+        // console.log("Das Spiel wurde erfolgreich zurückgesetzt!");
     }
 
     /** Stoppt alle Intervalle und pausiert die Hintergrundmusik */

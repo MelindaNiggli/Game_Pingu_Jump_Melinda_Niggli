@@ -12,7 +12,7 @@ function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
 
-    console.log('World initialized:', world);
+    // console.log('World initialized:', world);
 };
 
 function playGame() {
