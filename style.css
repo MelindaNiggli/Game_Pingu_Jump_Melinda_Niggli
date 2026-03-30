@@ -28,6 +28,10 @@ h1{
     padding: 5px;
 }
 
+button, a{
+    cursor: pointer;
+}
+
 h2 {
     font-size: 35px;
     margin: 0;
