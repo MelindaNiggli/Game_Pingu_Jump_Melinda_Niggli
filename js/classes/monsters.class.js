@@ -71,10 +71,10 @@ class MonsterTurtle extends MovableObject{
 
     constructor(){
         super().loadImage('img/monsters/turtle/Walk/Walk_00.png');
-        this.y = 370;
+        this.y = 420;
         this.x = 200 + Math.random() * 7000; 
-        this.width = 250;
-        this.height = 230;
+        this.width = 150;
+        this.height = 150;
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_ATTACK);
       
@@ -90,7 +90,7 @@ class MonsterTurtle extends MovableObject{
    
         setInterval(() => {
             this.playWalkingAnimationImages(this.IMAGES_WALKING);
-        }, 50);  
+        }, 30);  
     }
 
     attack(character) {
@@ -175,7 +175,7 @@ class MonsterFly extends MovableObject{
             let path = this.IMAGES_FLYING[i];
             this.img = this.imageCache[path];
             this.currentImage++;
-        }, 50);  
+        }, 40);  
     }
     attack(character) {
         if (!this.isAttacking) {
@@ -372,10 +372,8 @@ class MonsterBlue extends MovableObject{
     animate(){
         setInterval( () => {
             this.moveLeft();
-        }, 1000 / 60);
-        setInterval(() => {
-     this.playWalkingAnimationImages(this.IMAGES_WALKING);
-        },50);  
+            this.playWalkingAnimationImages(this.IMAGES_WALKING);
+        }, 50);
     }
 
     attack(character) {
@@ -387,7 +385,7 @@ class MonsterBlue extends MovableObject{
                     this.loadImage('img/monsters/moster-bomb/Walk/Walk_00.png');
                     this.stopAttack(); 
                 }
-            }, 1000 / 70);
+            }, 1000 / 60);
         }
     }
     

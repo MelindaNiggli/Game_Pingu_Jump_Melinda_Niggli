@@ -1,7 +1,7 @@
 class endBossTurtle extends MovableObject{
     World;
-    width = 500;
-    height = 500;
+    width = 280;
+    height = 280;
     
     IMAGES_WALKING = [
         'img/monsters/endboss_turtle/Idle/Idle_00.png',
@@ -64,8 +64,8 @@ class endBossTurtle extends MovableObject{
     currentImage = 0;
 
     constructor(){
-        super().loadImage('img/monsters/endboss_turtle/Idle/Idle_00.png');
-        this.y = 160;
+        super().loadImage('img/monsters/endboss_turtle/Attack/Attack_00.png');
+        this.y = 280;
         this.x = 6800;  
         this.loadImages(this.IMAGES_ATTACK);
     }
@@ -82,7 +82,7 @@ class endBossTurtle extends MovableObject{
             this.attackInterval = setInterval(() => {
                 this.playWalkingAnimationImages(this.IMAGES_ATTACK);
                 if (!this.isColliding(character)) {
-                    this.loadImage('img/monsters/endboss_turtle/Idle/Idle_00.png');
+                    this.loadImage('img/monsters/endboss_turtle/Attack/Attack_00.png');
                     this.stopAttack(); 
                 }
             }, 1000 / 60);
