@@ -676,10 +676,10 @@ button#closeFullscreen {
     .box {
         height: 65vh; /* Höhe für Querformat, Beispiel */
     } 
-     #wrapperButtons {
+    #wrapperButtons {
         position: absolute;
-        right: 25%;
-        top: 10% !important;
+        right: 25%!important;
+        top: 13%!important;
         display: flex;
         z-index: 999;
     }
@@ -784,7 +784,7 @@ button#closeFullscreen {
 
     #wrapperButtons {
         position: absolute;
-        right: 40%;
+        right: 40%!important;
         top: 20%!important;
         display: flex;
         z-index: 3;
