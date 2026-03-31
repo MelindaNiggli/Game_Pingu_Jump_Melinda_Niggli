@@ -122,7 +122,7 @@ class World {
         const ctx = canvasGame.getContext('2d');
         ctx.clearRect(0, 0, canvasGame.width, canvasGame.height);
         document.getElementById('panelMobile').style.opacity = "1";
-        document.getElementById('wrapperButtons').style.right = "27%"
+        document.getElementById('wrapperButtons').style.right = "11%"
         init();
         console.log("Das Spiel wurde erfolgreich zurückgesetzt!");
     }

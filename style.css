@@ -452,7 +452,7 @@ p.powered {
 
 #wrapperButtons {
     position: absolute;
-    right: 20%;
+    right: 10%;
     bottom: 0;
     display: flex;
     z-index: 3;
