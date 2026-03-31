@@ -1,7 +1,7 @@
 class endBossTurtle extends MovableObject{
     World;
-    width = 280;
-    height = 280;
+    width = 480;
+    height = 580;
     
     IMAGES_WALKING = [
         'img/monsters/endboss_turtle/Idle/Idle_00.png',
@@ -65,7 +65,7 @@ class endBossTurtle extends MovableObject{
 
     constructor(){
         super().loadImage('img/monsters/endboss_turtle/Attack/Attack_00.png');
-        this.y = 280;
+        this.y = 80;
         this.x = 6800;  
         this.loadImages(this.IMAGES_ATTACK);
     }

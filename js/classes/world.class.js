@@ -122,6 +122,7 @@ class World {
         const ctx = canvasGame.getContext('2d');
         ctx.clearRect(0, 0, canvasGame.width, canvasGame.height);
         document.getElementById('panelMobile').style.opacity = "1";
+        document.getElementById('wrapperButtons').style.right = "27%"
         init();
         console.log("Das Spiel wurde erfolgreich zurückgesetzt!");
     }
@@ -180,10 +181,12 @@ class World {
     checkGameEND() {
         this.clearIntervallAndStopBackgroundMusic();
         let buttons = document.getElementById('panelMobile');
+        let infoButtons = document.getElementById('wrapperButtons');
         if (this.character.gameEnd) {
+            buttons.style.opacity = "0";
+            infoButtons.style.right = "8%"
             this.gameEnd = true;
             if (!this.isMuted()) {
-                buttons.style.opacity = "0";
                 this.backgroundMusic.pause();
                 this.gameOver.gameOverSound.currentTime = 0;
                 this.gameOver.gameOverSound.play().catch(e => console.log("Audio blockiert:", e));
@@ -195,12 +198,13 @@ class World {
     checkGameWIN() {
         this.clearIntervallAndStopBackgroundMusic();
         let buttons = document.getElementById('panelMobile');
+        let infoButtons = document.getElementById('wrapperButtons');
         if (this.gameWIN) {
+            buttons.style.opacity = "0";
+            infoButtons.style.right = "8%"
             if (!this.isMuted()) {
-                buttons.style.opacity = "0";
                 this.gameWin.winSound.currentTime = 0;
                 this.gameWin.winSound.play().catch(e => console.log("Audio blockiert:", e));
-
             }
         }
     }

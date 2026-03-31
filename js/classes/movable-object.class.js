@@ -27,13 +27,17 @@ class MovableObject extends DrawableObject {
     }
 
     isEndbossDead() {
-        return this.hitCountEnemy >= 8 || this.energyEnemy === 0;
+        return this.hitCountEnemy >= 3 || this.energyEnemy === 0;
     }
 
     hitGunEnemie() {
-        this.energyEnemy = 0;
+        this.energyEnemy -= 33;  // 100 / 3 ≈ 33 pro Treffer
+        this.hitCountEnemy++;     // Treffer zählen
+    
+        if (this.energyEnemy < 0) {
+            this.energyEnemy = 0;
+        }
     }
-
     isColliding(mo) {
         return (this.x + this.width) >= mo.x &&
                this.x <= (mo.x + mo.width) &&

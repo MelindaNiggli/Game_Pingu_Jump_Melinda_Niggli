@@ -25,7 +25,7 @@ class GunShoot extends MovableObject {
     }
 
     shoot() {
-        this.speedY = 30;
+        this.speedY = 20;
         if (!this.World.isMuted()) {
             this.shoot_sound.play();
         }

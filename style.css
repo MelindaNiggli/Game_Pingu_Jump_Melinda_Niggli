@@ -683,6 +683,15 @@ button#closeFullscreen {
         display: flex;
         z-index: 999;
     }
+    #muteBtn, #reset,#openFullscreen, #closeFullscreen, #home {
+        width: 40px;
+        height: 40px;
+    }
+
+    #muteBtn img, #reset img, #openFullscreen img , #closeFullscreen img, #home img {
+        width: 25px;
+        height: 25px;
+    }
 }
 
 
