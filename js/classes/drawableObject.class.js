@@ -35,10 +35,10 @@ drawFrame(ctx){
     if(this instanceof Character || this instanceof MonsterBomb ||  this instanceof MonsterFly||  this instanceof MonsterTurtle ||  this instanceof endBossTurtle || this instanceof chest ||  this instanceof Platform ||  this instanceof Star ||  this instanceof GunShoot ){
          // Blue rectangle
          ctx.beginPath();
-    /*     ctx.lineWidth = '5';
+       ctx.lineWidth = '5';
          ctx.strokeStyle = 'blue';
          ctx.rect( this.x, this.y, this.width, this.height);
-         ctx.stroke();*/
+         ctx.stroke();
     }
    }
 

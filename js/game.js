@@ -46,12 +46,13 @@ function closeOverlay() {
 
 function showImpressum() {
     const impressum = document.getElementById('innerTextImpressum');
-    const overlay = document.getElementById('innerText');
+    const startText= document.getElementById('startText');
     const button = document.getElementById('buttonImpressum');
 
     const active = impressum.classList.toggle('active');
-    overlay.classList.toggle('active');
+    startText.classList.toggle('active');
     button.innerText = active ? "Back" : "Impressum";
+
 };
 
 /* Mute BTN */
@@ -90,11 +91,14 @@ function closeFullscreen() {
 };
 
 function enterFullscreen(element) {
+    element.classList.add("fullscreen-ON");
     if (!isIOS() && element.requestFullscreen) {
         element.requestFullscreen();
+
     } else {
         element.classList.add("fullscreen-mobile");
         document.body.style.overflow = "hidden";
+        
     };
 
     document.getElementById('openFullscreen').style.display = "none";
@@ -107,6 +111,7 @@ function exitFullscreen() {
     };
 
     document.getElementById('canvasWrapper').classList.remove("fullscreen-mobile");
+    document.getElementById('canvasWrapper').classList.remove("fullscreen-ON");
     document.body.style.overflow = "";
 };
 
@@ -115,6 +120,7 @@ document.addEventListener("fullscreenchange", () => {
     if (!document.fullscreenElement) {
         document.getElementById('closeFullscreen').style.display = "none";
         document.getElementById('openFullscreen').style.display = "flex";
+
     };
 });
 

@@ -1,7 +1,7 @@
 class Star extends MovableObject {
     IMAGES_STAR = ['img/stars/star_10.png'];
     currentImage = 0;
-    starSound = new Audio('audio/star.mp3');
+    starSound = new Audio('./audio/star.mp3');
     World;
 
     constructor() {

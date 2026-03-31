@@ -45,12 +45,15 @@ h1, h2, h3, h4 {
     font-family: 'wonder', sans-serif;
     letter-spacing: 2px;
     text-align:center;
-    color: black!important;
 
 }
 
+h2, h3, h4 {
+    color: black!important;
+}
+
 a {
-    color: rgb(38 98 134);
+    color: #266286;
 }
 
 p {
@@ -61,20 +64,21 @@ p {
     font-size: 19px;
 }
 
-#canvasWrapper {
-    width: 100%;
+div#canvasWrapper.playnow {
+    width: 100vw;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: url('./img/backgrounds/02/layers/l1_sky.png');
+    background: #266286;
+    background: radial-gradient(circle, rgb(161 215 240) 0%, rgb(133 184 216) 100%);
 }
 
 canvas {
     margin: 40px;
     display: block;
     border-radius: 30px!important;
-    border: 5px solid white;
+    border: 2px solid white;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     -webkit-border-radius: 30px!important;
     -moz-border-radius: 30px!important;
@@ -131,7 +135,7 @@ canvas {
     text-align: center;
 }
 .box {
-    width: 430px;
+    width: 520px;
     height: 65vh;
     padding: 60px 30px 30px;
     margin: 50px auto;
@@ -159,13 +163,33 @@ canvas {
     flex-direction: column;
 }
 
-button#buttonImpressum, #close {
+ #close {
     background: #ffffff52!important;
     padding: 9px!important;
     font-size: 19px!important;
     border: none!important;
 }
+button#buttonImpressum {
+    background: none!important;
+    padding: 0px!important;
+    font-size: 15px!important;
+    border: none!important;
+    font-family: Futura;
+    font-weight: 300!important;
+    color: #276286ff;
+    }
   
+#startText {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 14px;
+    flex-wrap: wrap;
+    }
+
+
+
   /* Schrauben */
   .box-header::before,
   .box-header::after {
@@ -205,13 +229,13 @@ button#buttonImpressum, #close {
     background-image: url(./img/ui/info.svg);
 }
 
-.infoIMG,
-.controlerIMG {
-    width: 25px;
+.infoIMG, .controlerIMG {
+    width: 30px;
     height: 100%;
     background-repeat: no-repeat;
-    margin: 10px;
-}
+    margin-right: 10px;
+    height: 30px;
+    }
 
 .infoMG {
     width: 45px;
@@ -428,7 +452,7 @@ p.powered {
 
 #wrapperButtons {
     position: absolute;
-    right: 40%;
+    right: 20%;
     bottom: 0;
     display: flex;
     z-index: 3;
@@ -479,6 +503,7 @@ p.powered {
     overflow: scroll;
     margin-bottom: 30px;
     gap: 10px;
+    height: 450px;
 }
 
 #innerTextImpressum p {
@@ -494,6 +519,20 @@ p.powered {
 #innerText {
     transform: translateY(0);
     padding-top: 40px!important;
+}
+
+
+.fullscreen-ON canvas#canvas {
+    width: 100%!important;
+}
+
+.fullscreen-ON canvas#canvas #wrapperButtons{
+    right: 6%!important;
+}
+
+canvas {
+    width: 85%!important;
+    border: 3px solid white;
 }
 
 #btnRight,
@@ -566,8 +605,8 @@ div#panelMobile div {
 
 #wrapperButtons {
     position: absolute;
-    right: 7%;
-    bottom: 10%!important;
+    right: 12%;
+    bottom: 8%!important;
     display: flex;
     z-index: 3;
 }
@@ -576,25 +615,100 @@ button#closeFullscreen {
     display: none;
 }
 
-@media screen and (max-width: 1600px) {
-    #btnRight,
+
+#startText.active {
+    display: none;
+    }
+
+
+#btnRight,
     #btnLeft,
     #btnUp,
     #btnShoot,
     #btnThrow {
         display: none!important;
     }
+
+/* Tablet Hochformat */
+@media screen and (max-width: 1024px) and (orientation: portrait) {
+    #btnRight,
+    #btnLeft,
+    #btnUp,
+    #btnShoot,
+    #btnThrow {
+        display: flex !important;
+    }
+
+    .box {
+        height: 48vh; /* Höhe für Hochformat */
+    }
+
+    canvas {
+        width: 80%!important;
+        border: 3px solid white;
+    }
+    #wrapperButtons {
+        position: absolute;
+        right: 30%;
+        top: 10%;
+        display: flex;
+        z-index: 3;
+    }
+   
+}
+
+/* Tablet Querformat */
+@media screen and (max-width: 1366px) and (orientation: landscape) {
+    #btnRight,
+    #btnLeft,
+    #btnUp,
+    #btnShoot,
+    #btnThrow {
+        display: flex !important;
+        z-index: 300;
+    }
+
+
+    div#panelMobile {
+        bottom: 60px;
+        width: 79%;
+    }
+    .box {
+        height: 35vh; /* Höhe für Querformat, Beispiel */
+    } 
+     #wrapperButtons {
+        position: absolute;
+        right: 38%;
+        top: 10% !important;
+        display: flex;
+        z-index: 999;
+    }
 }
 
 
 @media screen and (max-width: 600px) {
     .box {
-        width: 270px;
+        width: 320px;
         height: 47vh;
+        padding: 60px 15px 15px;
     }
 
-    .ui,    div#innerTextImpressum {
+    button#buttonImpressum {
+        font-size: 13px;
+    }
+    .ui {
         margin-top: 40px;
+    }
+
+    #innerText {
+        padding-top: 0px!important; 
+    }
+    #innerTextImpressum.active {
+        padding: 0px!important;
+        width: 100%;
+        height: 290px;
+        overflow-y: scroll!important;
+        gap: 0px;
     }
 
     div#innerText h2 {
@@ -605,7 +719,7 @@ button#closeFullscreen {
     }
 
     p.helloText {
-        width: 80%;
+        width: 100%;
     }
 
     #muteBtn, #reset {
@@ -631,6 +745,7 @@ button#closeFullscreen {
     canvas {
         height: 100vh;
     }
+
     #btnRight,
     #btnLeft,
     #btnUp,
@@ -657,10 +772,7 @@ button#closeFullscreen {
         padding-left: 30px;
         padding-right: 30px;
     }
-    #innerTextImpressum.active {
-        padding: 0px!important;
-        width: 80%;
-    }
+
     #wrapperButtons {
         position: absolute;
         right: 40%;
@@ -718,10 +830,10 @@ button#closeFullscreen {
     }
     .infoIMG,
     .controlerIMG {
-        width: 25px;
-        height: 100%;
+        width: 20px;
+        height: 20px;
         background-repeat: no-repeat;
-        margin: 10px;
+        margin-right: 10px;
     }
     canvas {
         width: 90%;

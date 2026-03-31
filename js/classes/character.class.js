@@ -60,9 +60,9 @@ class Character extends MovableObject {
     World;
     currentImage = 0;
     speed = 10;
-    walking_sound = new Audio('audio/walk.mp3');
-    hurtSound = new Audio('audio/hit.wav');
-    jumpSound = new Audio('audio/Jump.mp3');
+    walking_sound = new Audio('./audio/walk.mp3');
+    hurtSound = new Audio('./audio/hit.wav');
+    jumpSound = new Audio('./audio/Jump.mp3');
 
     constructor() {
         super().loadImage('img/pinguin/Character/Walk/Walk_00.svg');
@@ -80,7 +80,7 @@ animate() {
         this.moveCharacter();
         this.hurtOreDadCharacter();
         this.World.camera_x = -this.x + 60;
-    },300/60);
+    },1000/50);
 
 }
 
