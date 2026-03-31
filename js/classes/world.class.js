@@ -24,6 +24,69 @@ class World {
     Keyboard = new Keyboard();
     backgroundMusic = new Audio('audio/backgroundMusic.wav');
 
+
+       /** Zeichnet die gesamte Welt inkl. Character, Gegner, Objekte, Statusleisten */
+       drawWorld(){
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.ctx.translate(this.camera_x, 0);
+
+        this.addObjectsToMap(this.level.backgroundObjects);
+        this.ctx.translate(-this.camera_x, 0);
+
+        this.addToMap(this.statusBar);
+        this.addToMap(this.statusBarStar);
+        this.addToMap(this.statusBarCrystal);
+        this.addToMap(this.statusBarFish);
+        this.addToMap(this.statusBarGun);    
+
+        this.ctx.translate(this.camera_x, 0);
+        this.addObjectsToMap(this.level.platform);
+        this.addToMap(this.character);
+        this.addObjectsToMap(this.level.clouds);
+        this.addObjectsToMap(this.level.chest);
+        this.addObjectsToMap(this.level.endboss);
+        this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.level.stars);
+        this.addObjectsToMap(this.level.crystal);
+        this.addObjectsToMap(this.ThrowableObjects);
+        this.addObjectsToMap(this.GunShoot);
+        this.ctx.translate(-this.camera_x, 0);
+
+        if (this.gameEnd) this.addToMap(this.gameOver);
+        if (this.gameWIN) this.addToMap(this.gameWin);
+        this.addToMap(this.gameWinShowStar);
+        this.addToMap(this.gameWinShowCrystal);
+
+        requestAnimationFrame(() => this.drawWorld());
+    }
+
+    /** Fügt mehrere Objekte der Welt hinzu */
+    addObjectsToMap(objects){
+        objects.forEach(o => this.addToMap(o));
+    }
+
+    /** Fügt ein Objekt der Welt hinzu und spiegelt es */
+    addToMap(mo){
+        if(mo.otherDirection) this.flipImage(mo);
+        mo.draw(this.ctx);
+        mo.drawFrame(this.ctx);
+        if(mo.otherDirection) this.flipImageBack(mo);
+    }
+
+    /** Spiegelt ein Bild horizontal */
+    flipImage(mo){
+        this.ctx.save();
+        this.ctx.translate(mo.width, 0);
+        this.ctx.scale(-1, 1);
+        mo.x = mo.x * -1;
+    }
+
+    /** Setzt die Spiegelung zurück */
+    flipImageBack(mo){
+        mo.x = mo.x * -1;
+        this.ctx.restore();
+    }
+
     /** Prüft, ob das Spiel stummgeschaltet ist */
     isMuted(){
         return localStorage.getItem("muted") === "true";
@@ -55,7 +118,6 @@ class World {
         this.character = new Character();
         this.setWorld();
         // localStorage.setItem("muted", "false");
-
         const canvasGame = document.getElementById('canvas');
         const ctx = canvasGame.getContext('2d');
         ctx.clearRect(0, 0, canvasGame.width, canvasGame.height);
@@ -91,6 +153,11 @@ class World {
         this.checkGunShoot();
         this.checkGameWinHaveStarOreCrystal();  
         this.checkColisionsCharacterFallDownOnEnemy();
+    }
+
+    /** Setzt die World-Referenz für den Character */
+    setWorld(){
+        this.character.World = this;
     }
 
     /** Startet Hintergrundmusik, wenn nicht stumm */
@@ -144,10 +211,7 @@ class World {
         this.gameWinShowCrystal.checkNow(this.gameWIN, this.character.haveCrystal); 
     }
 
-    /** Setzt die World-Referenz für den Character */
-    setWorld(){
-        this.character.World = this;
-    }
+
 
     /** Prüft, ob der Spieler ein Wurfobjekt abwirft */
     checkThrowObjects() {
@@ -240,8 +304,6 @@ class World {
             }
         });
     }
-
-
 
     /** Prüft Kollisionen von Schüssen mit Endboss */
     checkColisionGunshootWithEndboss(endboss){
@@ -406,65 +468,5 @@ class World {
             this.character.speedY = 1;
         }
     }
-    /** Zeichnet die gesamte Welt inkl. Character, Gegner, Objekte, Statusleisten */
-    drawWorld(){
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.ctx.translate(this.camera_x, 0);
-
-        this.addObjectsToMap(this.level.backgroundObjects);
-        this.ctx.translate(-this.camera_x, 0);
-
-        this.addToMap(this.statusBar);
-        this.addToMap(this.statusBarStar);
-        this.addToMap(this.statusBarCrystal);
-        this.addToMap(this.statusBarFish);
-        this.addToMap(this.statusBarGun);    
-
-        this.ctx.translate(this.camera_x, 0);
-        this.addObjectsToMap(this.level.platform);
-        this.addToMap(this.character);
-        this.addObjectsToMap(this.level.clouds);
-        this.addObjectsToMap(this.level.chest);
-        this.addObjectsToMap(this.level.endboss);
-        this.addObjectsToMap(this.level.enemies);
-        this.addObjectsToMap(this.level.stars);
-        this.addObjectsToMap(this.level.crystal);
-        this.addObjectsToMap(this.ThrowableObjects);
-        this.addObjectsToMap(this.GunShoot);
-        this.ctx.translate(-this.camera_x, 0);
-
-        if (this.gameEnd) this.addToMap(this.gameOver);
-        if (this.gameWIN) this.addToMap(this.gameWin);
-        this.addToMap(this.gameWinShowStar);
-        this.addToMap(this.gameWinShowCrystal);
-
-        requestAnimationFrame(() => this.drawWorld());
-    }
-
-    /** Fügt mehrere Objekte der Welt hinzu */
-    addObjectsToMap(objects){
-        objects.forEach(o => this.addToMap(o));
-    }
-
-    /** Fügt ein Objekt der Welt hinzu und spiegelt es */
-    addToMap(mo){
-        if(mo.otherDirection) this.flipImage(mo);
-        mo.draw(this.ctx);
-        mo.drawFrame(this.ctx);
-        if(mo.otherDirection) this.flipImageBack(mo);
-    }
-
-    /** Spiegelt ein Bild horizontal */
-    flipImage(mo){
-        this.ctx.save();
-        this.ctx.translate(mo.width, 0);
-        this.ctx.scale(-1, 1);
-        mo.x = mo.x * -1;
-    }
-
-    /** Setzt die Spiegelung zurück */
-    flipImageBack(mo){
-        mo.x = mo.x * -1;
-        this.ctx.restore();
-    }
+ 
 }

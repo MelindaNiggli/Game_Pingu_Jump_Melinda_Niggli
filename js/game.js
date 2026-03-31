@@ -8,10 +8,8 @@ function init() {
     keyboard = new Keyboard();
     initLevel();
     checkOrientation();
-
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
-
     // console.log('World initialized:', world);
 };
 
@@ -21,7 +19,6 @@ function playGame() {
     init();
     const canvasWrapper = document.getElementById('canvasWrapper');
     canvasWrapper.classList.add('playnow');
-
     setTimeout(() => {
         canvasInnerWrapper.style.transform = 'translateY(0)';
     }, 1);
