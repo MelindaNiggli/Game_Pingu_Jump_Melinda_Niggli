@@ -72,7 +72,7 @@ class MonsterTurtle extends MovableObject{
     constructor(){
         super().loadImage('img/monsters/turtle/Walk/Walk_00.png');
         this.y = 420;
-        this.x = 200 + Math.random() * 7000; 
+        this.x = 200 + Math.random() * 6000; 
         this.width = 150;
         this.height = 150;
         this.loadImages(this.IMAGES_WALKING);

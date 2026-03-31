@@ -23,7 +23,7 @@ class MovableObject extends DrawableObject {
     }
 
     isEnemyDead() {
-        return this.hitCountEnemy >= 2 || this.energyEnemy === 0;
+        return this.hitCountEnemy >= 1 || this.energyEnemy === 0;
     }
 
     isEndbossDead() {
@@ -31,10 +31,7 @@ class MovableObject extends DrawableObject {
     }
 
     hitGunEnemie() {
-        this.energyEnemy -= 20;
-        if (this.energyEnemy < 0) {
-            this.energyEnemy = 0;
-        }
+        this.energyEnemy = 0;
     }
 
     isColliding(mo) {
@@ -105,7 +102,7 @@ class MovableObject extends DrawableObject {
 
     // JUMP
     jump() {
-        this.speedY = 40;
+        this.speedY = 35;
     }
 
     // IS CHARACTER ABOVE GROUND 

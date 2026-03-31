@@ -54,14 +54,14 @@ class World {
         this.level = level1;
         this.character = new Character();
         this.setWorld();
-        localStorage.setItem("muted", "false");
+        // localStorage.setItem("muted", "false");
 
         const canvasGame = document.getElementById('canvas');
         const ctx = canvasGame.getContext('2d');
         ctx.clearRect(0, 0, canvasGame.width, canvasGame.height);
-
+        document.getElementById('panelMobile').style.opacity = "1";
         init();
-        // console.log("Das Spiel wurde erfolgreich zurückgesetzt!");
+        console.log("Das Spiel wurde erfolgreich zurückgesetzt!");
     }
 
     /** Stoppt alle Intervalle und pausiert die Hintergrundmusik */
@@ -112,9 +112,11 @@ class World {
     /** Prüft, ob das Spiel verloren ist und spielt GameOver-Sound */
     checkGameEND() {
         this.clearIntervallAndStopBackgroundMusic();
+        let buttons = document.getElementById('panelMobile');
         if (this.character.gameEnd) {
             this.gameEnd = true;
             if (!this.isMuted()) {
+                buttons.style.opacity = "0";
                 this.backgroundMusic.pause();
                 this.gameOver.gameOverSound.currentTime = 0;
                 this.gameOver.gameOverSound.play().catch(e => console.log("Audio blockiert:", e));
@@ -125,10 +127,13 @@ class World {
     /** Prüft, ob das Spiel gewonnen ist und spielt Win-Sound */
     checkGameWIN() {
         this.clearIntervallAndStopBackgroundMusic();
+        let buttons = document.getElementById('panelMobile');
         if (this.gameWIN) {
             if (!this.isMuted()) {
+                buttons.style.opacity = "0";
                 this.gameWin.winSound.currentTime = 0;
                 this.gameWin.winSound.play().catch(e => console.log("Audio blockiert:", e));
+
             }
         }
     }
@@ -151,7 +156,7 @@ class World {
             if (this.character.otherDirection) {
                 fish = new ThrowableObjectFish(this.character.x - 50, this.character.y + 3, true, this);
             } else {
-                fish = new ThrowableObjectFish(this.character.x + 100, this.character.y + 3, false, this);
+                fish = new ThrowableObjectFish(this.character.x + 50, this.character.y + 3, false, this);
             }
 
             if (this.ThrowableObjects.length < 13) {
@@ -369,30 +374,38 @@ class World {
             }
         });
     }
-
-    /** Prüft Kollisionen zwischen Character und Plattformen */
     checkCollisionPlatform() {
         let onAnyPlatform = false;
+    
         this.level.platform.forEach(platform => {
+            let charBottom = this.character.y + this.character.height;
+    
+            // Toleranz: wie viel der Charakter über der Plattformoberkante sein darf
+            const overlap = 5; // Pixel, die überlappen dürfen
+    
+            // Prüfen, ob der Charakter von oben auf die Plattform trifft
             if (
-                this.character.y + this.character.height >= platform.y &&
-                this.character.y + this.character.height <= platform.y + platform.height &&
-                this.character.x + this.character.width > platform.x &&
-                this.character.x < platform.x + platform.width
-            ){
+                charBottom >= platform.y - overlap &&    // etwas über der Oberkante sein darf
+                charBottom <= platform.y + overlap + this.character.height && // nicht zu tief
+                // Prüfen, ob mindestens die Hälfte der Breite auf der Plattform ist
+                this.character.x + this.character.width * 0.5 > platform.x &&
+                this.character.x + this.character.width * 0.5 < platform.x + platform.width
+            ) {
                 onAnyPlatform = true;
-                if (this.character.speedY >= 0) {
-                    this.character.y = platform.y - this.character.height;
-                    this.character.speedY = 0;
-                }
+    
+                // Genau oben auf der Plattform landen
+                this.character.y = platform.y - this.character.height;
+                this.character.speedY = 0;
             }
         });
+    
         this.isOnPlatform = onAnyPlatform;
+    
+        // Wenn gerade keine Plattform, leicht fallen lassen
         if (!onAnyPlatform && this.character.speedY === 0) {
             this.character.speedY = 1;
         }
     }
-
     /** Zeichnet die gesamte Welt inkl. Character, Gegner, Objekte, Statusleisten */
     drawWorld(){
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);

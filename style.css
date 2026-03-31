@@ -674,11 +674,11 @@ button#closeFullscreen {
         width: 79%;
     }
     .box {
-        height: 35vh; /* Höhe für Querformat, Beispiel */
+        height: 65vh; /* Höhe für Querformat, Beispiel */
     } 
      #wrapperButtons {
         position: absolute;
-        right: 38%;
+        right: 25%;
         top: 10% !important;
         display: flex;
         z-index: 999;
@@ -940,12 +940,11 @@ button#closeFullscreen {
     #closeFullscreen {
         font-size: 14px!important;
     }
-    .infoIMG,
-    .controlerIMG {
-        width: 25px;
-        height: 100%;
+    .infoIMG, .controlerIMG {
+        width: 20px;
+        height: 20px;
         background-repeat: no-repeat;
-        margin: 10px;
+        margin-right: 10px;
     }
 
     #playButton, #infoButton{

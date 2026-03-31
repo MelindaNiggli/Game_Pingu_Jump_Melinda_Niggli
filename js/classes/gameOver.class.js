@@ -2,7 +2,7 @@ class gameOver extends DrawableObject{
     width = 1280;
     height = 650;
     currentImage = 0;
-    gameOverSound = new Audio('audio/gameOver.mp3');
+    gameOverSound = new Audio('audio/GameOver.mp3');
 
     constructor(){
         super();

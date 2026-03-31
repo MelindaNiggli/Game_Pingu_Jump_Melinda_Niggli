@@ -80,7 +80,7 @@ animate() {
         this.moveCharacter();
         this.hurtOreDadCharacter();
         this.World.camera_x = -this.x + 60;
-    },1000/50);
+    },1000/60);
 
 }
 

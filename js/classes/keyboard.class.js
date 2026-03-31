@@ -41,7 +41,7 @@ class Keyboard extends MovableObject {
         if(event.keyCode == 68){
             this.D = true;
         }
-        console.log(event)
+        // console.log(event)
         })
         window.addEventListener("keyup", (event) =>{
         if(event.keyCode == 39){
