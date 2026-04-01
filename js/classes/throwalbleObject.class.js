@@ -54,11 +54,10 @@ class ThrowableObjectFish extends MovableObject {
     }
 
     throw() {
-        this.speedY = 40;
+        this.speedY = 25;
         if (!this.World.isMuted()) {
             this.throw_sound.play();
         }
-
         this.applyGravity();
         setInterval(() => {
             this.x += this.otherDirection ? -10 : 10;

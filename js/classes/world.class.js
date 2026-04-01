@@ -10,6 +10,7 @@ class World {
     statusBarCrystal = new StatusBarCrystal();
     statusBarFish = new StatusBarFish();
     statusBarGun = new StatusBarGun();
+    StatusBarEndBoss = new StatusBarEndBoss();
     gameOver = new gameOver();
     gameWin = new gameWin();
     gameWinShowStar = new gameWinShowStar();
@@ -28,21 +29,11 @@ class World {
        /** Zeichnet die gesamte Welt inkl. Character, Gegner, Objekte, Statusleisten */
        drawWorld(){
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    
         this.ctx.translate(this.camera_x, 0);
-
         this.addObjectsToMap(this.level.backgroundObjects);
-        this.ctx.translate(-this.camera_x, 0);
-
-        this.addToMap(this.statusBar);
-        this.addToMap(this.statusBarStar);
-        this.addToMap(this.statusBarCrystal);
-        this.addToMap(this.statusBarFish);
-        this.addToMap(this.statusBarGun);    
-
-        this.ctx.translate(this.camera_x, 0);
-        this.addObjectsToMap(this.level.platform);
-        this.addToMap(this.character);
         this.addObjectsToMap(this.level.clouds);
+        this.addObjectsToMap(this.level.platform);
         this.addObjectsToMap(this.level.chest);
         this.addObjectsToMap(this.level.endboss);
         this.addObjectsToMap(this.level.enemies);
@@ -51,15 +42,25 @@ class World {
         this.addObjectsToMap(this.ThrowableObjects);
         this.addObjectsToMap(this.GunShoot);
         this.ctx.translate(-this.camera_x, 0);
-
+    
+        this.addToMap(this.statusBar);
+        this.addToMap(this.statusBarStar);
+        this.addToMap(this.statusBarCrystal);
+        this.addToMap(this.statusBarFish);
+        this.addToMap(this.statusBarGun);
+        this.addToMap(this.StatusBarEndBoss);
+    
+        this.ctx.translate(this.camera_x, 0);
+        this.addToMap(this.character);
+        this.ctx.translate(-this.camera_x, 0);
+    
         if (this.gameEnd) this.addToMap(this.gameOver);
         if (this.gameWIN) this.addToMap(this.gameWin);
         this.addToMap(this.gameWinShowStar);
         this.addToMap(this.gameWinShowCrystal);
-
+    
         requestAnimationFrame(() => this.drawWorld());
     }
-
     /** Fügt mehrere Objekte der Welt hinzu */
     addObjectsToMap(objects){
         objects.forEach(o => this.addToMap(o));
@@ -270,7 +271,7 @@ class World {
             if (index > -1) {
                 this.GunShoot.splice(index, 1);
             }
-        }, 1500);
+        }, 400);
     }
 
     /** Prüft Kollisionen zwischen Character und Endboss */
@@ -309,16 +310,20 @@ class World {
         });
     }
 
-    /** Prüft Kollisionen von Schüssen mit Endboss */
-    checkColisionGunshootWithEndboss(endboss){
+    checkColisionGunshootWithEndboss(endboss) {
         this.GunShoot.forEach((shoot, shootIndex) => {
             endboss.World = this;
             if (shoot.isColliding(endboss)) {
-                endboss.hitGunEnemie(); 
+                endboss.hitGunEndboss();
+                this.StatusBarEndBoss.setPercentage(endboss.energyEndboss);
                 if (endboss.isEndbossDead()) {
+    
                     endboss.playSound();
-                    this.level.endboss.splice(endboss, 1); 
-                    this.afterEndbossDeadOpenChestToCollect();   
+                    const index = this.level.endboss.indexOf(endboss);
+                    if (index > -1) {
+                        this.level.endboss.splice(index, 1);
+                    }
+                    this.afterEndbossDeadOpenChestToCollect();
                 }
                 this.GunShoot.splice(shootIndex, 1);
             }
@@ -431,7 +436,7 @@ class World {
                 this.character.x < enemy.x + enemy.width
             ) {
                 this.level.enemies.splice(enemyIndex, 1);
-                this.character.speedY = 20; 
+                this.character.speedY = 5; 
 
                 if (!this.isMuted() && enemy.deathSound) {
                     enemy.deathSound.currentTime = 0;
@@ -440,37 +445,25 @@ class World {
             }
         });
     }
+
     checkCollisionPlatform() {
-        let onAnyPlatform = false;
+        // CHECKCOLLISION PLATFORM
+        setInterval(() => {   
+         this.isOnPlatform = false 
+         this.level.platform.forEach((platform) => {
+             if (this.character. isCollidingPlatform(platform)) {
+                 this.timepassed = false;
+                 this.isOnPlatform = true;  // Wenn Kollision erkannt, setze auf true
+                 this.character.y = platform.y - this.character.height + 15;  // Charakter auf die Plattform setzen
+                 this.character.x + this.character.width  > platform.x &&
+                 this.character.x + this.character.width  < platform.x + platform.width
+
+                 console.log('Character on platform:', this.isOnPlatform);
+             }
     
-        this.level.platform.forEach(platform => {
-            let charBottom = this.character.y + this.character.height;
-    
-            // Toleranz: wie viel der Charakter über der Plattformoberkante sein darf
-            const overlap = 5; // Pixel, die überlappen dürfen
-    
-            // Prüfen, ob der Charakter von oben auf die Plattform trifft
-            if (
-                charBottom >= platform.y - overlap &&    // etwas über der Oberkante sein darf
-                charBottom <= platform.y + overlap + this.character.height && // nicht zu tief
-                // Prüfen, ob mindestens die Hälfte der Breite auf der Plattform ist
-                this.character.x + this.character.width * 0.5 > platform.x &&
-                this.character.x + this.character.width * 0.5 < platform.x + platform.width
-            ) {
-                onAnyPlatform = true;
-    
-                // Genau oben auf der Plattform landen
-                this.character.y = platform.y - this.character.height;
-                this.character.speedY = 0;
-            }
-        });
-    
-        this.isOnPlatform = onAnyPlatform;
-    
-        // Wenn gerade keine Plattform, leicht fallen lassen
-        if (!onAnyPlatform && this.character.speedY === 0) {
-            this.character.speedY = 1;
-        }
-    }
+         });
+     },1000/90); 
+         }
+      
  
 }

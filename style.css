@@ -452,13 +452,13 @@ p.powered {
 
 #wrapperButtons {
     position: absolute;
-    right: 10%;
-    bottom: 0;
+    right: 10%!important;
+    top: -3%!important;
     display: flex;
     z-index: 3;
     gap: 20px;
     justify-content: space-between;
-}
+    }
 
 #home,
 #openFullscreen,
@@ -605,11 +605,13 @@ div#panelMobile div {
 
 #wrapperButtons {
     position: absolute;
-    right: 12%;
-    bottom: 8%!important;
+    right: 10%!important;
+    top: -3%!important;
     display: flex;
     z-index: 3;
-}
+    gap: 20px;
+    justify-content: space-between;
+    }
 
 button#closeFullscreen {
     display: none;
@@ -678,19 +680,21 @@ button#closeFullscreen {
     } 
     #wrapperButtons {
         position: absolute;
-        right: 25%!important;
-        top: 13%!important;
+        right: 10%!important;
+        top: -3%!important;
         display: flex;
-        z-index: 999;
-    }
+        z-index: 3;
+        gap: 20px;
+        justify-content: space-between;
+        }
     #muteBtn, #reset,#openFullscreen, #closeFullscreen, #home {
         width: 40px;
         height: 40px;
     }
 
     #muteBtn img, #reset img, #openFullscreen img , #closeFullscreen img, #home img {
-        width: 25px;
-        height: 25px;
+        width: 20px;
+        height: 20px;
     }
 }
 

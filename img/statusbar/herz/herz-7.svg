@@ -47,7 +47,7 @@
       <stop offset="0" stop-color="#390800"/>
       <stop offset="1" stop-color="#9f5829"/>
     </linearGradient>
-    <linearGradient id="Unbenannter_Verlauf_37" data-name="Unbenannter Verlauf 37" x1="50.03" y1="17.37" x2="50.03" y2="4.86" gradientUnits="userSpaceOnUse">
+    <linearGradient id="Unbenannter_Verlauf_37" data-name="Unbenannter Verlauf 37" x1="91.24" y1="17.37" x2="91.24" y2="4.86" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#e00026"/>
       <stop offset=".97" stop-color="#ff557a"/>
     </linearGradient>
@@ -57,7 +57,7 @@
       <g>
         <rect class="cls-6" x="15.04" y="2.42" width="233.24" height="17.38" rx="8.69" ry="8.69"/>
         <rect class="cls-2" x="17.14" y="4.08" width="229.05" height="14.07" rx="7.04" ry="7.04"/>
-        <rect class="cls-7" x="18.19" y="4.86" width="63.67" height="12.51" rx="6.25" ry="6.25"/>
+        <rect class="cls-7" x="18.19" y="4.86" width="146.09" height="12.51" rx="6.25" ry="6.25"/>
       </g>
       <g id="HEART">
         <path class="cls-8" d="M24.58,5.25c1.99,6.11-3.89,15.97-7.54,16.84S2.42,19.56.42,13.45C-1.57,7.34,3.72.5,11.12,5.11c1.92-7.65,11.47-5.97,13.46.14Z"/>

@@ -6,6 +6,7 @@ class MovableObject extends DrawableObject {
     energy = 100;
     energyEnemy = 100;
     hitCountEnemy = 0;
+    hitCountEndboss = 0;
     haveStar = 0;
     haveCrystal = 0;
     isOnPlatform = false;
@@ -13,6 +14,7 @@ class MovableObject extends DrawableObject {
     timepassed = 0;
     isHurtwithCaracter = false;
     Keyboard;
+    energyEndboss = 100;
 
     hitEnemie() {
         this.energyEnemy -= 20;
@@ -27,13 +29,18 @@ class MovableObject extends DrawableObject {
     }
 
     isEndbossDead() {
-        return this.hitCountEnemy >= 3 || this.energyEnemy === 0;
+        return this.hitCountEndboss>= 3 || this.energyEndboss === 0;
+    }
+
+
+    hitGunEndboss() {
+        this.energyEndboss -= 33;  // 100 / 3 ≈ 33 pro Treffer
+        this.hitCountEndboss++;     // Treffer zählen
+      
     }
 
     hitGunEnemie() {
-        this.energyEnemy -= 33;  // 100 / 3 ≈ 33 pro Treffer
         this.hitCountEnemy++;     // Treffer zählen
-    
         if (this.energyEnemy < 0) {
             this.energyEnemy = 0;
         }
@@ -106,7 +113,7 @@ class MovableObject extends DrawableObject {
 
     // JUMP
     jump() {
-        this.speedY = 35;
+        this.speedY = 42;
     }
 
     // IS CHARACTER ABOVE GROUND 

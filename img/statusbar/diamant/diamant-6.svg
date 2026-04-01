@@ -2518,7 +2518,7 @@
       <stop offset="0" stop-color="#390800"/>
       <stop offset="1" stop-color="#9f5829"/>
     </linearGradient>
-    <linearGradient id="Unbenannter_Verlauf_89" data-name="Unbenannter Verlauf 89" x1="73.8" y1="19.48" x2="73.8" y2="6.97" gradientUnits="userSpaceOnUse">
+    <linearGradient id="Unbenannter_Verlauf_89" data-name="Unbenannter Verlauf 89" x1="94.73" y1="19.48" x2="94.73" y2="6.97" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#1977c0"/>
       <stop offset="1" stop-color="#7dcee7"/>
     </linearGradient>
@@ -2528,7 +2528,7 @@
       <g>
         <rect class="cls-395" x="18.53" y="4.54" width="233.24" height="17.38" rx="8.69" ry="8.69"/>
         <rect class="cls-342" x="20.63" y="6.19" width="229.05" height="14.07" rx="7.04" ry="7.04"/>
-        <rect class="cls-511" x="21.68" y="6.97" width="104.24" height="12.51" rx="6.25" ry="6.25"/>
+        <rect class="cls-511" x="21.68" y="6.97" width="146.09" height="12.51" rx="6.25" ry="6.25"/>
       </g>
       <g>
         <path class="cls-347" d="M5.56,3.25c.28.13.21.25-.09.19-.1.32-.34.61-.73.85-.29.41-.62.68-.98.79.14.17.09.24-.11.14.02.06.03.11.03.17-.01.1-1.18,1.4-1.38,1.57-.19.35-.66,1.19-1.02,1.3-.04.01-.1-.01-.16-.05,1.01-2.65,2.96-4.9,5.41-6.33l.14.19c-.33.43-.7.82-1.11,1.19Z"/>

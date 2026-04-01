@@ -68,6 +68,16 @@ class endBossTurtle extends MovableObject{
         this.y = 80;
         this.x = 6800;  
         this.loadImages(this.IMAGES_ATTACK);
+        this.loadImages(this.IMAGES_WALKING);
+        this.startIdle();
+    }
+
+    startIdle() {
+        this.idleInterval = setInterval(() => {
+            if (!this.isAttacking) {
+                this.playWalkingAnimationImages(this.IMAGES_WALKING);
+            }
+        }, 1000 / 60); 
     }
 
     playSound() {
