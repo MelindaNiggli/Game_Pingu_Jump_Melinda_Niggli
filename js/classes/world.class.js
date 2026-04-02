@@ -28,6 +28,7 @@ class World {
 
        /** Zeichnet die gesamte Welt inkl. Character, Gegner, Objekte, Statusleisten */
        drawWorld(){
+
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     
         this.ctx.translate(this.camera_x, 0);
@@ -104,7 +105,17 @@ class World {
         this.interval = setInterval(() => {
             this.CheckColisionsAndThrowObjects();
         }, 200);
+        this.interval2 = setInterval(() => {
+            this.CheckThrow();
+        },100);
     }
+
+    CheckThrow(){
+        this.checkThrowObjects();
+        this.checkGunShoot();
+    }
+
+
 
     /** Setzt das Spiel zurück und startet neu */
     resetGame() {
@@ -134,6 +145,10 @@ class World {
             clearInterval(this.interval);
             this.interval = null;
         }
+        if (this.interval2) {
+            clearInterval(this.interval2);
+            this.interval2 = null;
+        }
         if (this.backgroundMusic) {
             this.backgroundMusic.pause();
             this.backgroundMusic.currentTime = 0;
@@ -151,8 +166,7 @@ class World {
         this.checkCollisionPlatform();
         this.checkCollisionFishWithEnemy();
         this.checkCollisionGunshootWithEnemy();
-        this.checkThrowObjects();
-        this.checkGunShoot();
+    
         this.checkGameWinHaveStarOreCrystal();  
         this.checkColisionsCharacterFallDownOnEnemy();
     }
@@ -220,18 +234,20 @@ class World {
 
     /** Prüft, ob der Spieler ein Wurfobjekt abwirft */
     checkThrowObjects() {
-        if (this.keyboard.D) {
+        if (this.ThrowableObjects.length < 13 && this.keyboard.D) {
             let fish;
+
+
             if (this.character.otherDirection) {
-                fish = new ThrowableObjectFish(this.character.x - 50, this.character.y + 3, true, this);
+                fish = new ThrowableObjectFish(this.character.x - 80, this.character.y -5, true, this);
             } else {
-                fish = new ThrowableObjectFish(this.character.x + 50, this.character.y + 3, false, this);
+                fish = new ThrowableObjectFish(this.character.x + 80, this.character.y -5, false, this);
             }
 
-            if (this.ThrowableObjects.length < 13) {
+      
                 this.ThrowableObjects.push(fish);
                 this.statusBarFish.setPercentage(this.ThrowableObjects.length);
-            }
+        
         }
     }
 
@@ -299,10 +315,14 @@ class World {
         this.ThrowableObjects.forEach((fish, shootIndex) => {
             endboss.World = this;
             if (fish.isColliding(endboss)) {
-                endboss.hitEnemie();
+                endboss.hitGunEndboss();
+                this.StatusBarEndBoss.setPercentage(endboss.energyEndboss);
                 if (endboss.isEndbossDead()) {
                     endboss.playSound();
-                    this.level.endboss.splice(endboss, 1); 
+                    const index = this.level.endboss.indexOf(endboss);
+                    if (index > -1) {
+                        this.level.endboss.splice(index, 1);
+                    }
                     this.afterEndbossDeadOpenChestToCollect();
                 }
                 this.ThrowableObjects.splice(shootIndex, 1);
@@ -317,7 +337,6 @@ class World {
                 endboss.hitGunEndboss();
                 this.StatusBarEndBoss.setPercentage(endboss.energyEndboss);
                 if (endboss.isEndbossDead()) {
-    
                     endboss.playSound();
                     const index = this.level.endboss.indexOf(endboss);
                     if (index > -1) {
@@ -447,23 +466,35 @@ class World {
     }
 
     checkCollisionPlatform() {
-        // CHECKCOLLISION PLATFORM
         setInterval(() => {   
-         this.isOnPlatform = false 
-         this.level.platform.forEach((platform) => {
-             if (this.character. isCollidingPlatform(platform)) {
-                 this.timepassed = false;
-                 this.isOnPlatform = true;  // Wenn Kollision erkannt, setze auf true
-                 this.character.y = platform.y - this.character.height + 15;  // Charakter auf die Plattform setzen
-                 this.character.x + this.character.width  > platform.x &&
-                 this.character.x + this.character.width  < platform.x + platform.width
-
-                 console.log('Character on platform:', this.isOnPlatform);
-             }
+            this.isOnPlatform = false;
     
-         });
-     },1000/90); 
-         }
-      
+            this.level.platform.forEach((platform) => {
+    
+                if (this.character.isCollidingPlatform(platform)) {
+    
+                    // Grenzen
+                    let charLeft = this.character.x;
+                    let charRight = this.character.x + this.character.width;
+    
+                    let platformLeft = platform.x;
+                    let platformRight = platform.x + platform.width;
+    
+                    // Überlappung berechnen
+                    let overlap = Math.min(charRight, platformRight) - Math.max(charLeft, platformLeft);
+    
+                    // Prüfen: mindestens 50% der Breite auf Plattform
+                    if (overlap >= this.character.width / 2) {
+                        this.isOnPlatform = true;
+    
+                        // Sauber oben platzieren
+                        this.character.y = platform.y - this.character.height;
+                        this.character.speedY = 0;
+                    }
+                }
+            });
+    
+        }, 1000 / 90);
+    }
  
 }

@@ -84,18 +84,15 @@ function initLevel(){
         ],
         [
             new Platform('img/plattform/Pad_02_1.png', 400 , 200, 250, 100),
-            new Platform('img/plattform/Pad_02_1.png', 1200, 300, 250, 100),
+            new Platform('img/plattform/Pad_02_1.png', 1200, 280, 250, 100),
             new Platform('img/plattform/Pad_02_1.png', 2200, 150, 180, 100),
             new Platform('img/plattform/Pad_02_1.png', 3200, 150, 250, 100),
             new Platform('img/plattform/Pad_02_1.png', 4200, 200, 250, 100),
             new Platform('img/plattform/Pad_02_1.png', 5200, 220, 250, 100),
-            new Platform('img/plattform/Pad_02_1.png', 6200, 300, 180, 100),
-            new Platform('img/plattform/Pad_02_1.png', 7200, 150, 250, 100),
-            
-            new Platform('img/plattform/Pad_02_1.png', 8200, 220, 250, 100),
-            new Platform('img/plattform/Pad_02_1.png', 9200, 300, 180, 100),
-            new Platform('img/plattform/Pad_02_1.png', 10200, 300, 180, 100),
-            new Platform('img/plattform/Pad_02_1.png', 11200, 150, 250, 100),
+            new Platform('img/plattform/Pad_02_1.png', 6200, 280, 180, 100),
+            new Platform('img/plattform/Pad_02_1.png', 900, 150, 250, 100),
+            new Platform('img/plattform/Pad_02_1.png', 1700, 220, 250, 100),
+
             
         ],
         [

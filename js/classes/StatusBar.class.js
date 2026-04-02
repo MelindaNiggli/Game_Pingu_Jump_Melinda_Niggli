@@ -133,7 +133,6 @@ class StatusBarStar extends DrawableObject {
         let path = this.IMAGES_BAR_STAR[this.resoloveImagesIndex()];
         this.img = this.imageCache[path];
     }
-
     resoloveImagesIndex() {
         if (this.percentage == 0) {
             return 0;
@@ -141,7 +140,7 @@ class StatusBarStar extends DrawableObject {
             return 1;
         } else if (this.percentage < 20) {
             return 2;
-        } else if (this.percentage <30) {
+        } else if (this.percentage < 30) {
             return 3;
         } else if (this.percentage < 40) {
             return 4;
@@ -151,12 +150,10 @@ class StatusBarStar extends DrawableObject {
             return 6;
         } else if (this.percentage < 70) {
             return 7;
-        } else if (this.percentage < 90) {
+        } else if (this.percentage < 85) {
             return 8;
-        } else if (this.percentage < 95) {
-            return 9;
         } else {
-            return 0;
+            return 9; // 80–100 → letztes Bild
         }
     }
 }
@@ -185,7 +182,7 @@ class StatusBarCrystal extends DrawableObject {
         this.x = 10;
         this.y = 60;
         this.width = width;
-        this.height = 34;
+        this.height = 33;
         this.setPercentage(0);
     }
 

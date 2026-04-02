@@ -79,12 +79,12 @@ function isIOS() {
 function openFullscreen() {
     const wrapper = document.getElementById('canvasWrapper');
     enterFullscreen(wrapper);
-    toggleFullscreenButtons(true);
+   
 };
 
 function closeFullscreen() {
     exitFullscreen();
-    toggleFullscreenButtons(false);
+
 };
 
 function enterFullscreen(element) {

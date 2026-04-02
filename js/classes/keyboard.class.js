@@ -68,7 +68,7 @@ class Keyboard extends MovableObject {
         if(event.keyCode == 68){
             this.D = false;
         }
-        console.log(event)
+        // console.log(event)
         })
     };
 

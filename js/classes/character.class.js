@@ -1,5 +1,6 @@
 class Character extends MovableObject {
 
+
     IMAGES_WALKING = [
         'img/pinguin/Character/Walk/Walk_00.svg',
         'img/pinguin/Character/Walk/Walk_01.svg',
@@ -66,6 +67,7 @@ class Character extends MovableObject {
 
     constructor() {
         super().loadImage('img/pinguin/Character/Walk/Walk_00.svg');
+    
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING_DOWN);
         this.loadImages(this.IMAGES_DEAD);
@@ -84,11 +86,14 @@ animate() {
 
 }
 
+
+
 moveCharacter() {
     if (this.canShowGun()) {
         this.playWalkingAnimationImages(this.IMAGES_GUN);
     } else if (this.World.Keyboard.RIGHT || this.World.Keyboard.LEFT) {
         this.playWalkingAnimationImages(this.IMAGES_WALKING);
+        
     }
 
     if (this.canMoveRight()) this.moveRight();
@@ -104,6 +109,9 @@ moveCharacter() {
 }
 
 canMoveRight(){
+    if (!this.World.deadEndboss && this.x >= 7000) {
+        return false;
+    }
     return this.World.Keyboard.RIGHT && this.x < this.World.level.level_end_x;
 };
 

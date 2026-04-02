@@ -54,7 +54,7 @@ class ThrowableObjectFish extends MovableObject {
     }
 
     throw() {
-        this.speedY = 25;
+        this.speedY = 20;
         if (!this.World.isMuted()) {
             this.throw_sound.play();
         }
