@@ -46,7 +46,7 @@ class ThrowableObjectFish extends MovableObject {
         super().loadImage('img/fish/Fish.svg');
         this.x = x;
         this.y = y;
-        this.width = 60;
+        this.width = 70;
         this.height = 100;
         this.otherDirection = otherDirection;
         this.World = world;
@@ -54,7 +54,7 @@ class ThrowableObjectFish extends MovableObject {
     }
 
     throw() {
-        this.speedY = 20;
+        this.speedY = 32;
         if (!this.World.isMuted()) {
             this.throw_sound.play();
         }

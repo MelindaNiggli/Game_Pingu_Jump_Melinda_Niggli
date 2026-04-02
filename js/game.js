@@ -14,15 +14,25 @@ function init() {
 };
 
 function playGame() {
+    if (world) {
+        world.cleanGame();
+    }
+
     const canvasInnerWrapper = document.getElementById('canvasInnerWrapper');
     canvasInnerWrapper.style.transform = 'translateY(-1000%)';
-    init();
+
+    init(); // erstellt world IMMER neu
+
+ 
+
     const canvasWrapper = document.getElementById('canvasWrapper');
     canvasWrapper.classList.add('playnow');
+    localStorage.setItem("muted", "false");
+
     setTimeout(() => {
         canvasInnerWrapper.style.transform = 'translateY(0)';
     }, 1);
-};
+}
 
 /* OVERLAYS / UI */
 
@@ -128,6 +138,10 @@ function loadDash() {
 };
 
 function goHome() {
+    if (world) {
+        world.cleanGame();
+    }
+    localStorage.setItem("muted", "false");
     window.location.href = 'index.html';
 };
 

@@ -115,8 +115,6 @@ class World {
         this.checkGunShoot();
     }
 
-
-
     /** Setzt das Spiel zurück und startet neu */
     resetGame() {
         this.clearIntervallAndStopBackgroundMusic();
@@ -137,6 +135,27 @@ class World {
         document.getElementById('wrapperButtons').style.right = "11%"
         init();
         console.log("Das Spiel wurde erfolgreich zurückgesetzt!");
+    }
+
+    cleanGame(){
+        this.clearIntervallAndStopBackgroundMusic();
+        this.GunShoot = [];
+        this.GunShootL = [];
+        this.ThrowableObjects = [];
+        this.gameWIN = false;
+        this.gameEnd = false;
+        this.deadEndboss = false;
+        this.level = level1;
+        this.character = new Character();
+        this.setWorld();
+        const canvasGame = document.getElementById('canvas');
+        const ctx = canvasGame.getContext('2d');
+        ctx.clearRect(0, 0, canvasGame.width, canvasGame.height);
+        document.getElementById('panelMobile').style.opacity = "1";
+        document.getElementById('wrapperButtons').style.right = "11%"
+        init();
+        localStorage.setItem("muted", "false");
+        console.log("clean");
     }
 
     /** Stoppt alle Intervalle und pausiert die Hintergrundmusik */
@@ -353,9 +372,11 @@ class World {
     afterEndbossDeadOpenChestToCollect(){
         this.deadEndboss = true;
         this.level.chest.forEach(chest => {
+            chest.World = this;
             if (!chest.chestAnimationStarted) {
                 chest.chestAnimationStarted = true;
-                chest.animate(); 
+                chest.playSound();
+                chest.animate();   
             }
         });
     }

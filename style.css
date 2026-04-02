@@ -134,9 +134,9 @@ canvas {
 .ui p {
     text-align: center;
 }
-.box {
+/* .box {
     width: 520px;
-    height: 65vh;
+    height: 75vh;
     padding: 60px 30px 30px;
     margin: 50px auto;
     background: rgb(255 255 255);
@@ -144,6 +144,22 @@ canvas {
     position: relative;
     border: 12px solid rgb(38 98 134);
     box-shadow: rgb(0 0 0) 0px 12px 0px;
+} */
+
+.box {
+    width: clamp(300px, 60vw, 520px);
+    height: clamp(420px, 70vh, 75vh);
+    padding: clamp(20px, 4vw, 60px) clamp(15px, 3vw, 30px);
+    margin: clamp(20px, 5vh, 50px) auto;
+    background: rgb(255 255 255);
+    border-radius: 30px;
+    position: relative;
+    border: 12px solid rgb(38 98 134);
+    box-shadow: rgb(0 0 0) 0px 12px 0px;
+}
+
+#h2mobile{
+    display: none;
 }
 
 .box-header {
@@ -161,6 +177,7 @@ canvas {
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    z-index: 2;
 }
 
  #close {
@@ -641,9 +658,9 @@ button#closeFullscreen {
         display: flex !important;
     }
 
-    .box {
-        height: 48vh; /* Höhe für Hochformat */
-    }
+    /* .box {
+        height: 48vh; /* Höhe für Hochformat 
+    } */
 
     canvas {
         width: 80%!important;
@@ -685,10 +702,10 @@ button#closeFullscreen {
         bottom: 60px;
         width: 79%;
     }
-    .box {
+    /* .box {
         height: 65vh; 
         width: 70%;
-    } 
+    }  */
     #wrapperButtons {
         position: absolute;
         right: 25% !important;
@@ -721,11 +738,11 @@ button#closeFullscreen {
         font-size: 10px;
         font-weight: 300;
     }
-    .box {
+    /* .box {
         width: 80%!important;
         height: 60vh;
         padding: 60px 15px 15px;
-    }
+    } */
     div#innerTextImpressum {
         margin-top: 20px;
     }
@@ -898,13 +915,46 @@ display: none;
         height: 70%!important;
     
 }
+#h1desktop{
+    display: none;
+}
+
+#h2mobile{
+    display: flex;
+}
 
 }
 
+@media only screen and (max-width: 667px) and (orientation: landscape) {
+    .box {
+        width: 82vw!important;
+        height: 67vh!important;
+        padding: 15px 10px;
+        margin: 10px auto;
+    }
+    #h1desktop{
+        display: none;
+    }
+    div#innerText {
+        margin-top: 43px!important;
+    }
 
+    #h2mobile{
+        display: flex;
+    }
+}
 
+@media only screen and (max-width: 932px) and (orientation: landscape) {
+    .box-header {
+        height: 25px!important;
+    }
+    #h1desktop{
+        display: none;
+    }
 
-@media only screen and (max-width: 906px) and (orientation: landscape) {
+    #h2mobile{
+        display: flex;
+    }
 
     div#panelMobile {
         position: absolute;
@@ -913,7 +963,12 @@ display: none;
         justify-content: space-between;
         width: 78%;
     }
-
+    .box {
+        width: 70vw;
+        height: 70vh;
+        padding: 15px 10px;
+        margin: 10px auto;
+    }
     
     #btnRight,
     #btnLeft,
@@ -924,7 +979,7 @@ display: none;
     }
 
     .pingu {
-        height: 302px;
+        height: 122px;
     }
     canvas {
         width: 80%!important;
@@ -1010,10 +1065,10 @@ display: none;
         overflow-y: scroll;
     }
 
-    .box {
+    /* .box {
         height: 47vh;
         margin: 0!important;
-    }
+    } */
 
     .box-header {
         height: 50px;
@@ -1046,8 +1101,8 @@ display: none;
         margin-top: 2% !important;
     }
 }
-.box {
-    height: 52vh;
+/* .box {
+    height: 72vh;
     margin: 0!important;
     width: 520px;
-}
+} */

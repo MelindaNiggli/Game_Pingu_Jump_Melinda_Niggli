@@ -5,6 +5,8 @@ class chest extends MovableObject{
         'img/chest/Chest-3.svg'
     ];
 
+    chestSound = new Audio('audio/magicChest.mp3');
+
     width = 250;
     height = 210;
     currentImage = 0;
@@ -15,6 +17,13 @@ class chest extends MovableObject{
         this.loadImages(this.IMAGES_OPEN_CHEST);
         this.y = 380;
         this.x = 7350;
+    }
+
+
+    playSound() {
+        if (!this.World.isMuted()) {
+            this.chestSound.play();
+        }
     }
 
     animate() {
