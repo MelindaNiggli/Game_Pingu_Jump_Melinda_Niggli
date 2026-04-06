@@ -269,24 +269,24 @@ class MonsterFly extends MovableObject{
 class MonsterBomb extends MovableObject{
 
     IMAGES_WALKING = [
-        'img/monsters/green/Walk/skeleton-Walk_0.png',
-        'img/monsters/green/Walk/skeleton-Walk_1.png',
-        'img/monsters/green/Walk/skeleton-Walk_2.png',
-        'img/monsters/green/Walk/skeleton-Walk_3.png',
-        'img/monsters/green/Walk/skeleton-Walk_4.png',
-        'img/monsters/green/Walk/skeleton-Walk_5.png',
-        'img/monsters/green/Walk/skeleton-Walk_6.png',
-        'img/monsters/green/Walk/skeleton-Walk_7.png',
-        'img/monsters/green/Walk/skeleton-Walk_8.png',
-        'img/monsters/green/Walk/skeleton-Walk_9.png',
-        'img/monsters/green/Walk/skeleton-Walk_10.png',
-        'img/monsters/green/Walk/skeleton-Walk_11.png',
-        'img/monsters/green/Walk/skeleton-Walk_12.png',
-        'img/monsters/green/Walk/skeleton-Walk_13.png',
-        'img/monsters/green/Walk/skeleton-Walk_14.png',
-        'img/monsters/green/Walk/skeleton-Walk_15.png',
-        'img/monsters/green/Walk/skeleton-Walk_16.png',
-        'img/monsters/green/Walk/skeleton-Walk_17.png',
+        'img/monsters/green/Walk/Walk_0.png',
+        'img/monsters/green/Walk/Walk_1.png',
+        'img/monsters/green/Walk/Walk_2.png',
+        'img/monsters/green/Walk/Walk_3.png',
+        'img/monsters/green/Walk/Walk_4.png',
+        'img/monsters/green/Walk/Walk_5.png',
+        'img/monsters/green/Walk/Walk_6.png',
+        'img/monsters/green/Walk/Walk_7.png',
+        'img/monsters/green/Walk/Walk_8.png',
+        'img/monsters/green/Walk/Walk_9.png',
+        'img/monsters/green/Walk/Walk_10.png',
+        'img/monsters/green/Walk/Walk_11.png',
+        'img/monsters/green/Walk/Walk_12.png',
+        'img/monsters/green/Walk/Walk_13.png',
+        'img/monsters/green/Walk/Walk_14.png',
+        'img/monsters/green/Walk/Walk_15.png',
+        'img/monsters/green/Walk/Walk_16.png',
+        'img/monsters/green/Walk/Walk_17.png',
     ];
     IMAGES_ATTACK = [
         'img/monsters/green/Attack/skeleton-Attack_0.png',
@@ -341,7 +341,7 @@ class MonsterBomb extends MovableObject{
     currentImage = 0;
     deathSound = new Audio('audio/enemyDeath.wav');
     constructor(){
-        super().loadImage('img/monsters/green/Attack/skeleton-Walk_0.png');
+        super().loadImage('img/monsters/green/Walk/Walk_0.png');
         this.y = 350;
         this.x = 200 + Math.random() * 7000; 
         this.width = 260;
@@ -377,7 +377,7 @@ class MonsterBomb extends MovableObject{
             this.attackInterval = setInterval(() => {
                 this.playWalkingAnimationImages(this.IMAGES_ATTACK);
                 if (!this.isColliding(character)) {
-                    this.loadImage('img/monsters/moster-bomb/Walk/Walk_00.png');
+                    this.loadImage('img/monsters/green/Walk/Walk_0.png');
                     this.stopAttack();
                 }
             }, 1000 / 70);
