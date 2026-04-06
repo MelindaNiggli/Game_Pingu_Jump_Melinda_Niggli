@@ -11,8 +11,7 @@ class gameWinShowStar extends DrawableObject {
     }
 
     check(gameWIN, haveStar) {
-        if (!gameWIN) return; // Funktion verlassen, wenn das Spiel nicht gewonnen ist
-
+        if (!gameWIN) return;
         let newImage = '';
 
         if (haveStar > 80) {
@@ -25,7 +24,6 @@ class gameWinShowStar extends DrawableObject {
             newImage = 'img/ui/noStar.svg';
         }
 
-        // Nur aktualisieren, wenn das neue Bild anders ist als das aktuelle
         if (newImage && newImage !== this.currentImage) {
             this.currentImage = newImage; 
             this.loadImage(newImage); 

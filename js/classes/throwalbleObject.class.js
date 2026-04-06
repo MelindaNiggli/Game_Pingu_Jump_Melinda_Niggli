@@ -31,14 +31,11 @@ class GunShoot extends MovableObject {
         if (!this.World.isMuted()) {
             this.shoot_sound.play();
         }
-
         setInterval(() => {
             this.x += this.otherDirection ? -10 : 10;
         }, 50);
     }
 }
-
-
 
 class ThrowableObjectFish extends MovableObject {
     throw_sound = new Audio('audio/Throw.mp3');
@@ -56,14 +53,14 @@ class ThrowableObjectFish extends MovableObject {
     }
 
     throw() {
-        this.speedY = 32;
+        this.speedY = 24;
         this.applyGravity();
         if (!this.World.isMuted()) {
             this.throw_sound.play();
         }
   
         setInterval(() => {
-            this.x += this.otherDirection ? -10 : 10;
-        }, 50);
+            this.x += this.otherDirection ? -15 : 15;
+        }, 30);
     }
 }

@@ -18,7 +18,7 @@ class MovableObject extends DrawableObject {
 
     hitEnemie() {
         this.energyEnemy -= 20;
-        this.hitCountEnemy++; // Trefferanzahl erhöhen
+        this.hitCountEnemy++;
         if (this.energyEnemy < 0) {
             this.energyEnemy = 0;
         }
@@ -29,18 +29,18 @@ class MovableObject extends DrawableObject {
     }
 
     isEndbossDead() {
-        return this.hitCountEndboss>= 3 || this.energyEndboss === 0;
+        return this.hitCountEndboss>= 8 || this.energyEndboss === 0;
     }
 
 
     hitGunEndboss() {
-        this.energyEndboss -= 33;  // 100 / 3 ≈ 33 pro Treffer
-        this.hitCountEndboss++;     // Treffer zählen
+        this.energyEndboss -= 12.5;
+        this.hitCountEndboss++; 
       
     }
 
     hitGunEnemie() {
-        this.hitCountEnemy++;     // Treffer zählen
+        this.hitCountEnemy++; 
         if (this.energyEnemy < 0) {
             this.energyEnemy = 0;
         }
@@ -55,8 +55,8 @@ class MovableObject extends DrawableObject {
     isCollidingPlatform(mo) {
         return this.x + this.width > mo.x &&
                this.y + this.height > mo.y &&
-               this.x < mo.x + mo.width && // Anpassung: x-Bereich der Plattform
-               this.y + this.height < mo.y + mo.height; // nur Kollision von oben
+               this.x < mo.x + mo.width && 
+               this.y + this.height < mo.y + mo.height;
     }
 
     hitStar() {
@@ -93,24 +93,35 @@ class MovableObject extends DrawableObject {
         return this.energy === 0;
     }
 
-    applyGravity() {
-        setInterval(() => {
-            if (!this.World?.isOnPlatform) {
-                if (this.isinAboveGround() || this.speedY > 0) {
-                    this.y -= this.speedY;
-                    this.speedY -= this.acceleration;
-                    if (this.speedY < -20) this.speedY = -20;
-                } else {
-                    this.speedY = 0;
-                    this.y = 420;
-                }
-            } else {
-                this.speedY = 0;
-                this.isOnPlatform = true;
-            }
-        }, 1000 / 60);
+
+stopIntervall(){
+        clearInterval(this.gravityIntervall);
     }
 
+    applyGravity() {
+        this.stopIntervall();
+    
+        this.gravityIntervall = setInterval(() => {
+    
+            if (this.isOnPlatform) {
+                this.stopIntervall();
+                this.speedY = 0;
+                return; 
+            }
+    
+            if (this.isinAboveGround() || this.speedY > 0) {
+                this.y -= this.speedY;
+                this.speedY -= this.acceleration;
+                if (this.speedY < -20) this.speedY = -20;
+    
+            } else {
+                this.speedY = 0;
+                this.y = 420;
+            }
+    
+        }, 1000 / 60);
+    }
+    
     // JUMP
     jump() {
         this.speedY = 42;

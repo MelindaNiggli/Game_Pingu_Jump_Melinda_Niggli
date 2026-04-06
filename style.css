@@ -21,11 +21,10 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    height: 100vh;
+    height: 100%;
     font-family: 'wonder', sans-serif;
-    color: black!important;
-    overflow: hidden;
-    width: 100vw;
+    color: black;
+    width: 100%;
 }
 
 h1{

@@ -7,5 +7,4 @@ class Platform extends MovableObject {
         this.width = width;
         this.height = height;
     }
-
 }

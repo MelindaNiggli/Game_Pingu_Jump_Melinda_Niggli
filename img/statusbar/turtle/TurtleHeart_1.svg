@@ -130,7 +130,7 @@
       <stop offset="0" stop-color="#390800"/>
       <stop offset="1" stop-color="#9f5829"/>
     </linearGradient>
-    <linearGradient id="Unbenannter_Verlauf_12" data-name="Unbenannter Verlauf 12" x1="90.25" y1="58.41" x2="90.25" y2="45.91" gradientUnits="userSpaceOnUse">
+    <linearGradient id="Unbenannter_Verlauf_12" data-name="Unbenannter Verlauf 12" x1="108.13" y1="58.41" x2="108.13" y2="45.91" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#225d5b"/>
       <stop offset=".97" stop-color="#328e6c"/>
     </linearGradient>
@@ -181,7 +181,7 @@
           </g>
         </g>
       </g>
-      <rect class="cls-28" x="3.77" y="45.91" width="172.96" height="12.51" rx="5" ry="5"/>
+      <rect class="cls-28" x="3.77" y="45.91" width="208.72" height="12.51" rx="6.25" ry="6.25"/>
       <g>
         <g>
           <g>

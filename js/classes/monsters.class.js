@@ -108,22 +108,40 @@ class MonsterTurtle extends MovableObject{
     }
 
 
+    stop() {
+        clearInterval(this.moveInterval);
+        clearInterval(this.animationInterval);
+        clearInterval(this.attackInterval);
+        clearInterval(this.deadInterval);
+        this.stopSound(this.deathSound_sound);
+    }
+
+    stopSound(sound) {
+        if (sound) {
+            sound.pause();
+            sound.currentTime = 0;
+            sound.src = ''; 
+        }
+    }
+
+
+
     playDeadSprite(){
-        setInterval(() => {
+        this.deadInterval = setInterval(() => {
             this.playWalkingAnimationImages(this.DEAD_SPRITE);
         }, 1000 / 60); 
-
     }
 
     animate(){ 
-        setInterval( () => {
+        this.moveInterval = setInterval(() => {
             this.moveLeft();
         }, 1000 / 60);
-   
-        setInterval(() => {
+    
+        this.animationInterval = setInterval(() => {
             this.playWalkingAnimationImages(this.IMAGES_WALKING);
-        }, 30);  
+        }, 30);
     }
+
 
     attack(character) {
         if (!this.isAttacking) { 
@@ -207,13 +225,12 @@ class MonsterFly extends MovableObject{
         'img/monsters/DeadSprite/DeadFx_19.png',
  
       ];
-  
 
     currentImage = 0;
     deathSound = new Audio('audio/monsterFlyDeath.mp3');
     constructor(){
         super().loadImage('img/monsters/skeleton-fly/Fly/skeleton-Fly_0.png');
-        this.y = 200; 
+        this.y = 280; 
         this.x = 200 + Math.random() * 7000; 
         this.width = 65;
         this.height = 90;
@@ -224,27 +241,39 @@ class MonsterFly extends MovableObject{
         this.animate();
     }
 
+    stop() {
+        clearInterval(this.moveInterval);
+        clearInterval(this.animationInterval);
+        clearInterval(this.attackInterval);
+        clearInterval(this.deadInterval);
+        this.stopSound(this.deathSound_sound);
+    }
 
+    stopSound(sound) {
+        if (sound) {
+            sound.pause();
+            sound.currentTime = 0;
+            sound.src = ''; 
+        }
+    }
 
+    
     playDeadSprite(){
-        setInterval(() => {
+        this.deadInterval = setInterval(() => {
             this.playWalkingAnimationImages(this.DEAD_SPRITE);
         }, 1000 / 60); 
-
     }
 
-    animate(){ // BILD WIRD IMMER AUSGETAUSCHT
-        setInterval( () => {
+    animate(){ 
+        this.moveInterval = setInterval(() => {
             this.moveLeft();
         }, 1000 / 60);
-   
-        setInterval(() => {
-            let i = this.currentImage % this.IMAGES_FLYING.length;
-            let path = this.IMAGES_FLYING[i];
-            this.img = this.imageCache[path];
-            this.currentImage++;
-        }, 40);  
+    
+        this.animationInterval = setInterval(() => {
+            this.playWalkingAnimationImages(this.IMAGES_FLYING);
+        }, 30);
     }
+
     attack(character) {
         if (!this.isAttacking) {
             this.isAttacking = true;
@@ -288,6 +317,7 @@ class MonsterBomb extends MovableObject{
         'img/monsters/green/Walk/Walk_16.png',
         'img/monsters/green/Walk/Walk_17.png',
     ];
+
     IMAGES_ATTACK = [
         'img/monsters/green/Attack/skeleton-Attack_0.png',
         'img/monsters/green/Attack/skeleton-Attack_1.png',
@@ -312,7 +342,6 @@ class MonsterBomb extends MovableObject{
         'img/monsters/green/Attack/skeleton-Attack_20.png',
         'img/monsters/green/Attack/skeleton-Attack_21.png',
     ];
-
 
     DEAD_SPRITE = [
         'img/monsters/DeadSprite/DeadFx_00.png',
@@ -351,25 +380,39 @@ class MonsterBomb extends MovableObject{
         this.loadImages(this.DEAD_SPRITE);
         this.speed = 0.30 + Math.random() * 3;
         this.animate();
-   
     }
-    animate(){ 
-        setInterval( () => {
-            this.moveLeft();
-        }, 1000 / 60);
-        setInterval(() => {
-     this.playWalkingAnimationImages(this.IMAGES_WALKING);
-        },50);  
+    stop() {
+        clearInterval(this.moveInterval);
+        clearInterval(this.animationInterval);
+        clearInterval(this.attackInterval);
+        clearInterval(this.deadInterval);
+        this.stopSound(this.deathSound_sound);
     }
 
-
+    stopSound(sound) {
+        if (sound) {
+            sound.pause();
+            sound.currentTime = 0;
+            sound.src = ''; 
+        }
+    }
 
     playDeadSprite(){
-        setInterval(() => {
+        this.deadInterval = setInterval(() => {
             this.playWalkingAnimationImages(this.DEAD_SPRITE);
         }, 1000 / 60); 
-
     }
+
+    animate(){ 
+        this.moveInterval = setInterval(() => {
+            this.moveLeft();
+        }, 1000 / 60);
+    
+        this.animationInterval = setInterval(() => {
+            this.playWalkingAnimationImages(this.IMAGES_WALKING);
+        }, 30);
+    }
+
     attack(character) {
         if (!this.isAttacking) {
             this.isAttacking = true; 
@@ -387,7 +430,6 @@ class MonsterBomb extends MovableObject{
     stopAttack() {
         clearInterval(this.attackInterval);
         this.isAttacking = false; 
-     
     }
 }
 
@@ -414,9 +456,8 @@ class MonsterBlue extends MovableObject{
         'img/monsters/blue/Walk/Walk_17.png',
         'img/monsters/blue/Walk/Walk_18.png',
         'img/monsters/blue/Walk/Walk_19.png',
-        
- 
     ];
+
     IMAGES_ATTACK = [
         'img/monsters/blue/Attack/Attack_00.png',
         'img/monsters/blue/Attack/Attack_01.png',
@@ -467,8 +508,6 @@ class MonsterBlue extends MovableObject{
         'img/monsters/DeadSprite/DeadFx_18.png',
         'img/monsters/DeadSprite/DeadFx_19.png',
       ];
-  
-
 
     currentImage = 0;
     deathSound = new Audio('audio/enemyDeath.wav');
@@ -483,23 +522,41 @@ class MonsterBlue extends MovableObject{
         this.loadImages(this.DEAD_SPRITE);
         this.speed = 0.30 + Math.random() * 3;
         this.animate();
-   
     }
-    animate(){
-        setInterval( () => {
-            this.moveLeft();
-            this.playWalkingAnimationImages(this.IMAGES_WALKING);
-        }, 1000 /60);
+    
+    stop() {
+        clearInterval(this.moveInterval);
+        clearInterval(this.animationInterval);
+        clearInterval(this.attackInterval);
+        clearInterval(this.deadInterval);
+        this.stopSound(this.deathSound_sound);
     }
 
+    stopSound(sound) {
+        if (sound) {
+            sound.pause();
+            sound.currentTime = 0;
+            sound.src = ''; 
+        }
+    }
 
-
+    
     playDeadSprite(){
-        setInterval(() => {
+        this.deadInterval = setInterval(() => {
             this.playWalkingAnimationImages(this.DEAD_SPRITE);
         }, 1000 / 60); 
-
     }
+
+    animate(){ 
+        this.moveInterval = setInterval(() => {
+            this.moveLeft();
+        }, 1000 / 60);
+    
+        this.animationInterval = setInterval(() => {
+            this.playWalkingAnimationImages(this.IMAGES_WALKING);
+        }, 30);
+    }
+
     attack(character) {
         if (!this.isAttacking) { 
             this.isAttacking = true; // Angriff startet

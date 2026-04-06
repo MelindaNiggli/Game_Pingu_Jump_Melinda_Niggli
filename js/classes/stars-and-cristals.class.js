@@ -20,7 +20,6 @@ class Star extends MovableObject {
     }
 }
 
-
 class Crystal extends MovableObject {
     crystalSound = new Audio('audio/crystal.mp3');
     World;

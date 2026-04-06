@@ -12,7 +12,7 @@ class gameWin extends DrawableObject {
     }
 
     playSound() {
-        this.winSound.currentTime = 0; // von vorne starten
+        this.winSound.currentTime = 0;
         this.winSound.play().catch(e => console.log("Audio blockiert:", e));
     }
 }

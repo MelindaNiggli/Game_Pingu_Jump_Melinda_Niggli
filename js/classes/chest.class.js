@@ -6,7 +6,6 @@ class chest extends MovableObject{
     ];
 
     chestSound = new Audio('audio/magicChest.mp3');
-
     width = 250;
     height = 210;
     currentImage = 0;
@@ -19,17 +18,19 @@ class chest extends MovableObject{
         this.x = 7350;
     }
 
-
     playSound() {
         if (!this.World.isMuted()) {
             this.chestSound.play();
         }
     }
 
+    stop(){
+        clearInterval(this.chesInterval);
+    }
+
     animate() {
-        setInterval(() => {
+        this.chesInterval = setInterval(() => {
             this.playWalkingAnimationImages(this.IMAGES_OPEN_CHEST);
         }, 400);
     }
-
 }

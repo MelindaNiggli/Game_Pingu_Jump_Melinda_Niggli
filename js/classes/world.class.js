@@ -28,7 +28,6 @@ class World {
 
        /** Zeichnet die gesamte Welt inkl. Character, Gegner, Objekte, Statusleisten */
        drawWorld(){
-
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     
         this.ctx.translate(this.camera_x, 0);
@@ -62,12 +61,11 @@ class World {
     
         requestAnimationFrame(() => this.drawWorld());
     }
-    /** Fügt mehrere Objekte der Welt hinzu */
+
     addObjectsToMap(objects){
         objects.forEach(o => this.addToMap(o));
     }
 
-    /** Fügt ein Objekt der Welt hinzu und spiegelt es */
     addToMap(mo){
         if(mo.otherDirection) this.flipImage(mo);
         mo.draw(this.ctx);
@@ -83,7 +81,6 @@ class World {
         mo.x = mo.x * -1;
     }
 
-    /** Setzt die Spiegelung zurück */
     flipImageBack(mo){
         mo.x = mo.x * -1;
         this.ctx.restore();
@@ -120,27 +117,34 @@ class World {
         this.checkGunShoot();
     }
 
-    /** Setzt das Spiel zurück und startet neu */
     resetGame() {
+        if (this.isResetting) return;
+    
+        this.isResetting = true;
+    
         this.clearIntervallAndStopBackgroundMusic();
+    
         this.GunShoot = [];
         this.GunShootL = [];
         this.ThrowableObjects = [];
+    
         this.gameWIN = false;
         this.gameEnd = false;
         this.deadEndboss = false;
+    
         this.level = level1;
-        this.character = new Character();
-        this.setWorld();
-        // localStorage.setItem("muted", "false");
+    
         const canvasGame = document.getElementById('canvas');
         const ctx = canvasGame.getContext('2d');
         ctx.clearRect(0, 0, canvasGame.width, canvasGame.height);
-        document.getElementById('panelMobile').style.opacity = "1";
-        document.getElementById('wrapperButtons').style.right = "11%"
+    
         init();
-        console.log("Das Spiel wurde erfolgreich zurückgesetzt!");
+    
+        setTimeout(() => {
+            this.isResetting = false;
+        }, 300);
     }
+
 
     cleanGame(){
         this.clearIntervallAndStopBackgroundMusic();
@@ -151,15 +155,12 @@ class World {
         this.gameEnd = false;
         this.deadEndboss = false;
         this.level = level1;
-        this.character = new Character();
-        this.setWorld();
         const canvasGame = document.getElementById('canvas');
         const ctx = canvasGame.getContext('2d');
         ctx.clearRect(0, 0, canvasGame.width, canvasGame.height);
-        document.getElementById('panelMobile').style.opacity = "1";
-        document.getElementById('wrapperButtons').style.right = "11%"
         init();
     }
+
     stopGame(){
         this.clearIntervallAndStopBackgroundMusic();
         this.GunShoot = [];
@@ -174,12 +175,9 @@ class World {
         const canvasGame = document.getElementById('canvas');
         const ctx = canvasGame.getContext('2d');
         ctx.clearRect(0, 0, canvasGame.width, canvasGame.height);
-        document.getElementById('panelMobile').style.opacity = "1";
-        document.getElementById('wrapperButtons').style.right = "11%"
-        console.log("clean");
     }
 
-    /** Stoppt alle Intervalle und pausiert die Hintergrundmusik */
+
     clearIntervallAndStopBackgroundMusic(){
         if (this.interval) {
             clearInterval(this.interval);
@@ -189,9 +187,22 @@ class World {
             clearInterval(this.interval2);
             this.interval2 = null;
         }
+        if (this.platformInterval) {
+            clearInterval(this.platformInterval);
+            this.platformInterval = null;
+        }
+        
+        this.clearAllChestIntervalls();
+
+        this.clearAllIntervallCharacter();
         if (this.backgroundMusic) {
             this.backgroundMusic.pause();
             this.backgroundMusic.currentTime = 0;
+        }
+        if (this.level && this.level.enemies) {
+            this.level.enemies.forEach(enemy => {
+                if (enemy.destroy) enemy.stop();
+            });
         }
     }
 
@@ -213,6 +224,25 @@ class World {
         this.gameOverWhenMaxWeapons();
     }
 
+    clearAllEnemiesIntervalls() {
+        this.level.enemies.forEach(enemy => {
+            if (enemy.stop) {
+                enemy.stop();
+            }
+        });
+    }
+
+    clearAllChestIntervalls() {
+        this.level.chest.forEach(chest => {
+            if (chest.stop) {
+                chest.stop();
+            }
+        });
+    }
+
+    clearAllIntervallCharacter() {
+        this.character.stop();
+    }
 
     gameOverWhenMaxWeapons(){
         if (
@@ -220,17 +250,8 @@ class World {
             this.ThrowableObjects.length >= 13 &&
             !this.gameEnd
         ) {
-    
             this.gameEnd = true;
-    
             this.clearIntervallAndStopBackgroundMusic();
-    
-            let buttons = document.getElementById('panelMobile');
-            let infoButtons = document.getElementById('wrapperButtons');
-    
-            buttons.style.opacity = "0";
-            infoButtons.style.right = "8%";
-    
             if (!this.isMuted()) {
                 this.gameOver.gameOverSound.currentTime = 0;
                 this.gameOver.gameOverSound.play().catch(e => console.log("Audio blockiert:", e));
@@ -261,11 +282,7 @@ class World {
 
     /** Prüft, ob das Spiel verloren ist und spielt GameOver-Sound */
     checkGameEndAfterCharacterDead() {
-        let buttons = document.getElementById('panelMobile');
-        let infoButtons = document.getElementById('wrapperButtons');
         if (this.character.gameEnd) {
-            buttons.style.opacity = "0";
-            infoButtons.style.right = "8%"
             this.gameEnd = true;
             if (!this.isMuted()) {
                 this.backgroundMusic.pause();
@@ -280,11 +297,7 @@ class World {
     /** Prüft, ob das Spiel gewonnen ist und spielt Win-Sound */
     checkGameWIN() {
         this.clearIntervallAndStopBackgroundMusic();
-        let buttons = document.getElementById('panelMobile');
-        let infoButtons = document.getElementById('wrapperButtons');
         if (this.gameWIN) {
-            buttons.style.opacity = "0";
-            infoButtons.style.right = "8%"
             if (!this.isMuted()) {
                 this.gameWin.winSound.currentTime = 0;
                 this.gameWin.winSound.play().catch(e => console.log("Audio blockiert:", e));
@@ -304,22 +317,17 @@ class World {
     checkThrowObjects() {
         if (this.ThrowableObjects.length < 13 && this.keyboard.D) {
             let fish;
-
-
             if (this.character.otherDirection) {
                 fish = new ThrowableObjectFish(this.character.x - 80, this.character.y -5, true, this);
             } else {
                 fish = new ThrowableObjectFish(this.character.x + 80, this.character.y -5, false, this);
             }
-
-      
                 this.ThrowableObjects.push(fish);
                 this.statusBarFish.setPercentage(this.ThrowableObjects.length);
-        
         }
     }
 
-    /** Prüft, ob der Spieler schießt */
+    /** Prüft, ob der Spieler schiesst */
     checkGunShoot() {
         if (!this.keyboard) return;
         this.shootOnlyCharacterIsNotHurt();   
@@ -346,8 +354,6 @@ class World {
             this.statusBarGun.setPercentage(this.GunShootL.length);
             this.removeShootFromGunshoot(shoot);
         }
-
-
     }
 
     /** Entfernt einen Schuss aus dem GunShoot-Array nach 1,5 Sekunden */
@@ -526,15 +532,11 @@ checkColisionsCharacterFallDownOnEnemy() {
             this.character.x + this.character.width > enemy.x &&
             this.character.x < enemy.x + enemy.width
         ) {
-  
             enemy.playDeadSprite();
-
             if (!this.isMuted() && enemy.deathSound) {
                 enemy.deathSound.currentTime = 0;
                 enemy.deathSound.play();
             }
-
-    
             setTimeout(() => {
                 const index = this.level.enemies.indexOf(enemy);
                 if (index !== -1) {
@@ -547,36 +549,26 @@ checkColisionsCharacterFallDownOnEnemy() {
     });
 }
 
-    checkCollisionPlatform() {
-        setInterval(() => {   
-            this.isOnPlatform = false;
-    
-            this.level.platform.forEach((platform) => {
-    
-                if (this.character.isCollidingPlatform(platform)) {
-    
-                    // Grenzen
-                    let charLeft = this.character.x;
-                    let charRight = this.character.x + this.character.width;
-    
-                    let platformLeft = platform.x;
-                    let platformRight = platform.x + platform.width;
-    
-                    // Überlappung berechnen
-                    let overlap = Math.min(charRight, platformRight) - Math.max(charLeft, platformLeft);
-    
-                    // Prüfen: mindestens 50% der Breite auf Plattform
-                    if (overlap >= this.character.width / 2) {
-                        this.isOnPlatform = true;
-    
-                        // Sauber oben platzieren
-                        this.character.y = platform.y - this.character.height + 10;
-                        this.character.speedY = 0;
+checkCollisionPlatform(){
+            this.platformInterval = setInterval(() => {   
+                this.isOnPlatform = false;
+                this.level.platform.forEach((platform) => {
+        
+                    if (this.character.isCollidingPlatform(platform)) {
+                        let charLeft = this.character.x;
+                        let charRight = this.character.x + this.character.width;
+                        let platformLeft = platform.x;
+                        let platformRight = platform.x + platform.width;
+                        let overlap = Math.min(charRight, platformRight) - Math.max(charLeft, platformLeft);
+        
+                        if (overlap >= this.character.width / 2) {
+                            this.isOnPlatform = true;
+                            this.character.y = platform.y - this.character.height + 10;
+                            this.character.speedY = 0;
+                        }
                     }
-                }
-            });
-    
-        }, 1000 / 90);
-    }
+                });
+            }, 1000 / 90);
+        }
  
 }

@@ -60,17 +60,20 @@ class StatusBar extends DrawableObject {
     }
 }
 
-
 class StatusBarEndBoss extends DrawableObject {
     IMAGES_BAR_ENDBOSS = [
         'img/statusbar/turtle/TurtleHeart_0.svg',
         'img/statusbar/turtle/TurtleHeart_1.svg',
         'img/statusbar/turtle/TurtleHeart_2.svg',
         'img/statusbar/turtle/TurtleHeart_3.svg',
+        'img/statusbar/turtle/TurtleHeart_4.svg',
+        'img/statusbar/turtle/TurtleHeart_5.svg',
+        'img/statusbar/turtle/TurtleHeart_6.svg',
+        'img/statusbar/turtle/TurtleHeart_7.svg',
+        'img/statusbar/turtle/TurtleHeart_8.svg',
     ];
 
     percentage = 100;
-
     constructor() {
         super();
         this.loadImages(this.IMAGES_BAR_ENDBOSS);
@@ -90,12 +93,22 @@ class StatusBarEndBoss extends DrawableObject {
     resoloveImagesIndex() {
         if (this.percentage == 100) {
             return 0;
-        } else if (this.percentage > 70) {
+        } else if (this.percentage > 88) {
             return 1;
-        } else if (this.percentage > 30) {
+        } else if (this.percentage > 75) {
             return 2;
-        } else if (this.percentage > 0) {
+        } else if (this.percentage > 63) {
             return 3;
+        }else if (this.percentage > 50) {
+            return 4;
+        }else if (this.percentage > 34) {
+            return 5;
+        }else if (this.percentage > 25) {
+            return 6;
+        }else if (this.percentage > 13) {
+            return 7;
+        }else{
+            return 8;
         }
     }
 }
@@ -155,7 +168,7 @@ class StatusBarStar extends DrawableObject {
         } else if (this.percentage < 85) {
             return 8;
         } else {
-            return 9; // 80–100 → letztes Bild
+            return 9;
         }
     }
 }
