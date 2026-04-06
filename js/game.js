@@ -15,19 +15,18 @@ function init() {
 
 function playGame() {
     if (world) {
-        world.cleanGame();
+        world.stopGame();   
+        world = null;  
     }
 
     const canvasInnerWrapper = document.getElementById('canvasInnerWrapper');
     canvasInnerWrapper.style.transform = 'translateY(-1000%)';
 
-    init(); // erstellt world IMMER neu
-
- 
+    init(); // neue World erstellen
 
     const canvasWrapper = document.getElementById('canvasWrapper');
     canvasWrapper.classList.add('playnow');
-    localStorage.setItem("muted", "false");
+    canvasWrapper.style.display = 'flex'; // sicherstellen, dass es sichtbar ist
 
     setTimeout(() => {
         canvasInnerWrapper.style.transform = 'translateY(0)';
@@ -139,12 +138,22 @@ function loadDash() {
 
 function goHome() {
     if (world) {
-        world.cleanGame();
+        world.stopGame();   // entfernt alle Animationen, Timer, Events 
     }
-    localStorage.setItem("muted", "false");
-    window.location.href = 'index.html';
-};
 
+    const canvasWrapper = document.getElementById('canvasWrapper');
+    if (canvasWrapper) {
+        canvasWrapper.style.display = 'none';
+    }
+    const ui = document.getElementById('ui');
+    const welcome = document.getElementById('welcomeUi');
+    if (ui) ui.style.display = "flex";
+    if (welcome) welcome.style.display = "flex";
+
+    // localStorage.setItem("muted", "false");
+
+    console.log("Spiel gestoppt und Canvas ausgeblendet.");
+}
 /* CANVAS / ORIENTATION */
 
 function resizeCanvas() {
@@ -158,16 +167,17 @@ function checkOrientation() {
     const wrapper = document.getElementById('canvasWrapper');
 
     if (wrapper.classList.contains('fullscreen-mobile')) {
-        canvas.style.height = '100dvh';
+        canvas.style.height = '90dvh';
         return;
     };
 
     if (window.matchMedia("(orientation: landscape)").matches) {
-        if (window.innerHeight < 390) {
+        if (window.innerHeight < 450) {
             canvas.style.height = `${window.innerHeight}px`;
         };
     } else {
         canvas.style.height = '70%';
+        canvas.style.width = '100%';
     };
 };
 

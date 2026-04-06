@@ -75,7 +75,7 @@ class MovableObject extends DrawableObject {
 
     hit() {
         if (!this.isHurtwithCaracter) {
-            this.energy -= 1;
+            this.energy -= 3;
             if (this.energy < 0) {
                 this.energy = 0;
             } else {

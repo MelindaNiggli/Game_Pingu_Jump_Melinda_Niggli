@@ -30,8 +30,8 @@ class Crystal extends MovableObject {
         this.World = world; // World speichern
         this.y = 100 + Math.random() * 200;
         this.x = 100 + Math.random() * 6500;
-        this.width = 100;
-        this.height = 100;
+        this.width = 70;
+        this.height = 70;
     }
 
     playSound() {

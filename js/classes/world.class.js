@@ -24,7 +24,7 @@ class World {
     deadEndboss = false;
     Keyboard = new Keyboard();
     backgroundMusic = new Audio('audio/backgroundMusic.wav');
-
+  
 
        /** Zeichnet die gesamte Welt inkl. Character, Gegner, Objekte, Statusleisten */
        drawWorld(){
@@ -99,7 +99,12 @@ class World {
         this.ctx = canvas.getContext("2d");
         this.canvas = canvas;
         this.keyboard = keyboard;
-        this.startBackgroundMusic();
+        if(localStorage.getItem("muted") !== "false") {
+            this.startBackgroundMusic();
+        }
+        if(localStorage.getItem("muted") !== "true") {
+            this.stopBackgroundMusic();
+        }
         this.drawWorld();
         this.setWorld();
         this.interval = setInterval(() => {
@@ -154,7 +159,23 @@ class World {
         document.getElementById('panelMobile').style.opacity = "1";
         document.getElementById('wrapperButtons').style.right = "11%"
         init();
-        localStorage.setItem("muted", "false");
+    }
+    stopGame(){
+        this.clearIntervallAndStopBackgroundMusic();
+        this.GunShoot = [];
+        this.GunShootL = [];
+        this.ThrowableObjects = [];
+        this.gameWIN = false;
+        this.gameEnd = false;
+        this.deadEndboss = false;
+        this.level = level1;
+        this.character = new Character();
+        this.setWorld();
+        const canvasGame = document.getElementById('canvas');
+        const ctx = canvasGame.getContext('2d');
+        ctx.clearRect(0, 0, canvasGame.width, canvasGame.height);
+        document.getElementById('panelMobile').style.opacity = "1";
+        document.getElementById('wrapperButtons').style.right = "11%"
         console.log("clean");
     }
 
@@ -176,7 +197,9 @@ class World {
 
     /** Prüft alle Kollisionen und verwaltet Wurfobjekte */
     CheckColisionsAndThrowObjects(){
-        this.startBackgroundMusic();
+        if (!this.gameEnd && !this.gameWIN) {
+            this.startBackgroundMusic();
+        }
         this.chekColisionsWithEndboss();
         this.checkColisionCharacterWithEnemy();
         this.checkColisionCharacterWithStar();
@@ -185,9 +208,34 @@ class World {
         this.checkCollisionPlatform();
         this.checkCollisionFishWithEnemy();
         this.checkCollisionGunshootWithEnemy();
-    
         this.checkGameWinHaveStarOreCrystal();  
         this.checkColisionsCharacterFallDownOnEnemy();
+        this.gameOverWhenMaxWeapons();
+    }
+
+
+    gameOverWhenMaxWeapons(){
+        if (
+            this.GunShootL.length >= 13 &&
+            this.ThrowableObjects.length >= 13 &&
+            !this.gameEnd
+        ) {
+    
+            this.gameEnd = true;
+    
+            this.clearIntervallAndStopBackgroundMusic();
+    
+            let buttons = document.getElementById('panelMobile');
+            let infoButtons = document.getElementById('wrapperButtons');
+    
+            buttons.style.opacity = "0";
+            infoButtons.style.right = "8%";
+    
+            if (!this.isMuted()) {
+                this.gameOver.gameOverSound.currentTime = 0;
+                this.gameOver.gameOverSound.play().catch(e => console.log("Audio blockiert:", e));
+            }
+        }
     }
 
     /** Setzt die World-Referenz für den Character */
@@ -212,8 +260,7 @@ class World {
     }
 
     /** Prüft, ob das Spiel verloren ist und spielt GameOver-Sound */
-    checkGameEND() {
-        this.clearIntervallAndStopBackgroundMusic();
+    checkGameEndAfterCharacterDead() {
         let buttons = document.getElementById('panelMobile');
         let infoButtons = document.getElementById('wrapperButtons');
         if (this.character.gameEnd) {
@@ -226,7 +273,9 @@ class World {
                 this.gameOver.gameOverSound.play().catch(e => console.log("Audio blockiert:", e));
             }
         }
-    }
+          }
+
+
 
     /** Prüft, ob das Spiel gewonnen ist und spielt Win-Sound */
     checkGameWIN() {
@@ -297,6 +346,8 @@ class World {
             this.statusBarGun.setPercentage(this.GunShootL.length);
             this.removeShootFromGunshoot(shoot);
         }
+
+
     }
 
     /** Entfernt einen Schuss aus dem GunShoot-Array nach 1,5 Sekunden */
@@ -464,27 +515,37 @@ class World {
         this.gameWIN = true;
         this.checkGameWIN();
     }
+/** Prüft, ob Character auf Gegner fällt und tötet diesen */
+checkColisionsCharacterFallDownOnEnemy() {
+    this.level.enemies.forEach((enemy, enemyIndex) => {
+        enemy.World = this;
+        if (
+            this.character.speedY < 0 &&
+            this.character.y + this.character.height >= enemy.y &&
+            this.character.y + this.character.height <= enemy.y + enemy.height &&
+            this.character.x + this.character.width > enemy.x &&
+            this.character.x < enemy.x + enemy.width
+        ) {
+  
+            enemy.playDeadSprite();
 
-    /** Prüft, ob Character auf Gegner fällt und tötet diesen */
-    checkColisionsCharacterFallDownOnEnemy() {
-        this.level.enemies.forEach((enemy, enemyIndex) => {
-            if (
-                this.character.speedY < 0 &&
-                this.character.y + this.character.height >= enemy.y &&
-                this.character.y + this.character.height <= enemy.y + enemy.height &&
-                this.character.x + this.character.width > enemy.x &&
-                this.character.x < enemy.x + enemy.width
-            ) {
-                this.level.enemies.splice(enemyIndex, 1);
-                this.character.speedY = 5; 
-
-                if (!this.isMuted() && enemy.deathSound) {
-                    enemy.deathSound.currentTime = 0;
-                    enemy.deathSound.play();
-                }
+            if (!this.isMuted() && enemy.deathSound) {
+                enemy.deathSound.currentTime = 0;
+                enemy.deathSound.play();
             }
-        });
-    }
+
+    
+            setTimeout(() => {
+                const index = this.level.enemies.indexOf(enemy);
+                if (index !== -1) {
+                    this.level.enemies.splice(index, 1);
+                }
+            }, 100); 
+
+            this.character.speedY = 5;
+        }
+    });
+}
 
     checkCollisionPlatform() {
         setInterval(() => {   
@@ -509,7 +570,7 @@ class World {
                         this.isOnPlatform = true;
     
                         // Sauber oben platzieren
-                        this.character.y = platform.y - this.character.height;
+                        this.character.y = platform.y - this.character.height + 10;
                         this.character.speedY = 0;
                     }
                 }

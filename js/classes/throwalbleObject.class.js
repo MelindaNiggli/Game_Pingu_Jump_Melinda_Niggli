@@ -19,13 +19,15 @@ class GunShoot extends MovableObject {
         super().loadImage('img/pinguin/TurbineFx/TurbineFx_00.png');
         this.x = x;
         this.y = y;
+        this.width = 250;
+        this.height = 170;
         this.otherDirection = otherDirection;
         this.World = world;
         this.shoot();
     }
 
     shoot() {
-        this.speedY = 20;
+        this.speedY = 10;
         if (!this.World.isMuted()) {
             this.shoot_sound.play();
         }
@@ -55,10 +57,11 @@ class ThrowableObjectFish extends MovableObject {
 
     throw() {
         this.speedY = 32;
+        this.applyGravity();
         if (!this.World.isMuted()) {
             this.throw_sound.play();
         }
-        this.applyGravity();
+  
         setInterval(() => {
             this.x += this.otherDirection ? -10 : 10;
         }, 50);

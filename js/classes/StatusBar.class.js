@@ -133,6 +133,8 @@ class StatusBarStar extends DrawableObject {
         let path = this.IMAGES_BAR_STAR[this.resoloveImagesIndex()];
         this.img = this.imageCache[path];
     }
+
+
     resoloveImagesIndex() {
         if (this.percentage == 0) {
             return 0;
@@ -161,7 +163,6 @@ class StatusBarStar extends DrawableObject {
 
 class StatusBarCrystal extends DrawableObject {
     IMAGES_BAR_CRYSTAL = [
-        'img/statusbar/diamant/diamant-0.svg',
         'img/statusbar/diamant/diamant-1.svg',
         'img/statusbar/diamant/diamant-2.svg',
         'img/statusbar/diamant/diamant-3.svg',
@@ -171,6 +172,7 @@ class StatusBarCrystal extends DrawableObject {
         'img/statusbar/diamant/diamant-7.svg',
         'img/statusbar/diamant/diamant-8.svg',
         'img/statusbar/diamant/diamant-9.svg',
+        'img/statusbar/diamant/diamant-10.svg',
         
     ];
 
@@ -180,9 +182,9 @@ class StatusBarCrystal extends DrawableObject {
         super();
         this.loadImages(this.IMAGES_BAR_CRYSTAL);
         this.x = 10;
-        this.y = 60;
+        this.y = 58;
         this.width = width;
-        this.height = 33;
+        this.height = 35;
         this.setPercentage(0);
     }
 
@@ -291,6 +293,7 @@ class StatusBarFish extends DrawableObject {
 
 
 class StatusBarGun extends DrawableObject {
+    World;
     IMAGES_BAR_GUN = [
         'img/statusbar/gun/13.svg',
         'img/statusbar/gun/12.svg',
@@ -319,7 +322,7 @@ class StatusBarGun extends DrawableObject {
         this.height = 70;
         this.setPercentage(0);
     }
-
+    
     setPercentage(percentage) {
         this.percentage = percentage;
         let path = this.IMAGES_BAR_GUN[this.resoloveImagesIndex()];

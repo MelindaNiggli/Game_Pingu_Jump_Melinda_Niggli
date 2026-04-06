@@ -1,6 +1,7 @@
 class Character extends MovableObject {
-
-
+    height = 147;
+    width = 150;
+    
     IMAGES_WALKING = [
         'img/pinguin/Character/Walk/Walk_00.svg',
         'img/pinguin/Character/Walk/Walk_01.svg',
@@ -34,14 +35,34 @@ class Character extends MovableObject {
     ];
 
 
+    IMAGES_IDLE = [
+        'img/pinguin/Character/Idle/Idle_00.svg',
+        'img/pinguin/Character/Idle/Idle_01.svg',
+        'img/pinguin/Character/Idle/Idle_02.svg',
+        'img/pinguin/Character/Idle/Idle_03.svg',
+        'img/pinguin/Character/Idle/Idle_04.svg',
+        'img/pinguin/Character/Idle/Idle_05.svg',
+        'img/pinguin/Character/Idle/Idle_06.svg',
+        'img/pinguin/Character/Idle/Idle_07.svg',
+
+    ]
+
     IMAGES_DEAD = [
-        'img/pinguin/Character/Slide/Slide_0.png',
-        'img/pinguin/Character/Slide/Slide_1.png',
-        'img/pinguin/Character/Slide/Slide_2.png',
-        'img/pinguin/Character/Slide/Slide_3.png',
-        'img/pinguin/Character/Slide/Slide_4.png',
-        'img/pinguin/Character/Slide/Slide_5.png',
-        'img/pinguin/Character/Slide/Slide_6.png',
+        'img/pinguin/Character/Death/Death_00.png',
+        'img/pinguin/Character/Death/Death_01.png',
+        'img/pinguin/Character/Death/Death_02.png',
+        'img/pinguin/Character/Death/Death_03.png',
+        'img/pinguin/Character/Death/Death_04.png',
+        'img/pinguin/Character/Death/Death_05.png',
+        'img/pinguin/Character/Death/Death_06.png',
+        'img/pinguin/Character/Death/Death_07.png',
+        'img/pinguin/Character/Death/Death_08.png',
+        'img/pinguin/Character/Death/Death_09.png',
+        'img/pinguin/Character/Death/Death_10.png',
+        'img/pinguin/Character/Death/Death_11.png',
+        'img/pinguin/Character/Death/Death_12.png',
+ 
+
     ]
 
     IMAGES_HURT = [
@@ -69,13 +90,17 @@ class Character extends MovableObject {
         super().loadImage('img/pinguin/Character/Walk/Walk_00.svg');
     
         this.loadImages(this.IMAGES_WALKING);
+        this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_JUMPING_DOWN);
-        this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_GUN);
+        this.loadImages(this.IMAGES_DEAD);
         this.applyGravity();
         this.animate();
+        this.width = 170;
+        this.height = 170;
     }
+
 
 animate() {
     setInterval(() => {
@@ -84,6 +109,9 @@ animate() {
         this.World.camera_x = -this.x + 60;
     },1000/60);
 
+    setInterval(() => {
+        this.playWalkingAnimationImages(this.IMAGES_IDLE);
+    },450);
 }
 
 
@@ -109,11 +137,12 @@ moveCharacter() {
 }
 
 canMoveRight(){
-    if (!this.World.deadEndboss && this.x >= 7000) {
+    if (!this.World.deadEndboss && this.x > 7000) {
         return false;
     }
     return this.World.Keyboard.RIGHT && this.x < this.World.level.level_end_x;
 };
+
 
 moveRight(){
     super.moveRight();
@@ -142,7 +171,7 @@ hurtOreDadCharacter() {
         this.playWalkingAnimationImages(this.IMAGES_DEAD);
         if (!this.gameEnd) {
             this.gameEnd = true;
-            this.World.checkGameEND();
+            this.World.checkGameEndAfterCharacterDead();
             clearInterval(this.interval); 
         }
 

@@ -64,6 +64,30 @@ class MonsterTurtle extends MovableObject{
         'img/monsters/turtle/Attack/Attack_28.png',
         'img/monsters/turtle/Attack/Attack_29.png',
       ];
+
+      DEAD_SPRITE = [
+        'img/monsters/DeadSprite/DeadFx_00.png',
+        'img/monsters/DeadSprite/DeadFx_01.png',
+        'img/monsters/DeadSprite/DeadFx_02.png',
+        'img/monsters/DeadSprite/DeadFx_03.png',
+        'img/monsters/DeadSprite/DeadFx_04.png',
+        'img/monsters/DeadSprite/DeadFx_05.png',
+        'img/monsters/DeadSprite/DeadFx_06.png',
+        'img/monsters/DeadSprite/DeadFx_07.png',
+        'img/monsters/DeadSprite/DeadFx_08.png',
+        'img/monsters/DeadSprite/DeadFx_09.png',
+        'img/monsters/DeadSprite/DeadFx_10.png',
+        'img/monsters/DeadSprite/DeadFx_11.png',
+        'img/monsters/DeadSprite/DeadFx_12.png',
+        'img/monsters/DeadSprite/DeadFx_13.png',
+        'img/monsters/DeadSprite/DeadFx_14.png',
+        'img/monsters/DeadSprite/DeadFx_15.png',
+        'img/monsters/DeadSprite/DeadFx_16.png',
+        'img/monsters/DeadSprite/DeadFx_17.png',
+        'img/monsters/DeadSprite/DeadFx_18.png',
+        'img/monsters/DeadSprite/DeadFx_19.png',
+ 
+      ];
   
     deathSound = new Audio('audio/hitTurtle.wav');
 
@@ -77,11 +101,19 @@ class MonsterTurtle extends MovableObject{
         this.height = 170;
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_ATTACK);
+        this.loadImages(this.DEAD_SPRITE);
       
-        this.speed = 0.15 + Math.random() * 0.9;
+        this.speed = 0.30 + Math.random() * 3;
         this.animate();
     }
 
+
+    playDeadSprite(){
+        setInterval(() => {
+            this.playWalkingAnimationImages(this.DEAD_SPRITE);
+        }, 1000 / 60); 
+
+    }
 
     animate(){ 
         setInterval( () => {
@@ -150,6 +182,33 @@ class MonsterFly extends MovableObject{
         'img/monsters/skeleton-fly/Attack/skeleton-Attack_6.png',
         'img/monsters/skeleton-fly/Attack/skeleton-Attack_7.png'
     ];
+
+
+    DEAD_SPRITE = [
+        'img/monsters/DeadSprite/DeadFx_00.png',
+        'img/monsters/DeadSprite/DeadFx_01.png',
+        'img/monsters/DeadSprite/DeadFx_02.png',
+        'img/monsters/DeadSprite/DeadFx_03.png',
+        'img/monsters/DeadSprite/DeadFx_04.png',
+        'img/monsters/DeadSprite/DeadFx_05.png',
+        'img/monsters/DeadSprite/DeadFx_06.png',
+        'img/monsters/DeadSprite/DeadFx_07.png',
+        'img/monsters/DeadSprite/DeadFx_08.png',
+        'img/monsters/DeadSprite/DeadFx_09.png',
+        'img/monsters/DeadSprite/DeadFx_10.png',
+        'img/monsters/DeadSprite/DeadFx_11.png',
+        'img/monsters/DeadSprite/DeadFx_12.png',
+        'img/monsters/DeadSprite/DeadFx_13.png',
+        'img/monsters/DeadSprite/DeadFx_14.png',
+        'img/monsters/DeadSprite/DeadFx_15.png',
+        'img/monsters/DeadSprite/DeadFx_16.png',
+        'img/monsters/DeadSprite/DeadFx_17.png',
+        'img/monsters/DeadSprite/DeadFx_18.png',
+        'img/monsters/DeadSprite/DeadFx_19.png',
+ 
+      ];
+  
+
     currentImage = 0;
     deathSound = new Audio('audio/monsterFlyDeath.mp3');
     constructor(){
@@ -160,10 +219,19 @@ class MonsterFly extends MovableObject{
         this.height = 90;
         this.loadImages(this.IMAGES_FLYING);
         this.loadImages(this.IMAGES_ATTACK);
-        this.speed = 0.15 + Math.random() * 2;
+        this.loadImages(this.DEAD_SPRITE);
+        this.speed = 0.30 + Math.random() * 3;
         this.animate();
     }
 
+
+
+    playDeadSprite(){
+        setInterval(() => {
+            this.playWalkingAnimationImages(this.DEAD_SPRITE);
+        }, 1000 / 60); 
+
+    }
 
     animate(){ // BILD WIRD IMMER AUSGETAUSCHT
         setInterval( () => {
@@ -201,80 +269,87 @@ class MonsterFly extends MovableObject{
 class MonsterBomb extends MovableObject{
 
     IMAGES_WALKING = [
-        'img/monsters/moster-bomb/Walk/Walk_00.png',
-        'img/monsters/moster-bomb/Walk/Walk_01.png',
-        'img/monsters/moster-bomb/Walk/Walk_02.png',
-        'img/monsters/moster-bomb/Walk/Walk_03.png',
-        'img/monsters/moster-bomb/Walk/Walk_04.png',
-        'img/monsters/moster-bomb/Walk/Walk_05.png',
-        'img/monsters/moster-bomb/Walk/Walk_06.png',
-        'img/monsters/moster-bomb/Walk/Walk_07.png',
-        'img/monsters/moster-bomb/Walk/Walk_08.png',
-        'img/monsters/moster-bomb/Walk/Walk_09.png',
-        'img/monsters/moster-bomb/Walk/Walk_10.png',
-        'img/monsters/moster-bomb/Walk/Walk_11.png',
-        'img/monsters/moster-bomb/Walk/Walk_12.png',
-        'img/monsters/moster-bomb/Walk/Walk_13.png',
-        'img/monsters/moster-bomb/Walk/Walk_14.png',
-        'img/monsters/moster-bomb/Walk/Walk_15.png',
-        'img/monsters/moster-bomb/Walk/Walk_16.png',
-        'img/monsters/moster-bomb/Walk/Walk_17.png',
-        'img/monsters/moster-bomb/Walk/Walk_18.png',
-        'img/monsters/moster-bomb/Walk/Walk_19.png',
+        'img/monsters/green/Walk/skeleton-Walk_0.png',
+        'img/monsters/green/Walk/skeleton-Walk_1.png',
+        'img/monsters/green/Walk/skeleton-Walk_2.png',
+        'img/monsters/green/Walk/skeleton-Walk_3.png',
+        'img/monsters/green/Walk/skeleton-Walk_4.png',
+        'img/monsters/green/Walk/skeleton-Walk_5.png',
+        'img/monsters/green/Walk/skeleton-Walk_6.png',
+        'img/monsters/green/Walk/skeleton-Walk_7.png',
+        'img/monsters/green/Walk/skeleton-Walk_8.png',
+        'img/monsters/green/Walk/skeleton-Walk_9.png',
+        'img/monsters/green/Walk/skeleton-Walk_10.png',
+        'img/monsters/green/Walk/skeleton-Walk_11.png',
+        'img/monsters/green/Walk/skeleton-Walk_12.png',
+        'img/monsters/green/Walk/skeleton-Walk_13.png',
+        'img/monsters/green/Walk/skeleton-Walk_14.png',
+        'img/monsters/green/Walk/skeleton-Walk_15.png',
+        'img/monsters/green/Walk/skeleton-Walk_16.png',
+        'img/monsters/green/Walk/skeleton-Walk_17.png',
     ];
     IMAGES_ATTACK = [
-        'img/monsters/moster-bomb/Throw/Throw_00.png',
-        'img/monsters/moster-bomb/Throw/Throw_01.png',
-        'img/monsters/moster-bomb/Throw/Throw_02.png',
-        'img/monsters/moster-bomb/Throw/Throw_03.png',
-        'img/monsters/moster-bomb/Throw/Throw_04.png',
-        'img/monsters/moster-bomb/Throw/Throw_05.png',
-        'img/monsters/moster-bomb/Throw/Throw_06.png',
-        'img/monsters/moster-bomb/Throw/Throw_07.png',
-        'img/monsters/moster-bomb/Throw/Throw_08.png',
-        'img/monsters/moster-bomb/Throw/Throw_09.png',
-        'img/monsters/moster-bomb/Throw/Throw_10.png',
-        'img/monsters/moster-bomb/Throw/Throw_11.png',
-        'img/monsters/moster-bomb/Throw/Throw_12.png',
-        'img/monsters/moster-bomb/Throw/Throw_13.png',
-        'img/monsters/moster-bomb/Throw/Throw_14.png',
-        'img/monsters/moster-bomb/Throw/Throw_15.png',
-        'img/monsters/moster-bomb/Throw/Throw_16.png',
-        'img/monsters/moster-bomb/Throw/Throw_17.png',
-        'img/monsters/moster-bomb/Throw/Throw_18.png',
-        'img/monsters/moster-bomb/Throw/Throw_19.png',
-        'img/monsters/moster-bomb/Throw/Throw_20.png',
-        'img/monsters/moster-bomb/Throw/Throw_21.png',
-        'img/monsters/moster-bomb/Throw/Throw_22.png',
-        'img/monsters/moster-bomb/Throw/Throw_23.png',
-        'img/monsters/moster-bomb/Throw/Throw_24.png',
-        'img/monsters/moster-bomb/Throw/Throw_25.png',
-        'img/monsters/moster-bomb/Throw/Throw_26.png',
-        'img/monsters/moster-bomb/Throw/Throw_27.png',
-        'img/monsters/moster-bomb/Throw/Throw_28.png',
-        'img/monsters/moster-bomb/Throw/Throw_29.png',
-        'img/monsters/moster-bomb/Throw/Throw_30.png',
-        'img/monsters/moster-bomb/Throw/Throw_31.png',
-        'img/monsters/moster-bomb/Throw/Throw_32.png',
-        'img/monsters/moster-bomb/Throw/Throw_33.png',
-        'img/monsters/moster-bomb/Throw/Throw_34.png',
-        'img/monsters/moster-bomb/Throw/Throw_35.png',
-        'img/monsters/moster-bomb/Throw/Throw_36.png',
-        'img/monsters/moster-bomb/Throw/Throw_37.png',
-        'img/monsters/moster-bomb/Throw/Throw_38.png',
-        'img/monsters/moster-bomb/Throw/Throw_39.png',
+        'img/monsters/green/Attack/skeleton-Attack_0.png',
+        'img/monsters/green/Attack/skeleton-Attack_1.png',
+        'img/monsters/green/Attack/skeleton-Attack_2.png',
+        'img/monsters/green/Attack/skeleton-Attack_3.png',
+        'img/monsters/green/Attack/skeleton-Attack_4.png',
+        'img/monsters/green/Attack/skeleton-Attack_5.png',
+        'img/monsters/green/Attack/skeleton-Attack_6.png',
+        'img/monsters/green/Attack/skeleton-Attack_7.png',
+        'img/monsters/green/Attack/skeleton-Attack_8.png',
+        'img/monsters/green/Attack/skeleton-Attack_9.png',
+        'img/monsters/green/Attack/skeleton-Attack_10.png',
+        'img/monsters/green/Attack/skeleton-Attack_11.png',
+        'img/monsters/green/Attack/skeleton-Attack_12.png',
+        'img/monsters/green/Attack/skeleton-Attack_13.png',
+        'img/monsters/green/Attack/skeleton-Attack_14.png',
+        'img/monsters/green/Attack/skeleton-Attack_15.png',
+        'img/monsters/green/Attack/skeleton-Attack_16.png',
+        'img/monsters/green/Attack/skeleton-Attack_17.png',
+        'img/monsters/green/Attack/skeleton-Attack_18.png',
+        'img/monsters/green/Attack/skeleton-Attack_19.png',
+        'img/monsters/green/Attack/skeleton-Attack_20.png',
+        'img/monsters/green/Attack/skeleton-Attack_21.png',
     ];
+
+
+    DEAD_SPRITE = [
+        'img/monsters/DeadSprite/DeadFx_00.png',
+        'img/monsters/DeadSprite/DeadFx_01.png',
+        'img/monsters/DeadSprite/DeadFx_02.png',
+        'img/monsters/DeadSprite/DeadFx_03.png',
+        'img/monsters/DeadSprite/DeadFx_04.png',
+        'img/monsters/DeadSprite/DeadFx_05.png',
+        'img/monsters/DeadSprite/DeadFx_06.png',
+        'img/monsters/DeadSprite/DeadFx_07.png',
+        'img/monsters/DeadSprite/DeadFx_08.png',
+        'img/monsters/DeadSprite/DeadFx_09.png',
+        'img/monsters/DeadSprite/DeadFx_10.png',
+        'img/monsters/DeadSprite/DeadFx_11.png',
+        'img/monsters/DeadSprite/DeadFx_12.png',
+        'img/monsters/DeadSprite/DeadFx_13.png',
+        'img/monsters/DeadSprite/DeadFx_14.png',
+        'img/monsters/DeadSprite/DeadFx_15.png',
+        'img/monsters/DeadSprite/DeadFx_16.png',
+        'img/monsters/DeadSprite/DeadFx_17.png',
+        'img/monsters/DeadSprite/DeadFx_18.png',
+        'img/monsters/DeadSprite/DeadFx_19.png',
+ 
+      ];
+  
     currentImage = 0;
     deathSound = new Audio('audio/enemyDeath.wav');
     constructor(){
-        super().loadImage('img/monsters/moster-bomb/Walk/Walk_00.png');
+        super().loadImage('img/monsters/green/Attack/skeleton-Walk_0.png');
         this.y = 350;
         this.x = 200 + Math.random() * 7000; 
         this.width = 260;
         this.height = 250;
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_ATTACK);
-        this.speed = 0.15 + Math.random() * 2.5;
+        this.loadImages(this.DEAD_SPRITE);
+        this.speed = 0.30 + Math.random() * 3;
         this.animate();
    
     }
@@ -287,6 +362,14 @@ class MonsterBomb extends MovableObject{
         },50);  
     }
 
+
+
+    playDeadSprite(){
+        setInterval(() => {
+            this.playWalkingAnimationImages(this.DEAD_SPRITE);
+        }, 1000 / 60); 
+
+    }
     attack(character) {
         if (!this.isAttacking) {
             this.isAttacking = true; 
@@ -311,61 +394,94 @@ class MonsterBomb extends MovableObject{
 class MonsterBlue extends MovableObject{
 
     IMAGES_WALKING = [
-        'img/monsters/monster-blue/Walk/skeleton-Walk_0.png',
-        'img/monsters/monster-blue/Walk/skeleton-Walk_1.png',
-        'img/monsters/monster-blue/Walk/skeleton-Walk_2.png',
-        'img/monsters/monster-blue/Walk/skeleton-Walk_3.png',
-        'img/monsters/monster-blue/Walk/skeleton-Walk_4.png',
-        'img/monsters/monster-blue/Walk/skeleton-Walk_5.png',
-        'img/monsters/monster-blue/Walk/skeleton-Walk_6.png',
-        'img/monsters/monster-blue/Walk/skeleton-Walk_7.png',
-        'img/monsters/monster-blue/Walk/skeleton-Walk_8.png',
-        'img/monsters/monster-blue/Walk/skeleton-Walk_9.png',
-        'img/monsters/monster-blue/Walk/skeleton-Walk_10.png',
-        'img/monsters/monster-blue/Walk/skeleton-Walk_11.png',
-        'img/monsters/monster-blue/Walk/skeleton-Walk_12.png',
-        'img/monsters/monster-blue/Walk/skeleton-Walk_13.png',
-        'img/monsters/monster-blue/Walk/skeleton-Walk_14.png',
-        'img/monsters/monster-blue/Walk/skeleton-Walk_15.png',
-        'img/monsters/monster-blue/Walk/skeleton-Walk_16.png',
-        'img/monsters/monster-blue/Walk/skeleton-Walk_17.png',
+        'img/monsters/blue/Walk/Walk_00.png',
+        'img/monsters/blue/Walk/Walk_01.png',
+        'img/monsters/blue/Walk/Walk_02.png',
+        'img/monsters/blue/Walk/Walk_03.png',
+        'img/monsters/blue/Walk/Walk_04.png',
+        'img/monsters/blue/Walk/Walk_05.png',
+        'img/monsters/blue/Walk/Walk_06.png',
+        'img/monsters/blue/Walk/Walk_07.png',
+        'img/monsters/blue/Walk/Walk_08.png',
+        'img/monsters/blue/Walk/Walk_09.png',
+        'img/monsters/blue/Walk/Walk_10.png',
+        'img/monsters/blue/Walk/Walk_11.png',
+        'img/monsters/blue/Walk/Walk_12.png',
+        'img/monsters/blue/Walk/Walk_13.png',
+        'img/monsters/blue/Walk/Walk_14.png',
+        'img/monsters/blue/Walk/Walk_15.png',
+        'img/monsters/blue/Walk/Walk_16.png',
+        'img/monsters/blue/Walk/Walk_17.png',
+        'img/monsters/blue/Walk/Walk_18.png',
+        'img/monsters/blue/Walk/Walk_19.png',
+        
  
     ];
     IMAGES_ATTACK = [
-        'img/monsters/monster-blue/Attack/skeleton-Attack_0.png',
-        'img/monsters/monster-blue/Attack/skeleton-Attack_1.png',
-        'img/monsters/monster-blue/Attack/skeleton-Attack_2.png',
-        'img/monsters/monster-blue/Attack/skeleton-Attack_3.png',
-        'img/monsters/monster-blue/Attack/skeleton-Attack_4.png',
-        'img/monsters/monster-blue/Attack/skeleton-Attack_5.png',
-        'img/monsters/monster-blue/Attack/skeleton-Attack_6.png',
-        'img/monsters/monster-blue/Attack/skeleton-Attack_7.png',
-        'img/monsters/monster-blue/Attack/skeleton-Attack_8.png',
-        'img/monsters/monster-blue/Attack/skeleton-Attack_9.png',
-        'img/monsters/monster-blue/Attack/skeleton-Attack_10.png',
-        'img/monsters/monster-blue/Attack/skeleton-Attack_11.png',
-        'img/monsters/monster-blue/Attack/skeleton-Attack_12.png',
-        'img/monsters/monster-blue/Attack/skeleton-Attack_13.png',
-        'img/monsters/monster-blue/Attack/skeleton-Attack_14.png',
-        'img/monsters/monster-blue/Attack/skeleton-Attack_15.png',
-        'img/monsters/monster-blue/Attack/skeleton-Attack_16.png',
-        'img/monsters/monster-blue/Attack/skeleton-Attack_17.png',
-        'img/monsters/monster-blue/Attack/skeleton-Attack_18.png',
-        'img/monsters/monster-blue/Attack/skeleton-Attack_19.png',
-        'img/monsters/monster-blue/Attack/skeleton-Attack_20.png',
-        'img/monsters/monster-blue/Attack/skeleton-Attack_21.png',
+        'img/monsters/blue/Attack/Attack_00.png',
+        'img/monsters/blue/Attack/Attack_01.png',
+        'img/monsters/blue/Attack/Attack_02.png',
+        'img/monsters/blue/Attack/Attack_03.png',
+        'img/monsters/blue/Attack/Attack_04.png',
+        'img/monsters/blue/Attack/Attack_05.png',
+        'img/monsters/blue/Attack/Attack_06.png',
+        'img/monsters/blue/Attack/Attack_07.png',
+        'img/monsters/blue/Attack/Attack_08.png',
+        'img/monsters/blue/Attack/Attack_09.png',
+        'img/monsters/blue/Attack/Attack_10.png',
+        'img/monsters/blue/Attack/Attack_11.png',
+        'img/monsters/blue/Attack/Attack_12.png',
+        'img/monsters/blue/Attack/Attack_13.png',
+        'img/monsters/blue/Attack/Attack_14.png',
+        'img/monsters/blue/Attack/Attack_15.png',
+        'img/monsters/blue/Attack/Attack_16.png',
+        'img/monsters/blue/Attack/Attack_17.png',
+        'img/monsters/blue/Attack/Attack_18.png',
+        'img/monsters/blue/Attack/Attack_19.png',
+        'img/monsters/blue/Attack/Attack_20.png',
+        'img/monsters/blue/Attack/Attack_21.png',
+        'img/monsters/blue/Attack/Attack_22.png',
+        'img/monsters/blue/Attack/Attack_23.png',
+        'img/monsters/blue/Attack/Attack_24.png',
     ];
+
+    DEAD_SPRITE = [
+        'img/monsters/DeadSprite/DeadFx_00.png',
+        'img/monsters/DeadSprite/DeadFx_01.png',
+        'img/monsters/DeadSprite/DeadFx_02.png',
+        'img/monsters/DeadSprite/DeadFx_03.png',
+        'img/monsters/DeadSprite/DeadFx_04.png',
+        'img/monsters/DeadSprite/DeadFx_05.png',
+        'img/monsters/DeadSprite/DeadFx_06.png',
+        'img/monsters/DeadSprite/DeadFx_07.png',
+        'img/monsters/DeadSprite/DeadFx_08.png',
+        'img/monsters/DeadSprite/DeadFx_09.png',
+        'img/monsters/DeadSprite/DeadFx_10.png',
+        'img/monsters/DeadSprite/DeadFx_11.png',
+        'img/monsters/DeadSprite/DeadFx_12.png',
+        'img/monsters/DeadSprite/DeadFx_13.png',
+        'img/monsters/DeadSprite/DeadFx_14.png',
+        'img/monsters/DeadSprite/DeadFx_15.png',
+        'img/monsters/DeadSprite/DeadFx_16.png',
+        'img/monsters/DeadSprite/DeadFx_17.png',
+        'img/monsters/DeadSprite/DeadFx_18.png',
+        'img/monsters/DeadSprite/DeadFx_19.png',
+      ];
+  
+
+
     currentImage = 0;
     deathSound = new Audio('audio/enemyDeath.wav');
     constructor(){
-        super().loadImage('img/monsters/moster-bomb/Walk/Walk_00.png');
-        this.y = 350;
-        this.x = 200 + Math.random() * 7000; 
-        this.width = 230;
-        this.height = 230;
+        super().loadImage('img/monsters/blue/Walk/Walk_00.png');
+        this.y = 390;
+        this.x = 200 + Math.random() * 8000; 
+        this.height = 200;
+        this.width = 170;
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_ATTACK);
-        this.speed = 0.15 + Math.random() * 2.5;
+        this.loadImages(this.DEAD_SPRITE);
+        this.speed = 0.30 + Math.random() * 3;
         this.animate();
    
     }
@@ -373,16 +489,24 @@ class MonsterBlue extends MovableObject{
         setInterval( () => {
             this.moveLeft();
             this.playWalkingAnimationImages(this.IMAGES_WALKING);
-        }, 50);
+        }, 1000 /60);
     }
 
+
+
+    playDeadSprite(){
+        setInterval(() => {
+            this.playWalkingAnimationImages(this.DEAD_SPRITE);
+        }, 1000 / 60); 
+
+    }
     attack(character) {
         if (!this.isAttacking) { 
             this.isAttacking = true; // Angriff startet
             this.attackInterval = setInterval(() => {
                 this.playWalkingAnimationImages(this.IMAGES_ATTACK);
                 if (!this.isColliding(character)) {
-                    this.loadImage('img/monsters/moster-bomb/Walk/Walk_00.png');
+                    this.loadImage('img/monsters/blue/Walk/Walk_00.png');
                     this.stopAttack(); 
                 }
             }, 1000 / 60);
