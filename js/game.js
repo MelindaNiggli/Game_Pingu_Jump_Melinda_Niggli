@@ -23,6 +23,7 @@ function playGame() {
     canvasInnerWrapper.style.transform = 'translateY(-1000%)';
 
     init(); // neue World erstellen
+    initMuteState();
 
     const canvasWrapper = document.getElementById('canvasWrapper');
     canvasWrapper.classList.add('playnow');
@@ -62,6 +63,21 @@ function showImpressum() {
 };
 
 /* Mute BTN */
+
+function initMuteState() {
+    const button = document.getElementById('muteBtn');
+    const isMuted = localStorage.getItem("muted") === "true";
+
+    if (isMuted) {
+        button.classList.add('active');
+        button.innerHTML = `<img style="height: 24px;" src="./img/ui/Mute.svg" alt="mute icon">`;
+        world.stopBackgroundMusic();
+    } else {
+        button.classList.remove('active');
+        button.innerHTML = `<img style="height: 24px;" src="./img/ui/Mute_Off.svg" alt="mute off icon">`;
+        world.startBackgroundMusic();
+    }
+}
 
 function toggleMute() {
     const button = document.getElementById('muteBtn');
