@@ -8,67 +8,67 @@ class Keyboard extends MovableObject {
     S = false;
     D = false;
 
-    constructor(){
+    constructor() {
         super();
         this.keyPressevents();
         this.keyPresseventsMobile();
     }
 
-    keyPressevents(){
-        window.addEventListener("keydown", (event) =>{
-        if(event.keyCode == 39){
-            this.RIGHT = true;
-        }
-        if(event.keyCode == 37){
-            this.LEFT = true;
-        }
-        if(event.keyCode == 38){
-            this.UP = true;
-        }
-        if(event.keyCode == 40){
-            this.DOWN = true;
-        }
-        if(event.keyCode == 32){
-            this.SPACE = true;
-        }
+    keyPressevents() {
+        window.addEventListener("keydown", (event) => {
+            if (event.keyCode == 39) {
+                this.RIGHT = true;
+            }
+            if (event.keyCode == 37) {
+                this.LEFT = true;
+            }
+            if (event.keyCode == 38) {
+                this.UP = true;
+            }
+            if (event.keyCode == 40) {
+                this.DOWN = true;
+            }
+            if (event.keyCode == 32) {
+                this.SPACE = true;
+            }
 
-        if(event.keyCode == 65){
-            this.A= true;
-        }
-        if(event.keyCode == 83){
-            this.S = true;
-        }
-        if(event.keyCode == 68){
-            this.D = true;
-        }
-        // console.log(event)
+            if (event.keyCode == 65) {
+                this.A = true;
+            }
+            if (event.keyCode == 83) {
+                this.S = true;
+            }
+            if (event.keyCode == 68) {
+                this.D = true;
+            }
+            // console.log(event)
         })
-        window.addEventListener("keyup", (event) =>{
-        if(event.keyCode == 39){
-            this.RIGHT = false;
-        }
-        if(event.keyCode == 37){
-            this.LEFT = false;
-        }
-        if(event.keyCode == 38){
-            this.UP = false;
-        }
-        if(event.keyCode == 40){
-            this.DOWN = false;
-        }
-        if(event.keyCode == 32){
-            this.SPACE = false;
-        }
-        if(event.keyCode == 65){
-            this.A = false;
-        }
-        if(event.keyCode == 83){
-            this.S = false;
-        }
-        if(event.keyCode == 68){
-            this.D = false;
-        }
-        // console.log(event)
+        window.addEventListener("keyup", (event) => {
+            if (event.keyCode == 39) {
+                this.RIGHT = false;
+            }
+            if (event.keyCode == 37) {
+                this.LEFT = false;
+            }
+            if (event.keyCode == 38) {
+                this.UP = false;
+            }
+            if (event.keyCode == 40) {
+                this.DOWN = false;
+            }
+            if (event.keyCode == 32) {
+                this.SPACE = false;
+            }
+            if (event.keyCode == 65) {
+                this.A = false;
+            }
+            if (event.keyCode == 83) {
+                this.S = false;
+            }
+            if (event.keyCode == 68) {
+                this.D = false;
+            }
+            // console.log(event)
         })
     };
 
@@ -103,13 +103,13 @@ class Keyboard extends MovableObject {
             this.S = false;
         });
 
-    
+
         // Touchstart-Ereignisse
         btnRight.addEventListener('touchstart', (event) => {
             event.preventDefault();
             this.RIGHT = true;
         });
-        
+
         btnLeft.addEventListener('touchstart', (event) => {
             event.preventDefault();
             this.LEFT = true;
@@ -118,7 +118,7 @@ class Keyboard extends MovableObject {
             event.preventDefault();
             this.UP = true;
         });
-    
+
         // Touchend-Ereignisse
         btnRight.addEventListener('touchend', (event) => {
             event.preventDefault();
@@ -134,6 +134,3 @@ class Keyboard extends MovableObject {
         });
     }
 }
-
-
-

@@ -78,7 +78,7 @@ class StatusBarEndBoss extends DrawableObject {
         super();
         this.loadImages(this.IMAGES_BAR_ENDBOSS);
         this.x = 340;
-        this.y =  20;
+        this.y = 20;
         this.width = width;
         this.height = 80;
         this.setPercentage(100);
@@ -93,21 +93,21 @@ class StatusBarEndBoss extends DrawableObject {
     resoloveImagesIndex() {
         if (this.percentage == 100) {
             return 0;
-        } else if (this.percentage > 88) {
+        } else if (this.percentage > 87.5) {
             return 1;
         } else if (this.percentage > 75) {
             return 2;
-        } else if (this.percentage > 63) {
+        } else if (this.percentage > 62.5) {
             return 3;
-        }else if (this.percentage > 50) {
+        } else if (this.percentage > 50) {
             return 4;
-        }else if (this.percentage > 34) {
+        } else if (this.percentage > 37.5) {
             return 5;
-        }else if (this.percentage > 25) {
+        } else if (this.percentage > 25) {
             return 6;
-        }else if (this.percentage > 13) {
+        } else if (this.percentage > 12.5) {
             return 7;
-        }else{
+        } else {
             return 8;
         }
     }
@@ -136,7 +136,7 @@ class StatusBarStar extends DrawableObject {
         this.x = 10;
         this.y = 100;
         this.width = width;
-        this.height =  32;
+        this.height = 32;
 
         this.setPercentage(0);
     }
@@ -186,7 +186,7 @@ class StatusBarCrystal extends DrawableObject {
         'img/statusbar/diamant/diamant-8.svg',
         'img/statusbar/diamant/diamant-9.svg',
         'img/statusbar/diamant/diamant-10.svg',
-        
+
     ];
 
     percentage = 0;
@@ -214,7 +214,7 @@ class StatusBarCrystal extends DrawableObject {
             return 1;
         } else if (this.percentage < 20) {
             return 2;
-        } else if (this.percentage <30) {
+        } else if (this.percentage < 30) {
             return 3;
         } else if (this.percentage < 40) {
             return 4;
@@ -272,35 +272,7 @@ class StatusBarFish extends DrawableObject {
     }
 
     resoloveImagesIndex() {
-        if (this.percentage == 1) {
-            return 1;
-        } else if (this.percentage == 2) {
-            return 1;
-        } else if (this.percentage == 3) {
-            return 2;
-        } else if (this.percentage == 4) {
-            return 3;
-        } else if (this.percentage == 5) {
-            return 4;
-        } else if (this.percentage == 6) {
-            return 5;
-        } else if (this.percentage == 7) {
-            return 6;
-        } else if (this.percentage == 8) {
-            return 7;
-        } else if (this.percentage == 9) {
-            return 8;
-        } else if (this.percentage == 10) {
-            return 9;
-        } else if (this.percentage == 11) {
-            return 10;
-        } else if (this.percentage == 12) {
-            return 11;
-        } else if (this.percentage == 13) {
-            return 13;
-        } else {
-            return 0;
-        }
+        return this.percentage;
     }
 }
 
@@ -335,7 +307,7 @@ class StatusBarGun extends DrawableObject {
         this.height = 70;
         this.setPercentage(0);
     }
-    
+
     setPercentage(percentage) {
         this.percentage = percentage;
         let path = this.IMAGES_BAR_GUN[this.resoloveImagesIndex()];
@@ -343,34 +315,6 @@ class StatusBarGun extends DrawableObject {
     }
 
     resoloveImagesIndex() {
-        if (this.percentage == 1) {
-            return 1;
-        } else if (this.percentage == 2) {
-            return 1;
-        } else if (this.percentage == 3) {
-            return 2;
-        } else if (this.percentage == 4) {
-            return 3;
-        } else if (this.percentage == 5) {
-            return 4;
-        } else if (this.percentage == 6) {
-            return 5;
-        } else if (this.percentage == 7) {
-            return 6;
-        } else if (this.percentage == 8) {
-            return 7;
-        } else if (this.percentage == 9) {
-            return 8;
-        } else if (this.percentage == 10) {
-            return 9;
-        } else if (this.percentage == 11) {
-            return 10;
-        } else if (this.percentage == 12) {
-            return 11;
-        } else if (this.percentage == 13) {
-            return 13;
-        } else {
-            return 0;
-        }
+        return this.percentage;
     }
 }

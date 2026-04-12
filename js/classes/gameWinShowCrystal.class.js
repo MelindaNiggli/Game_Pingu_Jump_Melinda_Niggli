@@ -1,7 +1,7 @@
 class gameWinShowCrystal extends DrawableObject {
     width = 263;
     height = 86;
-    currentImage = ''; 
+    currentImage = '';
 
     constructor() {
         super();
@@ -24,9 +24,9 @@ class gameWinShowCrystal extends DrawableObject {
             newImage = 'img/ui/noCrystal.svg';
         }
         if (newImage && newImage !== this.currentImage) {
-            this.currentImage = newImage; 
-            this.loadImage(newImage); 
-            this.y = 450; 
+            this.currentImage = newImage;
+            this.loadImage(newImage);
+            this.y = 450;
             this.x = 460;
         }
     }

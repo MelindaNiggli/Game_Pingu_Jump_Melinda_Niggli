@@ -1,11 +1,11 @@
 class gameWinShowStar extends DrawableObject {
     width = 267;
     height = 136;
-    currentImage = ''; 
+    currentImage = '';
 
     constructor() {
         super();
-        this.loadImage('img/ui/noStar.svg'); 
+        this.loadImage('img/ui/noStar.svg');
         this.y = 900;
         this.x = 460;
     }
@@ -25,8 +25,8 @@ class gameWinShowStar extends DrawableObject {
         }
 
         if (newImage && newImage !== this.currentImage) {
-            this.currentImage = newImage; 
-            this.loadImage(newImage); 
+            this.currentImage = newImage;
+            this.loadImage(newImage);
             this.y = 70;
             this.x = 460;
         }

@@ -1,7 +1,6 @@
 class Star extends MovableObject {
     IMAGES_STAR = ['img/stars/star_10.png'];
     currentImage = 0;
-    starSound = new Audio('audio/Star.mp3');
     World;
 
     constructor() {
@@ -15,13 +14,12 @@ class Star extends MovableObject {
 
     playSound() {
         if (!this.World.isMuted()) {
-            this.starSound.play();
+            this.World.soundManager.play('starSound');
         }
     }
 }
 
 class Crystal extends MovableObject {
-    crystalSound = new Audio('audio/crystal.mp3');
     World;
 
     constructor(imagePath, world) {
@@ -35,7 +33,7 @@ class Crystal extends MovableObject {
 
     playSound() {
         if (!this.World.isMuted()) {
-            this.crystalSound.play();
+            this.World.soundManager.play('crystalSound');
         }
     }
 }

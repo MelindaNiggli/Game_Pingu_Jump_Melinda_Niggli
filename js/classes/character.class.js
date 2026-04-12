@@ -1,7 +1,13 @@
+/** Player character with movement, animation states, and input handling. */
 class Character extends MovableObject {
+
+    /** Character height. */
     height = 147;
+
+    /** Character width. */
     width = 150;
-    
+
+    /** Walking animation frames. */
     IMAGES_WALKING = [
         'img/pinguin/Character/Walk/Walk_00.svg',
         'img/pinguin/Character/Walk/Walk_01.svg',
@@ -17,6 +23,7 @@ class Character extends MovableObject {
         'img/pinguin/Character/Walk/Walk_11.svg'
     ];
 
+    /** Jumping/parachute animation frames. */
     IMAGES_JUMPING_DOWN = [
         'img/pinguin/Character/Parachute/Parachute_00.png',
         'img/pinguin/Character/Parachute/Parachute_01.png',
@@ -31,9 +38,10 @@ class Character extends MovableObject {
         'img/pinguin/Character/Parachute/Parachute_10.png',
         'img/pinguin/Character/Parachute/Parachute_11.png',
         'img/pinguin/Character/Parachute/Parachute_12.png',
-        'img/pinguin/Character/Parachute/Parachute_13.png',
+        'img/pinguin/Character/Parachute/Parachute_13.png'
     ];
 
+    /** Idle animation frames. */
     IMAGES_IDLE = [
         'img/pinguin/Character/Idle/Idle_00.svg',
         'img/pinguin/Character/Idle/Idle_01.svg',
@@ -42,9 +50,10 @@ class Character extends MovableObject {
         'img/pinguin/Character/Idle/Idle_04.svg',
         'img/pinguin/Character/Idle/Idle_05.svg',
         'img/pinguin/Character/Idle/Idle_06.svg',
-        'img/pinguin/Character/Idle/Idle_07.svg',
-    ]
+        'img/pinguin/Character/Idle/Idle_07.svg'
+    ];
 
+    /** Death animation frames. */
     IMAGES_DEAD = [
         'img/pinguin/Character/Death/Death_00.png',
         'img/pinguin/Character/Death/Death_01.png',
@@ -58,30 +67,36 @@ class Character extends MovableObject {
         'img/pinguin/Character/Death/Death_09.png',
         'img/pinguin/Character/Death/Death_10.png',
         'img/pinguin/Character/Death/Death_11.png',
-        'img/pinguin/Character/Death/Death_12.png',
+        'img/pinguin/Character/Death/Death_12.png'
     ];
 
+    /** Hurt animation frames. */
     IMAGES_HURT = [
         'img/pinguin/Character/Roll/Roll_0.png',
         'img/pinguin/Character/Roll/Roll_1.png',
         'img/pinguin/Character/Roll/Roll_2.png',
         'img/pinguin/Character/Roll/Roll_3.png',
         'img/pinguin/Character/Roll/Roll_4.png',
-        'img/pinguin/Character/Roll/Roll_5.png',
+        'img/pinguin/Character/Roll/Roll_5.png'
     ];
 
-
+    /** Gun animation frames. */
     IMAGES_GUN = [
-        'img/pinguin/Character/Gun/Gun_1.svg',
+        'img/pinguin/Character/Gun/Gun_1.svg'
     ];
 
+    /** Reference to world instance. */
     World;
-    currentImage = 0;
-    speed = 9;
-    walking_sound = new Audio('./audio/walk.mp3');
-    hurtSound = new Audio('./audio/hit.wav');
-    jumpSound = new Audio('./audio/Jump.mp3');
 
+    /** Current animation frame index. */
+    currentImage = 0;
+
+    /** Movement speed. */
+    speed = 10;
+
+    /**
+     * Initializes character, loads assets, applies gravity, and starts animation.
+     */
     constructor() {
         super().loadImage('img/pinguin/Character/Walk/Walk_00.svg');
         this.loadImages(this.IMAGES_WALKING);
@@ -90,111 +105,110 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_GUN);
         this.loadImages(this.IMAGES_DEAD);
+
         this.applyGravity();
         this.animate();
+
         this.width = 170;
         this.height = 170;
     }
 
+    /** Starts movement and animation intervals. */
+    animate() {
+        this.characterIntervall = setInterval(() => {
+            this.moveCharacter();
+            this.hurtOreDadCharacter();
+            this.World.camera_x = -this.x + 60;
+        }, 1000 / 60);
 
+        this.characterIdle = setInterval(() => {
+            this.playWalkingAnimationImages(this.IMAGES_IDLE);
+        }, 450);
+    }
+
+    /** Handles movement, input, animation state, and actions. */
+    moveCharacter() {
+        if (this.canShowGun()) {
+            this.playWalkingAnimationImages(this.IMAGES_GUN);
+        } else if (this.World.Keyboard.RIGHT || this.World.Keyboard.LEFT) {
+            this.playWalkingAnimationImages(this.IMAGES_WALKING);
+        }
+
+        if (this.canMoveRight()) this.moveRight();
+        if (this.canMoveLeft()) this.moveLeft();
+
+        if (this.canJump()) {
+            if (!this.World.isMuted()) {
+                this.World.soundManager.play('character_jumpSound');
+            }
+            this.jump();
+        }
+    }
+
+    /** Checks if character can move right. */
+    canMoveRight() {
+        if (!this.World.deadEndboss && this.x > 6500) {
+            return false;
+        }
+        return this.World.Keyboard.RIGHT && this.x < this.World.level.level_end_x;
+    }
+
+    /** Moves character to the right. */
+    moveRight() {
+        super.moveRight();
+        this.otherDirection = false;
+    }
+
+    /** Checks if character can move left. */
+    canMoveLeft() {
+        return this.World.Keyboard.LEFT && this.x > 0;
+    }
+
+    /** Moves character to the left. */
+    moveLeft() {
+        super.moveLeft();
+        this.otherDirection = true;
+        this.isHurtwithCaracter = false;
+    }
+
+    /** Checks if gun animation should be shown. */
+    canShowGun() {
+        return this.World.Keyboard.S;
+    }
+
+    /** Checks if character can jump. */
+    canJump() {
+        return this.World.Keyboard.UP && !this.isinAboveGround();
+    }
+
+    /** Handles death and hurt animations and game end trigger. */
+    hurtOreDadCharacter() {
+        if (this.isDead()) {
+            this.playWalkingAnimationImages(this.IMAGES_DEAD);
+
+            if (!this.gameEnd) {
+                this.gameEnd = true;
+                this.World.checkGameEndAfterCharacterDead();
+                clearInterval(this.interval);
+            }
+            return;
+        }
+
+        if (this.isHurt()) {
+            this.playWalkingAnimationImages(this.IMAGES_HURT);
+        }
+    }
+
+    /** Stops all character intervals. */
     stop() {
-        clearInterval(this.characterIntervall);
-        clearInterval(this.characterIdle );
-        this.stopSound(this.walking_sound);
-        this.stopSound(this.hurtSound);
-        this.stopSound(this.jumpSound);
-    }
-
-    stopSound(sound) {
-        if (sound) {
-            sound.pause();
-            sound.currentTime = 0;
-            sound.src = ''; 
+        if (this.characterIntervall) {
+            clearInterval(this.characterIntervall);
+            this.characterIntervall = null;
         }
-    }
 
-
-animate() {
-   this.characterIntervall = setInterval(() => {
-        this.moveCharacter();
-        this.hurtOreDadCharacter();
-        this.World.camera_x = -this.x + 60;
-    },1000/60);
-
-   this.characterIdle = setInterval(() => {
-        this.playWalkingAnimationImages(this.IMAGES_IDLE);
-    },450);
-}
-
-
-
-moveCharacter() {
-    if (this.canShowGun()) {
-        this.playWalkingAnimationImages(this.IMAGES_GUN);
-    } else if (this.World.Keyboard.RIGHT || this.World.Keyboard.LEFT) {
-        this.playWalkingAnimationImages(this.IMAGES_WALKING);  
-    }
-    if (this.canMoveRight()) this.moveRight();
-    if (this.canMoveLeft()) this.moveLeft();
-
-    if (this.canJump()) {
-        if (!this.World.isMuted()){
-            this.jumpSound.currentTime = 0;
-            this.jumpSound.play();
-        }
-        this.jump();
-    }
-}
-
-canMoveRight(){
-    if (!this.World.deadEndboss && this.x > 7000) {
-        return false;
-    }
-    return this.World.Keyboard.RIGHT && this.x < this.World.level.level_end_x;
-};
-
-
-moveRight(){
-    super.moveRight();
-    this.otherDirection = false;
-};
-canMoveLeft(){
-   return this.World.Keyboard.LEFT && this.x > 0;
-};
-
-moveLeft(){
-    super.moveLeft();
-    this.otherDirection = true;
-    this.isHurtwithCaracter = false;
-};
-
-canShowGun(){
-   return this.World.Keyboard.S;
-};
-
-canJump(){
-   return this.World.Keyboard.UP && !this.isinAboveGround();
-};
-
-hurtOreDadCharacter() {
-    if (this.isDead()) {
-        this.playWalkingAnimationImages(this.IMAGES_DEAD);
-        if (!this.gameEnd) {
-            this.gameEnd = true;
-            this.World.checkGameEndAfterCharacterDead();
-            clearInterval(this.interval); 
-        }
-        return;
-    }
-
-    if (this.isHurt()) {
-        this.playWalkingAnimationImages(this.IMAGES_HURT);
-        if(!this.World.isMuted()){
-            this.hurtSound.play();
-            this.hurtSound.volume = 0.3;
-            clearInterval(this.interval); 
+        if (this.characterIdle) {
+            clearInterval(this.characterIdle);
+            this.characterIdle = null;
         }
     }
 }
-
-};

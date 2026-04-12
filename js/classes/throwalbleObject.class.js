@@ -1,22 +1,8 @@
 class GunShoot extends MovableObject {
-    shoot_sound = new Audio('audio/Shoot.mp3');
     World;
-
-    IMAGES_TURBINE = [
-        'img/pinguin/TurbineFx/TurbineFx_00.png',
-        'img/pinguin/TurbineFx/TurbineFx_01.png',
-        'img/pinguin/TurbineFx/TurbineFx_02.png',
-        'img/pinguin/TurbineFx/TurbineFx_03.png',
-        'img/pinguin/TurbineFx/TurbineFx_04.png',
-        'img/pinguin/TurbineFx/TurbineFx_05.png',
-        'img/pinguin/TurbineFx/TurbineFx_06.png',
-        'img/pinguin/TurbineFx/TurbineFx_07.png',
-        'img/pinguin/TurbineFx/TurbineFx_08.png',
-        'img/pinguin/TurbineFx/TurbineFx_09.png'
-    ];
-
     constructor(x, y, otherDirection, world) {
-        super().loadImage('img/pinguin/TurbineFx/TurbineFx_00.png');
+        super();
+        this.loadImage('img/pinguin/TurbineFx/TurbineFx_00.png');
         this.x = x;
         this.y = y;
         this.width = 250;
@@ -29,20 +15,24 @@ class GunShoot extends MovableObject {
     shoot() {
         this.speedY = 10;
         if (!this.World.isMuted()) {
-            this.shoot_sound.play();
+            this.World.soundManager.play('shoot_sound');
         }
-        setInterval(() => {
+        this.stopShootInterval = setInterval(() => {
             this.x += this.otherDirection ? -10 : 10;
         }, 50);
+    }
+
+    stop() {
+        clearInterval(this.stopShootInterval);
     }
 }
 
 class ThrowableObjectFish extends MovableObject {
-    throw_sound = new Audio('audio/Throw.mp3');
     World;
 
     constructor(x, y, otherDirection, world) {
-        super().loadImage('img/fish/Fish.svg');
+        super();
+        this.loadImage('img/fish/Fish.svg');
         this.x = x;
         this.y = y;
         this.width = 70;
@@ -52,15 +42,20 @@ class ThrowableObjectFish extends MovableObject {
         this.throw();
     }
 
-    throw() {
+    throw () {
         this.speedY = 24;
         this.applyGravity();
         if (!this.World.isMuted()) {
-            this.throw_sound.play();
+            this.World.soundManager.play('throw_sound');
         }
-  
-        setInterval(() => {
+
+        this.throwInterval = setInterval(() => {
             this.x += this.otherDirection ? -15 : 15;
         }, 30);
+
+    }
+
+    stop() {
+        clearInterval(this.throwInterval);
     }
 }

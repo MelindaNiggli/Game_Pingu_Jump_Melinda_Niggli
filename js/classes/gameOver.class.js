@@ -1,18 +1,12 @@
-class gameOver extends DrawableObject{
+class gameOver extends DrawableObject {
     width = 1280;
     height = 650;
-    currentImage = 0;
-    gameOverSound = new Audio('audio/GameOver.mp3');
+    soundPlayed = false;
 
-    constructor(){
+    constructor() {
         super();
-        this.loadImage('img/ui/gameOver.svg')
+        this.loadImage('img/ui/gameOver.svg');
         this.y = 0;
-        this.x = -20;      
-    }    
-    playSound() {
-        this.gameOverSound.currentTime = 0;
-        this.gameOverSound.play().catch(e => console.log("Audio blockiert:", e));
+        this.x = -20;
     }
 }
-

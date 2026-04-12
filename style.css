@@ -9,8 +9,9 @@
     font-weight: normal;
     font-style: normal;
 }
+
 @font-face {
-    font-family:'futura';
+    font-family: 'futura';
     src: url('./font/futura/Futura_Book_font.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
@@ -27,13 +28,14 @@ body {
     width: 100%;
 }
 
-h1{
+h1 {
     font-size: 55px;
     color: white;
     padding: 5px;
 }
 
-button, a{
+button,
+a {
     cursor: pointer;
 }
 
@@ -45,15 +47,18 @@ h2 {
     letter-spacing: 2px;
 }
 
-
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
     font-family: 'wonder', sans-serif;
     letter-spacing: 2px;
-    text-align:center;
-
+    text-align: center;
 }
 
-h2, h3, h4 {
+h2,
+h3,
+h4 {
     color: black!important;
 }
 
@@ -124,7 +129,6 @@ canvas {
     gap: 20px;
 }
 
-
 .ui {
     display: inline-flex;
     flex-direction: column;
@@ -132,11 +136,9 @@ canvas {
     align-items: center;
 }
 
-
 .ui p {
     text-align: center;
 }
-
 
 .box {
     width: 500px;
@@ -149,7 +151,7 @@ canvas {
     box-shadow: rgb(0 0 0) 0px 12px 0px;
 }
 
-#h2mobile{
+#h2mobile {
     display: none;
 }
 
@@ -169,12 +171,13 @@ canvas {
     width: 80%;
 }
 
- #close {
+#close {
     background: #ffffff52!important;
     padding: 9px!important;
     font-size: 19px!important;
     border: none!important;
 }
+
 button#buttonImpressum {
     background: none!important;
     padding: 10px!important;
@@ -183,8 +186,8 @@ button#buttonImpressum {
     font-family: "Futura";
     font-weight: 600!important;
     color: #276286ff;
-    }
-  
+}
+
 #startText {
     display: flex;
     justify-content: center;
@@ -192,13 +195,13 @@ button#buttonImpressum {
     flex-direction: row;
     gap: 14px;
     flex-wrap: wrap;
-    }
+}
 
 
+/* Schrauben */
 
-  /* Schrauben */
-  .box-header::before,
-  .box-header::after {
+.box-header::before,
+.box-header::after {
     content: "";
     position: absolute;
     width: 12px;
@@ -206,16 +209,16 @@ button#buttonImpressum {
     background: #000000;
     border-radius: 50%;
     top: 20px;
-  }
-  
-  .box-header::before {
+}
+
+.box-header::before {
     left: 20px;
-  }
-  
-  .box-header::after {
+}
+
+.box-header::after {
     right: 20px;
-  }
-  
+}
+
 #canvasWrapper {
     display: none;
     position: relative;
@@ -235,13 +238,14 @@ button#buttonImpressum {
     background-image: url(./img/ui/info.svg);
 }
 
-.infoIMG, .controlerIMG {
+.infoIMG,
+.controlerIMG {
     width: 30px;
     height: 100%;
     background-repeat: no-repeat;
     margin-right: 10px;
     height: 30px;
-    }
+}
 
 .infoMG {
     width: 45px;
@@ -298,7 +302,6 @@ button#buttonImpressum {
     top: 0;
 }
 
-
 .ui.info.active {
     z-index: 220;
 }
@@ -320,9 +323,6 @@ p.powered {
     left: 0;
     z-index: 200;
 }
-
-
-
 
 #playButton,
 #infoButton,
@@ -375,7 +375,7 @@ p.powered {
     top: -45px;
     right: 70px;
     font-size: 16px;
-    }
+}
 
 #infoButton {
     font-size: 40px;
@@ -421,9 +421,8 @@ p.powered {
 }
 
 #ui {
-        transform: translateY(-1000%);
-        transition: transform 1s ease;
-
+    transform: translateY(-1000%);
+    transition: transform 1s ease;
 }
 
 #canvasInnerWrapper {
@@ -447,7 +446,6 @@ p.powered {
     z-index: 20000;
     width: 50px;
 }
-
 
 #home,
 #openFullscreen,
@@ -499,6 +497,7 @@ p.powered {
     font-size: 16px;
     font-weight: 300;
 }
+
 #innerText.active {
     transform: translateY(-1000%);
     display: none;
@@ -508,12 +507,11 @@ p.powered {
     transform: translateY(0);
 }
 
-
 .fullscreen-ON canvas#canvas {
     width: 96%!important;
 }
 
-.fullscreen-ON canvas#canvas #wrapperButtons{
+.fullscreen-ON canvas#canvas #wrapperButtons {
     right: 6%!important;
 }
 
@@ -521,6 +519,7 @@ canvas {
     width: 85%!important;
     border: 3px solid white;
 }
+
 div#startText {
     padding: 10px;
 }
@@ -593,7 +592,6 @@ div#panelMobile div {
     justify-content: center;
 }
 
-
 #wrapperButtons {
     top: -70px!important;
     right: 0!important;
@@ -604,39 +602,38 @@ div#panelMobile div {
     margin: 10px;
     position: absolute;
 }
+
 button#closeFullscreen {
     display: none;
 }
 
-
 #startText.active {
     display: none;
-    }
-
+}
 
 #btnRight,
-    #btnLeft,
-    #btnUp,
-    #btnShoot,
-    #btnThrow {
-        display: none!important;
-    }
-    p.powered {
-        font-weight: 400!important;
-        font-size: 12px!important;
-        text-transform: uppercase;
-    }
+#btnLeft,
+#btnUp,
+#btnShoot,
+#btnThrow {
+    display: none!important;
+}
 
+p.powered {
+    font-weight: 400!important;
+    font-size: 12px!important;
+    text-transform: uppercase;
+}
 
-    .fullscreen-ON canvas {
-        width: 100%!important;
-        border: 3px solid white;
-    }
-
+.fullscreen-ON canvas {
+    width: 100%!important;
+    border: 3px solid white;
+}
 
 
 /* Tablet Querformat */
-@media screen and (max-width: 1000px) and (orientation: landscape){
+
+@media screen and (max-width: 1000px) and (orientation: landscape) {
     div#panelMobile {
         position: absolute;
         bottom: 19px;
@@ -644,40 +641,35 @@ button#closeFullscreen {
         justify-content: space-between;
         width: 90%;
     }
-
     div#panelMobile {
         opacity: 1!important;
     }
-    #flipScreeen{
+    #flipScreeen {
         display: none;
     }
-
 }
 
-
-@media screen and (max-width: 1200px) and (orientation: portrait){
-
-    #flipScreeen{
+@media screen and (max-width: 1200px) and (orientation: portrait) {
+    #flipScreeen {
         display: flex!important;
     }
-
 }
-@media screen and (max-width: 1266px) and (orientation: landscape){
 
-    #flipScreeen{
+@media screen and (max-width: 1266px) and (orientation: landscape) {
+    #flipScreeen {
         display: none;
     }
-
-
 }
 
 @media only screen and (max-width: 658px) {
-    #btnRight, #btnLeft, #btnUp, #btnShoot, #btnThrow {
+    #btnRight,
+    #btnLeft,
+    #btnUp,
+    #btnShoot,
+    #btnThrow {
         display: none!important;
     }
-    
-
-        h1#h1desktop {
+    h1#h1desktop {
         display: none;
     }
     #h2mobile {
@@ -708,13 +700,12 @@ button#closeFullscreen {
         -moz-border-radius: 15px 15px 0px 0px!important;
         -ms-border-radius: 15px 15px 0px 0px!important;
         -o-border-radius: 15px 15px 0px 0px!important;
-}
-
-.ui.box.info.active .box-header {
-    width: 100%;
-}
-
-    .infoIMG, .controlerIMG {
+    }
+    .ui.box.info.active .box-header {
+        width: 100%;
+    }
+    .infoIMG,
+    .controlerIMG {
         width: 17px;
         height: 100%;
         background-repeat: no-repeat;
@@ -729,50 +720,52 @@ button#closeFullscreen {
         right: 83px;
         font-size: 16px;
     }
-.wrapper-info-text span {
-    width: 15px!important;
-    height: 15px;
-}
-.box {
-    width: auto;
-   
-    height: auto;
-    padding: 0px 10px;
-    margin: 10px;
-    background: rgb(255 255 255);
-    border-radius: 30px;
-    position: relative;
-    border: 6px solid rgb(38 98 134);
-    box-shadow: rgb(0 0 0) 0px 6px 0px;
-    justify-content: space-between;
-}
-#innerTextImpressum.active {
-    display: flex;
-    flex-direction: column;
-    font-size: 16px!important;
-    overflow: scroll;
-    margin-bottom: 2px;
-    gap: 10px;
-    height: 390px;
-}
-button#buttonImpressum {
-    padding: 4px!important;
-}
-.box-header::before, .box-header::after {
-    content: "";
-    position: absolute;
-    width: 5px;
-    height: 5px;
-    background: #000000;
-    border-radius: 50%;
-    top: 20px;
-}
-   
-   
+    .wrapper-info-text span {
+        width: 15px!important;
+        height: 15px;
+    }
+    .box {
+        width: auto;
+        height: auto;
+        padding: 0px 10px;
+        margin: 10px;
+        background: rgb(255 255 255);
+        border-radius: 30px;
+        position: relative;
+        border: 6px solid rgb(38 98 134);
+        box-shadow: rgb(0 0 0) 0px 6px 0px;
+        justify-content: space-between;
+    }
+    #innerTextImpressum.active {
+        display: flex;
+        flex-direction: column;
+        font-size: 16px!important;
+        overflow: scroll;
+        margin-bottom: 2px;
+        gap: 10px;
+        height: 390px;
+    }
+    button#buttonImpressum {
+        padding: 4px!important;
+    }
+    .box-header::before,
+    .box-header::after {
+        content: "";
+        position: absolute;
+        width: 5px;
+        height: 5px;
+        background: #000000;
+        border-radius: 50%;
+        top: 20px;
+    }
 }
 
 @media only screen and (max-width: 932px) and (max-height: 430px) and (orientation: landscape) {
-    #btnRight, #btnLeft, #btnUp, #btnShoot, #btnThrow {
+    #btnRight,
+    #btnLeft,
+    #btnUp,
+    #btnShoot,
+    #btnThrow {
         display: flex!important;
     }
     #wrapperButtons {
@@ -794,17 +787,13 @@ button#buttonImpressum {
         height: 90vh!important;
         width: 100%!important;
     }
-
- #home, #reset, #openFullscreen, #closeFullscreen, #muteBtn {
-    padding: 5px;
- }
-
-
-
-
-
-
-
+    #home,
+    #reset,
+    #openFullscreen,
+    #closeFullscreen,
+    #muteBtn {
+        padding: 5px;
+    }
     .ui-wrapper {
         height: 150%;
     }
@@ -823,7 +812,6 @@ button#buttonImpressum {
     h2 {
         font-size: 23px;
     }
-
     p.powered {
         width: 100%;
     }
@@ -848,19 +836,18 @@ button#buttonImpressum {
         -o-border-radius: 15px 15px 0px 0px!important;
     }
     p.powered {
-     margin-top: 0px; 
+        margin-top: 0px;
     }
     #startText {
         gap: 5px;
         padding: 0;
         width: 95%;
     }
-
-.ui.box.info.active .box-header {
-    width: 100%;
-}
-
-    .infoIMG, .controlerIMG {
+    .ui.box.info.active .box-header {
+        width: 100%;
+    }
+    .infoIMG,
+    .controlerIMG {
         width: 17px;
         height: 100%;
         background-repeat: no-repeat;
@@ -875,101 +862,92 @@ button#buttonImpressum {
         right: 83px;
         font-size: 16px;
     }
-
     .wrapper-info-text {
         margin-top: 10px;
     }
-.wrapper-info-text span {
-    width: 15px!important;
-    height: 15px;
-}
-.box-header::before, .box-header::after {
-    content: "";
-    position: absolute;
-    width: 5px;
-    height: 5px;
-    background: #000000;
-    border-radius: 50%;
-    top: 20px;
-}
-.box {
-    width: auto;
-    height: 89%;
-    padding: 0;
-    margin: 10px;
-    background: rgb(255 255 255);
-    border-radius: 30px;
-    position: relative;
-    border: 12px solid rgb(38 98 134);
-    box-shadow: rgb(0 0 0) 0px 12px 0px;
-    justify-content: start;
-}
-.ui-wrapper {
-    padding: 0px;
-}
-#innerTextImpressum.active {
-    display: flex;
-    flex-direction: column;
-    font-size: 16px!important;
-    overflow: scroll;
-    margin-bottom: 2px;
-    gap: 5px;
-    height: 235px;
-    padding: 0px 10px 0px 10px;
-}
-button#buttonImpressum {
-    padding: 4px!important;
-}
-#innerText {
-    width: 90%;
-}
-button#buttonImpressum {
-    font-size: 12px!important;
+    .wrapper-info-text span {
+        width: 15px!important;
+        height: 15px;
+    }
+    .box-header::before,
+    .box-header::after {
+        content: "";
+        position: absolute;
+        width: 5px;
+        height: 5px;
+        background: #000000;
+        border-radius: 50%;
+        top: 20px;
+    }
+    .box {
+        width: auto;
+        height: 89%;
+        padding: 0;
+        margin: 10px;
+        background: rgb(255 255 255);
+        border-radius: 30px;
+        position: relative;
+        border: 12px solid rgb(38 98 134);
+        box-shadow: rgb(0 0 0) 0px 12px 0px;
+        justify-content: start;
+    }
+    .ui-wrapper {
+        padding: 0px;
+    }
+    #innerTextImpressum.active {
+        display: flex;
+        flex-direction: column;
+        font-size: 16px!important;
+        overflow: scroll;
+        margin-bottom: 2px;
+        gap: 5px;
+        height: 235px;
+        padding: 0px 10px 0px 10px;
+    }
+    button#buttonImpressum {
+        padding: 4px!important;
+    }
+    #innerText {
+        width: 90%;
+    }
+    button#buttonImpressum {
+        font-size: 12px!important;
+    }
 }
 
-}
 
 /* Iphone 14 Pro Max*/
 
 @media only screen and (max-width: 932px) and (min-height: 430px) and (orientation: landscape) {
-
     #innerTextImpressum.active {
         height: 280px!important;
     }
 }
-@media only screen and (max-width: 896px) and (min-height: 414px) and (orientation: landscape) {
 
+@media only screen and (max-width: 896px) and (min-height: 414px) and (orientation: landscape) {
     #innerTextImpressum.active {
         height: 270px!important;
     }
-
 }
 
 @media only screen and (max-width: 844px) and (min-height: 390px) and (orientation: landscape) {
-
     #innerTextImpressum.active {
         height: 250px!important;
     }
-
 }
 
-
 @media only screen and (max-width: 915px) and (min-height: 412px) and (orientation: landscape) {
-
     #innerTextImpressum.active {
         height: 270px!important;
     }
-
 }
 
-
 @media only screen and (max-width: 740px) and (min-height: 360px) and (orientation: landscape) {
-
     #innerTextImpressum.active {
         height: 220px!important;
     }
-
 }
+
 @media only screen and (max-width: 658px) and (min-height: 320px) and (orientation: landscape) {
     #wrapperButtons {
         top: 10px!important;
@@ -989,42 +967,55 @@ button#buttonImpressum {
         justify-content: space-between;
         width: 90%;
     }
-
-    #home img, #reset img, #openFullscreen img , #closeFullscreen img , #muteBtn img{
+    #home img,
+    #reset img,
+    #openFullscreen img,
+    #closeFullscreen img,
+    #muteBtn img {
         height: 20px;
         width: 20px;
     }
-    #home,  #reset , #openFullscreen, #closeFullscreen, #muteBtn{
+    #home,
+    #reset,
+    #openFullscreen,
+    #closeFullscreen,
+    #muteBtn {
         height: 40px;
         width: 40px;
     }
-
 }
-
 
 @media only screen and (max-width: 740px) and (max-height: 320px) and (orientation: landscape) {
     div#innerTextImpressum {
         padding: 0!important;
     }
-
     #innerTextImpressum.active {
         height: 180px!important;
         padding: 0!important;
     }
-    div#startText{
+    div#startText {
         padding: 0!important;
     }
-    #playButton, #infoButton, #close, .impressum, #home, #reset, #openFullscreen, #closeFullscreen, #muteBtn {
+    #playButton,
+    #infoButton,
+    #close,
+    .impressum,
+    #home,
+    #reset,
+    #openFullscreen,
+    #closeFullscreen,
+    #muteBtn {
         font-size: 14px!important;
         padding: 5px;
     }
     .box-header {
-  padding: 0!important;
+        padding: 0!important;
     }
     .ui p {
         margin-bottom: 0;
     }
-    .infoIMG, .controlerIMG {
+    .infoIMG,
+    .controlerIMG {
         width: 17px;
         height: 100%;
         background-repeat: no-repeat;
