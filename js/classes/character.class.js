@@ -1,13 +1,8 @@
-/** Player character with movement, animation states, and input handling. */
 class Character extends MovableObject {
 
-    /** Character height. */
     height = 147;
-
-    /** Character width. */
     width = 150;
 
-    /** Walking animation frames. */
     IMAGES_WALKING = [
         'img/pinguin/Character/Walk/Walk_00.svg',
         'img/pinguin/Character/Walk/Walk_01.svg',
@@ -23,7 +18,6 @@ class Character extends MovableObject {
         'img/pinguin/Character/Walk/Walk_11.svg'
     ];
 
-    /** Jumping/parachute animation frames. */
     IMAGES_JUMPING_DOWN = [
         'img/pinguin/Character/Parachute/Parachute_00.png',
         'img/pinguin/Character/Parachute/Parachute_01.png',
@@ -41,7 +35,6 @@ class Character extends MovableObject {
         'img/pinguin/Character/Parachute/Parachute_13.png'
     ];
 
-    /** Idle animation frames. */
     IMAGES_IDLE = [
         'img/pinguin/Character/Idle/Idle_00.svg',
         'img/pinguin/Character/Idle/Idle_01.svg',
@@ -53,7 +46,6 @@ class Character extends MovableObject {
         'img/pinguin/Character/Idle/Idle_07.svg'
     ];
 
-    /** Death animation frames. */
     IMAGES_DEAD = [
         'img/pinguin/Character/Death/Death_00.png',
         'img/pinguin/Character/Death/Death_01.png',
@@ -70,7 +62,6 @@ class Character extends MovableObject {
         'img/pinguin/Character/Death/Death_12.png'
     ];
 
-    /** Hurt animation frames. */
     IMAGES_HURT = [
         'img/pinguin/Character/Roll/Roll_0.png',
         'img/pinguin/Character/Roll/Roll_1.png',
@@ -80,40 +71,35 @@ class Character extends MovableObject {
         'img/pinguin/Character/Roll/Roll_5.png'
     ];
 
-    /** Gun animation frames. */
     IMAGES_GUN = [
         'img/pinguin/Character/Gun/Gun_1.svg'
     ];
 
-    /** Reference to world instance. */
     World;
-
-    /** Current animation frame index. */
     currentImage = 0;
-
-    /** Movement speed. */
     speed = 10;
 
     /**
-     * Initializes character, loads assets, applies gravity, and starts animation.
+     * Initializes the character, loads images, applies gravity and starts animations.
      */
     constructor() {
-        super().loadImage('img/pinguin/Character/Walk/Walk_00.svg');
-        this.loadImages(this.IMAGES_WALKING);
-        this.loadImages(this.IMAGES_IDLE);
-        this.loadImages(this.IMAGES_JUMPING_DOWN);
-        this.loadImages(this.IMAGES_HURT);
-        this.loadImages(this.IMAGES_GUN);
-        this.loadImages(this.IMAGES_DEAD);
-
-        this.applyGravity();
-        this.animate();
-
-        this.width = 170;
-        this.height = 170;
-    }
-
-    /** Starts movement and animation intervals. */
+            super().loadImage('img/pinguin/Character/Walk/Walk_00.svg');
+            this.loadImages(this.IMAGES_WALKING);
+            this.loadImages(this.IMAGES_IDLE);
+            this.loadImages(this.IMAGES_JUMPING_DOWN);
+            this.loadImages(this.IMAGES_HURT);
+            this.loadImages(this.IMAGES_GUN);
+            this.loadImages(this.IMAGES_DEAD);
+            this.applyGravity();
+            this.animate();
+            this.x = 100;
+            this.y = 200;
+            this.width = 170;
+            this.height = 170;
+        }
+        /**
+         * Starts movement and animation intervals.
+         */
     animate() {
         this.characterIntervall = setInterval(() => {
             this.moveCharacter();
@@ -126,14 +112,16 @@ class Character extends MovableObject {
         }, 450);
     }
 
-    /** Handles movement, input, animation state, and actions. */
+    /**
+     * Handles movement, input, animation state and actions.
+     */
     moveCharacter() {
         if (this.canShowGun()) {
             this.playWalkingAnimationImages(this.IMAGES_GUN);
         } else if (this.World.Keyboard.RIGHT || this.World.Keyboard.LEFT) {
+            this.playerHasMoved = true;
             this.playWalkingAnimationImages(this.IMAGES_WALKING);
         }
-
         if (this.canMoveRight()) this.moveRight();
         if (this.canMoveLeft()) this.moveLeft();
 
@@ -145,43 +133,69 @@ class Character extends MovableObject {
         }
     }
 
-    /** Checks if character can move right. */
+    /**
+     * Checks whether the character can move right.
+     * @returns {boolean}
+     */
     canMoveRight() {
-        if (!this.World.deadEndboss && this.x > 6500) {
-            return false;
+        let endboss = this.World.level.endboss[0];
+
+        if (!this.World.deadEndboss && endboss) {
+            let wallX = endboss.x;
+
+            if (this.x >= wallX) {
+                this.x = wallX;
+                return false;
+            }
         }
+
         return this.World.Keyboard.RIGHT && this.x < this.World.level.level_end_x;
     }
 
-    /** Moves character to the right. */
+    /**
+     * Moves the character to the right.
+     */
     moveRight() {
         super.moveRight();
         this.otherDirection = false;
     }
 
-    /** Checks if character can move left. */
+    /**
+     * Checks whether the character can move left.
+     * @returns {boolean}
+     */
     canMoveLeft() {
         return this.World.Keyboard.LEFT && this.x > 0;
     }
 
-    /** Moves character to the left. */
+    /**
+     * Moves the character to the left.
+     */
     moveLeft() {
         super.moveLeft();
         this.otherDirection = true;
         this.isHurtwithCaracter = false;
     }
 
-    /** Checks if gun animation should be shown. */
+    /**
+     * Checks if the gun animation should be shown.
+     * @returns {boolean}
+     */
     canShowGun() {
         return this.World.Keyboard.S;
     }
 
-    /** Checks if character can jump. */
+    /**
+     * Checks whether the character can jump.
+     * @returns {boolean}
+     */
     canJump() {
         return this.World.Keyboard.UP && !this.isinAboveGround();
     }
 
-    /** Handles death and hurt animations and game end trigger. */
+    /**
+     * Handles death and hurt animations and triggers game end.
+     */
     hurtOreDadCharacter() {
         if (this.isDead()) {
             this.playWalkingAnimationImages(this.IMAGES_DEAD);
@@ -199,7 +213,9 @@ class Character extends MovableObject {
         }
     }
 
-    /** Stops all character intervals. */
+    /**
+     * Stops all character-related intervals.
+     */
     stop() {
         if (this.characterIntervall) {
             clearInterval(this.characterIntervall);

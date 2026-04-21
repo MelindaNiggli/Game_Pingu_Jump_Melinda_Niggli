@@ -1,38 +1,23 @@
-/**
- * Base class for all movable game objects.
- * Handles physics, movement, collisions, health system and interactions.
- * Extends DrawableObject.
- */
 class MovableObject extends DrawableObject {
-
     speed = 0.15;
     otherDirection = false;
     speedY = 0;
     acceleration = 2;
-
     energy = 100;
     energyEnemy = 100;
     energyEndboss = 100;
-
     hitCountEnemy = 0;
     hitCountEndboss = 0;
-
     haveStar = 0;
     haveCrystal = 0;
-
     isOnPlatform = false;
     lastHit = 0;
     isHurtwithCaracter = false;
-
     Keyboard;
-
-    // Gravity interval ID
     gravityIntervall = null;
 
     /**
      * Reduces enemy energy and increases hit counter.
-     *
-     * @returns {void}
      */
     hitEnemie() {
         this.energyEnemy -= 20;
@@ -42,8 +27,6 @@ class MovableObject extends DrawableObject {
 
     /**
      * Checks if enemy is dead.
-     *
-     * @returns {boolean}
      */
     isEnemyDead() {
         return this.hitCountEnemy >= 1 || this.energyEnemy === 0;
@@ -51,17 +34,15 @@ class MovableObject extends DrawableObject {
 
     /**
      * Checks if endboss is dead.
-     *
-     * @returns {boolean}
      */
     isEndbossDead() {
-        return this.hitCountEndboss >= 8 || this.energyEndboss === 0;
+        if (this.hitCountEndboss === 8) {
+            return this.energyEndboss === 0;
+        }
     }
 
     /**
      * Applies damage to endboss from projectile.
-     *
-     * @returns {void}
      */
     hitGunEndboss() {
         this.energyEndboss -= 12.5;
@@ -70,8 +51,6 @@ class MovableObject extends DrawableObject {
 
     /**
      * Applies damage to enemy from projectile.
-     *
-     * @returns {void}
      */
     hitGunEnemie() {
         this.hitCountEnemy++;
@@ -80,8 +59,6 @@ class MovableObject extends DrawableObject {
 
     /**
      * Collects a star item.
-     *
-     * @returns {void}
      */
     hitStar() {
         this.haveStar = Math.min(this.haveStar + 5, 100);
@@ -89,8 +66,6 @@ class MovableObject extends DrawableObject {
 
     /**
      * Collects a crystal item.
-     *
-     * @returns {void}
      */
     hitCrystal() {
         this.haveCrystal = Math.min(this.haveCrystal + 5, 100);
@@ -98,13 +73,10 @@ class MovableObject extends DrawableObject {
 
     /**
      * Applies damage to the character.
-     * Includes hurt cooldown and sound effect.
-     *
-     * @returns {void}
      */
     hit() {
         if (!this.isHurtwithCaracter) {
-            this.energy -= 3;
+            this.energy -= 2;
 
             if (this.energy < 0) {
                 this.energy = 0;
@@ -120,17 +92,13 @@ class MovableObject extends DrawableObject {
 
     /**
      * Checks if object is currently in hurt state.
-     *
-     * @returns {boolean}
      */
     isHurt() {
-        return ((new Date().getTime() - this.lastHit) / 1000) < 0.2;
+        return ((new Date().getTime() - this.lastHit) / 1000) < 0.20;
     }
 
     /**
      * Checks if object is dead.
-     *
-     * @returns {boolean}
      */
     isDead() {
         return this.energy === 0;
@@ -138,8 +106,6 @@ class MovableObject extends DrawableObject {
 
     /**
      * Stops gravity interval.
-     *
-     * @returns {void}
      */
     stopIntervalGravity() {
         if (this.gravityIntervall) {
@@ -150,8 +116,6 @@ class MovableObject extends DrawableObject {
 
     /**
      * Applies gravity physics to object.
-     *
-     * @returns {void}
      */
     applyGravity() {
         if (this.gravityIntervall) return;
@@ -176,8 +140,6 @@ class MovableObject extends DrawableObject {
 
     /**
      * Makes object jump.
-     *
-     * @returns {void}
      */
     jump() {
         this.speedY = 42;
@@ -185,8 +147,6 @@ class MovableObject extends DrawableObject {
 
     /**
      * Checks if object is above ground.
-     *
-     * @returns {boolean}
      */
     isinAboveGround() {
         return (this instanceof ThrowableObjectFish) ? true : this.y < 400;
@@ -196,7 +156,6 @@ class MovableObject extends DrawableObject {
      * Plays animation frames in sequence.
      *
      * @param {Array<string>} images
-     * @returns {void}
      */
     playWalkingAnimationImages(images) {
         let i = this.currentImage % images.length;
@@ -206,8 +165,6 @@ class MovableObject extends DrawableObject {
 
     /**
      * Moves object to the right.
-     *
-     * @returns {void}
      */
     moveRight() {
         this.x += this.speed;
@@ -215,8 +172,6 @@ class MovableObject extends DrawableObject {
 
     /**
      * Moves object to the left.
-     *
-     * @returns {void}
      */
     moveLeft() {
         this.x -= this.speed;
@@ -226,7 +181,6 @@ class MovableObject extends DrawableObject {
      * Checks collision with another movable object.
      *
      * @param {MovableObject} mo
-     * @returns {boolean}
      */
     isColliding(mo) {
         return (this.x + this.width) >= mo.x &&
@@ -239,7 +193,6 @@ class MovableObject extends DrawableObject {
      * Checks collision with platforms.
      *
      * @param {Object} mo
-     * @returns {boolean}
      */
     isCollidingPlatform(mo) {
         return this.x + this.width > mo.x &&
@@ -250,8 +203,6 @@ class MovableObject extends DrawableObject {
 
     /**
      * Resets object state to default values.
-     *
-     * @returns {void}
      */
     resetMovableObject() {
         this.speedY = 0;

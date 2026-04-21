@@ -1,11 +1,9 @@
-/** Manages all game sounds and music including mute state and playback control. */
 class SoundManager {
 
     /** Creates sound manager, loads audio assets and applies mute state. */
     constructor() {
         this.muted = localStorage.getItem("muted") === "true";
 
-        /** Sound effects collection. */
         this.sounds = {
             hitTurtle: new Audio('audio/monsterFlyDeath.mp3'),
             character_walking_sound: new Audio('audio/walk.mp3'),
@@ -21,20 +19,18 @@ class SoundManager {
         };
 
         this.sounds.hitTurtle.volume = 0.4;
-        this.sounds.characterhurtSound.volume = 0.2;
-        this.sounds.throw_sound.volume = 0.2;
-        this.sounds.shoot_sound.volume = 0.2;
+        this.sounds.characterhurtSound.volume = 0.1;
+        this.sounds.throw_sound.volume = 0.3;
+        this.sounds.shoot_sound.volume = 0.1;
         this.sounds.gameOverSound.volume = 0.2;
         this.sounds.winSound.volume = 0.2;
         this.sounds.starSound.volume = 0.3;
         this.sounds.crystalSound.volume = 0.3;
 
-        /** Background music. */
         this.music = new Audio('audio/backgroundMusic.wav');
         this.music.loop = true;
         this.music.volume = 0.1;
 
-        /** Endboss background music. */
         this.EndbossMusic = new Audio('audio/angry.mp3');
         this.EndbossMusic.loop = true;
         this.EndbossMusic.volume = 0.9;

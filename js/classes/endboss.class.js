@@ -7,7 +7,8 @@ class endBossTurtle extends MovableObject {
     /** Sprite dimensions. */
     width = 290;
     height = 290;
-
+    lastHitTime = 0;
+    hitCooldown = 50; // ms (0.8 Sekunden)
     /** Idle animation frames. */
     IMAGES_IDLE = [
         'img/monsters/endboss_turtle/Idle/Idle_00.png',
@@ -143,26 +144,29 @@ class endBossTurtle extends MovableObject {
 
     /** Stops all running intervals. */
     stop() {
-        clearInterval(this.idleInterval);
         clearInterval(this.attackInterval);
         clearInterval(this.deadInterval);
+        clearInterval(this.WalkInterval);
+        clearInterval(this.idleInterval);
     }
 
     /** Starts idle behavior loop and state updates. */
     startIdle() {
+
         this.idleInterval = setInterval(() => {
-            if (!this.isAttacking) {
+            if (this.animationState !== 'idle') {
+                this.animationState = 'idle';
                 this.playWalkingAnimationImages(this.IMAGES_IDLE);
             }
             this.updateBehavior();
         }, 1000 / 60);
+
+
     }
 
     /** Plays death sound if not muted. */
     playSound() {
-        if (!this.World.isMuted()) {
-            this.World.soundManager.play('endbossdeathSound');
-        }
+        if (!this.World.isMuted()) { this.World.soundManager.play('endbossdeathSound'); }
     }
 
     /** Plays death animation. */
@@ -179,9 +183,12 @@ class endBossTurtle extends MovableObject {
         let player = this.World.character;
 
         const triggerX = 6500;
-        const stopX = 6500;
 
-        if (player.x > triggerX && this.x > stopX) {
+        if (player.x > triggerX) {
+            this.isTriggered = true;
+        }
+
+        if (this.isTriggered) {
             this.moveToCharacter(player);
         }
     }
@@ -189,12 +196,6 @@ class endBossTurtle extends MovableObject {
     /** Moves boss towards player and triggers music. */
     moveToCharacter(player) {
         const speed = 2;
-
-        if (this.World.deadEndboss) {
-            this.World.soundManager.stopEndbossMusic();
-            return;
-        }
-
         if (player.x < this.x) {
 
             if (!this.hasPlayedWalkSound) {
@@ -204,8 +205,11 @@ class endBossTurtle extends MovableObject {
                     this.World.soundManager.playMusicEndbossMusic();
                 }
             }
+            if (!this.isAttacking && this.animationState !== 'walk') {
+                this.animationState = 'walk';
+                this.playWalkingAnimationImages(this.IMAGES_WALK);
+            }
 
-            this.playWalkingAnimationImages(this.IMAGES_WALK);
             this.x -= speed;
             this.otherDirection = false;
         }
@@ -213,23 +217,31 @@ class endBossTurtle extends MovableObject {
 
     /** Starts attack animation against player. */
     attack(character) {
-        if (!this.isAttacking) {
-            this.isAttacking = true;
+            if (!this.isAttacking) {
+                this.isAttacking = true;
+                this.wasColliding = false;
 
-            this.attackInterval = setInterval(() => {
-                this.playWalkingAnimationImages(this.IMAGES_ATTACK);
+                this.attackInterval = setInterval(() => {
 
-                if (!this.isColliding(character)) {
-                    this.loadImage('img/monsters/endboss_turtle/Attack/Attack_00.png');
-                    this.stopAttack();
-                }
-            }, 1000 / 60);
+                    const now = Date.now();
+                    const colliding = this.isColliding(character);
+                    if (colliding && now - this.lastHitTime > this.hitCooldown) {
+                        world.character.hit();
+                        this.lastHitTime = now;
+                    }
+
+                    this.playWalkingAnimationImages(this.IMAGES_ATTACK);
+                    if (!colliding) {
+                        this.stopAttack();
+                    }
+
+                }, 10);
+            }
         }
-    }
-
-    /** Stops attack animation. */
+        /** Stops attack animation. */
     stopAttack() {
         clearInterval(this.attackInterval);
         this.isAttacking = false;
     }
+
 }

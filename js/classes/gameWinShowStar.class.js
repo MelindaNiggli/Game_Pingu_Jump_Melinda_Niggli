@@ -1,8 +1,14 @@
 class gameWinShowStar extends DrawableObject {
+
     width = 267;
     height = 136;
+
     currentImage = '';
 
+    /**
+     * Creates the star UI element.
+     * Initializes default "no star" image and position.
+     */
     constructor() {
         super();
         this.loadImage('img/ui/noStar.svg');
@@ -10,8 +16,15 @@ class gameWinShowStar extends DrawableObject {
         this.x = 460;
     }
 
+    /**
+     * Updates the star display based on game win state and collected stars.
+     *
+     * @param {boolean} gameWIN - Whether the game is won
+     * @param {number} haveStar - Amount of collected stars
+     */
     check(gameWIN, haveStar) {
         if (!gameWIN) return;
+
         let newImage = '';
 
         if (haveStar > 80) {

@@ -27,12 +27,21 @@ class StatusBar extends DrawableObject {
         this.height = height;
         this.setPercentage(100);
     }
+
+    /**
+     * Sets the health percentage and updates the status bar image.
+     * @param {number} percentage - Current health value (0–100)
+     */
     setPercentage(percentage) {
         this.percentage = percentage;
         let path = this.IMAGES_BAR_HEART[this.resoloveImagesIndex()];
         this.img = this.imageCache[path];
     }
 
+    /**
+     * Resolves the correct heart image index based on current percentage.
+     * @returns {number} Index of the image array
+     */
     resoloveImagesIndex() {
         if (this.percentage >= 100) {
             return 10;
@@ -74,6 +83,7 @@ class StatusBarEndBoss extends DrawableObject {
     ];
 
     percentage = 100;
+
     constructor() {
         super();
         this.loadImages(this.IMAGES_BAR_ENDBOSS);
@@ -84,12 +94,20 @@ class StatusBarEndBoss extends DrawableObject {
         this.setPercentage(100);
     }
 
+    /**
+     * Sets endboss health percentage and updates UI image.
+     * @param {number} percentage - Endboss health (0–100)
+     */
     setPercentage(percentage) {
         this.percentage = percentage;
         let path = this.IMAGES_BAR_ENDBOSS[this.resoloveImagesIndex()];
         this.img = this.imageCache[path];
     }
 
+    /**
+     * Resolves correct endboss heart image index.
+     * @returns {number} Image index
+     */
     resoloveImagesIndex() {
         if (this.percentage == 100) {
             return 0;
@@ -112,7 +130,6 @@ class StatusBarEndBoss extends DrawableObject {
         }
     }
 }
-
 
 class StatusBarStar extends DrawableObject {
     IMAGES_BAR_STAR = [
@@ -137,17 +154,23 @@ class StatusBarStar extends DrawableObject {
         this.y = 100;
         this.width = width;
         this.height = 32;
-
         this.setPercentage(0);
     }
 
+    /**
+     * Updates star bar percentage and refreshes image.
+     * @param {number} percentage - Star progress (0–100)
+     */
     setPercentage(percentage) {
         this.percentage = percentage;
         let path = this.IMAGES_BAR_STAR[this.resoloveImagesIndex()];
         this.img = this.imageCache[path];
     }
 
-
+    /**
+     * Resolves star image index based on percentage.
+     * @returns {number} Image index
+     */
     resoloveImagesIndex() {
         if (this.percentage == 0) {
             return 0;
@@ -173,7 +196,6 @@ class StatusBarStar extends DrawableObject {
     }
 }
 
-
 class StatusBarCrystal extends DrawableObject {
     IMAGES_BAR_CRYSTAL = [
         'img/statusbar/diamant/diamant-1.svg',
@@ -186,7 +208,6 @@ class StatusBarCrystal extends DrawableObject {
         'img/statusbar/diamant/diamant-8.svg',
         'img/statusbar/diamant/diamant-9.svg',
         'img/statusbar/diamant/diamant-10.svg',
-
     ];
 
     percentage = 0;
@@ -201,12 +222,20 @@ class StatusBarCrystal extends DrawableObject {
         this.setPercentage(0);
     }
 
+    /**
+     * Updates crystal bar percentage and changes UI image.
+     * @param {number} percentage - Crystal progress (0–100)
+     */
     setPercentage(percentage) {
         this.percentage = percentage;
         let path = this.IMAGES_BAR_CRYSTAL[this.resoloveImagesIndex()];
         this.img = this.imageCache[path];
     }
 
+    /**
+     * Resolves crystal image index.
+     * @returns {number} Image index
+     */
     resoloveImagesIndex() {
         if (this.percentage == 0) {
             return 0;
@@ -233,7 +262,6 @@ class StatusBarCrystal extends DrawableObject {
         }
     }
 }
-
 
 class StatusBarFish extends DrawableObject {
     IMAGES_BAR_FISH = [
@@ -265,17 +293,24 @@ class StatusBarFish extends DrawableObject {
         this.setPercentage(0);
     }
 
+    /**
+     * Sets fish bar percentage (direct index mapping).
+     * @param {number} percentage - Fish value index
+     */
     setPercentage(percentage) {
         this.percentage = percentage;
         let path = this.IMAGES_BAR_FISH[this.resoloveImagesIndex()];
         this.img = this.imageCache[path];
     }
 
+    /**
+     * Returns index directly based on percentage value.
+     * @returns {number}
+     */
     resoloveImagesIndex() {
         return this.percentage;
     }
 }
-
 
 class StatusBarGun extends DrawableObject {
     World;
@@ -308,12 +343,20 @@ class StatusBarGun extends DrawableObject {
         this.setPercentage(0);
     }
 
+    /**
+     * Sets gun ammo/percentage and updates UI image.
+     * @param {number} percentage - Ammo value index
+     */
     setPercentage(percentage) {
         this.percentage = percentage;
         let path = this.IMAGES_BAR_GUN[this.resoloveImagesIndex()];
         this.img = this.imageCache[path];
     }
 
+    /**
+     * Returns image index directly from percentage.
+     * @returns {number}
+     */
     resoloveImagesIndex() {
         return this.percentage;
     }

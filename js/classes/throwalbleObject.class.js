@@ -1,5 +1,6 @@
 class GunShoot extends MovableObject {
     World;
+
     constructor(x, y, otherDirection, world) {
         super();
         this.loadImage('img/pinguin/TurbineFx/TurbineFx_00.png');
@@ -12,16 +13,31 @@ class GunShoot extends MovableObject {
         this.shoot();
     }
 
+    /**
+     * Starts the shooting movement, applies forward motion and plays sound.
+     * Moves the projectile continuously until stopped.
+     */
     shoot() {
-        this.speedY = 10;
+        this.speedX = this.otherDirection ? -12 : 12;
+        this.moveInterval = setInterval(() => {
+            this.x += this.speedX;
+
+            // Schuss entfernen wenn er den Bildschirmrand verlässt
+            if (this.x > this.World.character.x + 800 || this.x < this.World.character.x - 800) {
+                const index = this.World.GunShoot.indexOf(this);
+                if (index > -1) { this.World.GunShoot.splice(index, 1); }
+                clearInterval(this.moveInterval);
+            }
+        }, 1000 / 60);
+
         if (!this.World.isMuted()) {
             this.World.soundManager.play('shoot_sound');
         }
-        this.stopShootInterval = setInterval(() => {
-            this.x += this.otherDirection ? -10 : 10;
-        }, 50);
     }
 
+    /**
+     * Stops the projectile movement interval.
+     */
     stop() {
         clearInterval(this.stopShootInterval);
     }
@@ -42,19 +58,29 @@ class ThrowableObjectFish extends MovableObject {
         this.throw();
     }
 
+    /**
+     * Throws the fish projectile with gravity and horizontal movement.
+     * Plays throw sound and applies physics.
+     */
+
     throw () {
         this.speedY = 24;
+        this.speedX = this.otherDirection ? -8 : 8;
+
         this.applyGravity();
+
         if (!this.World.isMuted()) {
             this.World.soundManager.play('throw_sound');
         }
 
-        this.throwInterval = setInterval(() => {
-            this.x += this.otherDirection ? -15 : 15;
-        }, 30);
-
+        this.moveInterval = setInterval(() => {
+            this.x += this.speedX;
+        }, 1000 / 60);
     }
 
+    /**
+     * Stops the fish movement interval.
+     */
     stop() {
         clearInterval(this.throwInterval);
     }

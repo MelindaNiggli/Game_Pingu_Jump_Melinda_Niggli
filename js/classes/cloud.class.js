@@ -1,4 +1,9 @@
 class Cloud extends MovableObject {
+
+    /**
+     * Creates a new Cloud instance.
+     * Initializes position, size, and starts movement animation.
+     */
     constructor() {
         super().loadImage('img/backgrounds/02/layers/l3_clouds.png');
         this.y = 25;
@@ -7,10 +12,19 @@ class Cloud extends MovableObject {
         this.height = 600;
         this.animate();
     }
+
+    /**
+     * Stops the cloud movement.
+     * @returns {void}
+     */
     stopCloud() {
         clearInterval(this.cloudInterval);
     }
 
+    /**
+     * Starts the cloud movement animation.
+     * @returns {void}
+     */
     animate() {
         this.cloudInterval = setInterval(() => {
             this.moveLeft();

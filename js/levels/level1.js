@@ -1,7 +1,24 @@
 let level1;
 
+/**
+ * Initializes Level 1 with all game objects.
+ * 
+ * Creates a complete level configuration including:
+ * - clouds (background atmosphere)
+ * - enemies (all monster types)
+ * - endboss
+ * - chests (rewards)
+ * - background layers (parallax scrolling)
+ * - platforms (jumpable objects)
+ * - stars (collectibles)
+ * - crystals (collectibles)
+ *
+ * This function assigns the created level to the global variable `level1`.
+ *
+ * @returns {void}
+ */
 function initLevel() {
-    level1 = new Levels(
+    return new Levels(
         [
             new Cloud(),
             new Cloud(),
@@ -10,38 +27,29 @@ function initLevel() {
         ], [
             new MonsterTurtle(),
             new MonsterFly(),
-            new MonsterBomb(),
+            new MonsterGreen(),
             new MonsterBlue(),
             new MonsterTurtle(),
             new MonsterFly(),
-            new MonsterBomb(),
+            new MonsterGreen(),
             new MonsterTurtle(),
             new MonsterFly(),
-            new MonsterBomb(),
+            new MonsterGreen(),
             new MonsterTurtle(),
             new MonsterFly(),
-            new MonsterBomb(),
+            new MonsterGreen(),
             new MonsterBlue(),
             new MonsterTurtle(),
             new MonsterFly(),
-            new MonsterBomb(),
+            new MonsterGreen(),
             new MonsterBlue(),
+            new MonsterGreen(),
             new MonsterTurtle(),
             new MonsterFly(),
-            new MonsterBomb(),
-            new MonsterBlue(),
+            new MonsterGreen(),
             new MonsterTurtle(),
             new MonsterFly(),
-            new MonsterTurtle(),
-            new MonsterFly(),
-            new MonsterBlue(),
-            new MonsterBomb(),
-            new MonsterFly(),
-            new MonsterTurtle(),
-            new MonsterFly(),
-            new MonsterBomb(),
-
-        ], [new endBossTurtle(world)], [new chest()], [
+        ], [new endBossTurtle()], [new chest()], [
             new BackgroundObject('img/backgrounds/02/layers/l1_sky.png', -1200),
             new BackgroundObject('img/backgrounds/02/layers/l2_mountains.png', -1200),
             new BackgroundObject('img/backgrounds/02/layers/l4_bg-ground01.png', -1200),

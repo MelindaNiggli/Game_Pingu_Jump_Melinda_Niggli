@@ -590,6 +590,7 @@ div#panelMobile div {
     width: 100vw;
     position: absolute;
     justify-content: center;
+    z-index: 1!important;
 }
 
 #wrapperButtons {

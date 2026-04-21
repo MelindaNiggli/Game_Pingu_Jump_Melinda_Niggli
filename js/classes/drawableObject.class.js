@@ -1,22 +1,16 @@
-/** Base class for all drawable game objects. */
 class DrawableObject {
 
-    /** Current image element. */
     img;
-
-    /** Cache for preloaded images. */
     imageCache = {};
-
-    /** Current animation frame index. */
     currentImage = 0;
-
-    /** X position on canvas. */
     x = 0;
-
-    /** Y position on canvas. */
     y = 100;
 
-    /** Draws the object on the canvas. */
+    /**
+     * Draws the object on the canvas.
+     *
+     * @param {CanvasRenderingContext2D} ctx - Rendering context of the canvas
+     */
     draw(ctx) {
         try {
             ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
@@ -26,13 +20,21 @@ class DrawableObject {
         }
     }
 
-    /** Loads a single image. */
+    /**
+     * Loads a single image.
+     *
+     * @param {string} path - Path to the image file
+     */
     loadImage(path) {
         this.img = new Image();
         this.img.src = path;
     }
 
-    /** Preloads multiple images into cache. */
+    /**
+     * Preloads multiple images into cache.
+     *
+     * @param {string[]} arr - Array of image paths
+     */
     loadImages(arr) {
         arr.forEach((path) => {
             let img = new Image();
@@ -41,7 +43,11 @@ class DrawableObject {
         });
     }
 
-    /** Optional debug frame (collision box). */
+    /**
+     * Optional debug frame (collision box).
+     *
+     * @param {CanvasRenderingContext2D} ctx - Rendering context of the canvas
+     */
     drawFrame(ctx) {
         // ctx.beginPath();
         // ctx.lineWidth = '5';

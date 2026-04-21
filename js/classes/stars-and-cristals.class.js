@@ -12,6 +12,10 @@ class Star extends MovableObject {
         this.loadImages(this.IMAGES_STAR);
     }
 
+    /**
+     * Plays the star collection sound effect if sound is enabled.
+     * @returns {void}
+     */
     playSound() {
         if (!this.World.isMuted()) {
             this.World.soundManager.play('starSound');
@@ -24,13 +28,17 @@ class Crystal extends MovableObject {
 
     constructor(imagePath, world) {
         super().loadImage(imagePath);
-        this.World = world; // World speichern
+        this.World = world;
         this.y = 100 + Math.random() * 200;
         this.x = 100 + Math.random() * 6500;
         this.width = 70;
         this.height = 70;
     }
 
+    /**
+     * Plays the crystal collection sound effect if sound is enabled.
+     * @returns {void}
+     */
     playSound() {
         if (!this.World.isMuted()) {
             this.World.soundManager.play('crystalSound');

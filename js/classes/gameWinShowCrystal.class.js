@@ -1,8 +1,14 @@
 class gameWinShowCrystal extends DrawableObject {
+
     width = 263;
     height = 86;
+
     currentImage = '';
 
+    /**
+     * Creates the crystal UI element.
+     * Initializes default "no crystal" image and position.
+     */
     constructor() {
         super();
         this.loadImage('img/ui/noCrystal.svg');
@@ -10,8 +16,15 @@ class gameWinShowCrystal extends DrawableObject {
         this.x = 460;
     }
 
+    /**
+     * Updates the crystal display based on game win state and collected crystals.
+     *
+     * @param {boolean} gameWIN - Whether the game is won
+     * @param {number} haveCrystal - Amount of collected crystals
+     */
     checkNow(gameWIN, haveCrystal) {
         if (!gameWIN) return;
+
         let newImage = '';
 
         if (haveCrystal > 80) {
@@ -23,6 +36,7 @@ class gameWinShowCrystal extends DrawableObject {
         } else if (haveCrystal > 10) {
             newImage = 'img/ui/noCrystal.svg';
         }
+
         if (newImage && newImage !== this.currentImage) {
             this.currentImage = newImage;
             this.loadImage(newImage);
