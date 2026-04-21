@@ -2,7 +2,6 @@ class gameWinShowStar extends DrawableObject {
 
     width = 267;
     height = 136;
-
     currentImage = '';
 
     /**

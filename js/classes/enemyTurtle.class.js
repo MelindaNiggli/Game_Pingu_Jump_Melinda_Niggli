@@ -144,7 +144,6 @@ class MonsterTurtle extends MovableObject {
     /**
      * Starts attack animation if not already attacking.
      * Stops attack when player leaves collision range.
-     *
      * @param {Object} character - Target player character
      */
     attack(character) {

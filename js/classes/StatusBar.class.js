@@ -146,7 +146,6 @@ class StatusBarStar extends DrawableObject {
     ];
 
     percentage = 0;
-
     constructor() {
         super();
         this.loadImages(this.IMAGES_BAR_STAR);
@@ -282,7 +281,6 @@ class StatusBarFish extends DrawableObject {
     ];
 
     percentage = 0;
-
     constructor() {
         super();
         this.loadImages(this.IMAGES_BAR_FISH);

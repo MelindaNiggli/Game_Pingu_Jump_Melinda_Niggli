@@ -83,23 +83,25 @@ class Character extends MovableObject {
      * Initializes the character, loads images, applies gravity and starts animations.
      */
     constructor() {
-            super().loadImage('img/pinguin/Character/Walk/Walk_00.svg');
-            this.loadImages(this.IMAGES_WALKING);
-            this.loadImages(this.IMAGES_IDLE);
-            this.loadImages(this.IMAGES_JUMPING_DOWN);
-            this.loadImages(this.IMAGES_HURT);
-            this.loadImages(this.IMAGES_GUN);
-            this.loadImages(this.IMAGES_DEAD);
-            this.applyGravity();
-            this.animate();
-            this.x = 100;
-            this.y = 200;
-            this.width = 170;
-            this.height = 170;
-        }
-        /**
-         * Starts movement and animation intervals.
-         */
+
+        super().loadImage('img/pinguin/Character/Walk/Walk_00.svg');
+        this.loadImages(this.IMAGES_WALKING);
+        this.loadImages(this.IMAGES_IDLE);
+        this.loadImages(this.IMAGES_JUMPING_DOWN);
+        this.loadImages(this.IMAGES_HURT);
+        this.loadImages(this.IMAGES_GUN);
+        this.loadImages(this.IMAGES_DEAD);
+        this.applyGravity();
+        this.animate();
+        this.x = 100;
+        this.y = 200;
+        this.width = 170;
+        this.height = 170;
+    }
+
+    /**
+     * Starts movement and animation intervals.
+     */
     animate() {
         this.characterIntervall = setInterval(() => {
             this.moveCharacter();

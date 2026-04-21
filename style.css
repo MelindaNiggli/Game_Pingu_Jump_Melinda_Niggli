@@ -650,15 +650,27 @@ p.powered {
     }
 }
 
-@media screen and (max-width: 1200px) and (orientation: portrait) {
-    #flipScreeen {
-        display: flex!important;
-    }
-}
-
 @media screen and (max-width: 1266px) and (orientation: landscape) {
     #flipScreeen {
         display: none;
+    }
+}
+
+
+/* Touch + Portrait */
+
+@media (hover: none) and (pointer: coarse) and (orientation: portrait) {
+    #flipScreeen {
+        display: flex!important;
+        z-index: 99999!important;
+    }
+    #wrapperButtons {
+        display: none;
+    }
+    canvas {
+        width: 85%!important;
+        border: 2px solid white;
+        border-radius: 10px!important;
     }
 }
 

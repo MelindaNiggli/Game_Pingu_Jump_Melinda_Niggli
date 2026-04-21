@@ -26,33 +26,27 @@ class SoundManager {
         this.sounds.winSound.volume = 0.2;
         this.sounds.starSound.volume = 0.3;
         this.sounds.crystalSound.volume = 0.3;
-
         this.music = new Audio('audio/backgroundMusic.wav');
         this.music.loop = true;
         this.music.volume = 0.1;
-
         this.EndbossMusic = new Audio('audio/angry.mp3');
         this.EndbossMusic.loop = true;
         this.EndbossMusic.volume = 0.9;
-
         this.applyMuteState();
     }
 
     /** Plays a sound effect by key. */
     play(key) {
         if (this.muted || !this.sounds[key]) return;
-
         const sound = this.sounds[key].cloneNode();
         sound.volume = this.sounds[key].volume;
         sound.muted = this.muted;
-
         sound.play().catch(() => {});
     }
 
     /** Plays background music. */
     playMusic() {
         if (this.muted) return;
-
         this.music.currentTime = 0;
         this.music.play().catch(() => {});
     }
@@ -60,7 +54,6 @@ class SoundManager {
     /** Plays endboss music. */
     playMusicEndbossMusic() {
         if (this.muted) return;
-
         this.EndbossMusic.currentTime = 0;
         this.EndbossMusic.play().catch(() => {});
     }
@@ -108,9 +101,7 @@ class SoundManager {
     setMuted(muted) {
         this.muted = muted;
         localStorage.setItem("muted", muted);
-
         this.applyMuteState();
-
         if (muted) {
             this.stopAll();
         }

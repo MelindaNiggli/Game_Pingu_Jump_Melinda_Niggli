@@ -10,9 +10,10 @@ function init() {
     if (world) {
         world.clearIntervallAndStopBackgroundMusic();
     }
-
+    if (world && world.keyboard) world.keyboard.destroy();
     keyboard = new Keyboard();
     initLevel();
+    handleOrientationChange();
     checkOrientation();
 
     canvas = document.getElementById('canvas');
@@ -23,16 +24,39 @@ function init() {
  * Starts or restarts the game and handles UI transitions.
  */
 function isPortraitMobile() {
-    return window.matchMedia("(max-width: 1200px) and (orientation: portrait)").matches;
+    return window.matchMedia("(pointer: coarse) and (orientation: portrait)").matches;
 }
 
-function playGame() {
-
+function handleOrientationChange() {
     if (isPortraitMobile()) {
         document.getElementById("flipScreeen").style.display = "flex";
+        if (world) {
+            world.stopDraw();
+
+        }
+    } else {
+        document.getElementById("flipScreeen").style.display = "none";
+        if (world) {
+            world.start();
+            world.startBackgroundMusic();
+        }
+    }
+}
+
+window.addEventListener('resize', () => {
+    checkOrientation();
+    handleOrientationChange();
+});
+
+window.addEventListener('orientationchange', handleOrientationChange);
+
+
+function playGame() {
+    if (isPortraitMobile()) {
+        document.getElementById("flipScreeen").style.display = "flex";
+        clearIntervallAndStopBackgroundMusic();
         return;
     }
-
     const canvasInnerWrapper = document.getElementById('canvasInnerWrapper');
     canvasInnerWrapper.style.transform = 'translateY(-1000%)';
 
@@ -52,6 +76,7 @@ function playGame() {
         canvasInnerWrapper.style.transform = 'translateY(0)';
     }, 1);
 }
+
 
 /**
  * Opens info overlay.
@@ -250,13 +275,6 @@ function checkOrientation() {
     }
 }
 
-/**
- * Window resize handler.
- */
-window.addEventListener('resize', () => {
-    checkOrientation();
-});
-
 
 
 function clearIntervallAndStopBackgroundMusic() {
@@ -273,10 +291,10 @@ function clearIntervallAndStopBackgroundMusic() {
     world.GunShootL.forEach(shoot => shoot.stop());
     world.ThrowableObjects.forEach(obj => obj.stop());
     world.ThrowableObjectsL.forEach(obj => obj.stop());
+    world.GunShoot = [];
     world.GunShootL = [];
     world.ThrowableObjects = [];
     world.ThrowableObjectsL = [];
-
     if (world.level && world.level.clouds) {
         world.level.clouds.forEach(cloud => {
             if (cloud.stopCloud) cloud.stopCloud();
@@ -294,36 +312,30 @@ function clearIntervallAndStopBackgroundMusic() {
             if (enemy.stop) enemy.stop();
         });
     }
-
-    world.soundManager.reset();
-    if (!world.soundManager.isMuted()) {
-        world.soundManager.playMusic('backgroundMusic');
-    }
 }
 
-function resetGame(canvas, keyboard) {
+function resetGame() {
+    if (world.keyboard) world.keyboard.destroy();
     world.stopDraw();
     clearIntervallAndStopBackgroundMusic();
-    world.GunShootL = [];
-    world.ThrowableObjects = [];
-    world.ThrowableObjectsL = [];
-    world.endbossTriggerX = 5000;
-    world.endbossStopX = 5500;
-    world.lastShootTime = 0;
-    world.lastThrowTime = 0;
-    world.shootCooldown = 200;
-    world.throwCooldown = 200;
-    world.shootTimeouts = [];
     world.gameWIN = false;
     world.gameEnd = false;
     world.deadEndboss = false;
     world.gameWinSoundPlayed = false;
     world.gameOverSoundPlayed = false;
-    world.gameWinShowStar = new gameWinShowStar();
-    world.gameWinShowCrystal = new gameWinShowCrystal();
+    world.lastShootTime = 0;
+    world.lastThrowTime = 0;
+    world.shootCooldown = 300;
+    world.throwCooldown = 300;
+    world.shootTimeouts = [];
+    world.endbossTriggerX = 5000;
+    world.endbossStopX = 5500;
+    world.GunShoot = [];
+    world.GunShootL = [];
+    world.ThrowableObjects = [];
+    world.ThrowableObjectsL = [];
     if (world.character) world.character.stop();
     world.character = new Character();
-    initLevel();
     world.level = initLevel();
     world.statusBar = new StatusBar();
     world.statusBarStar = new StatusBarStar();
@@ -331,6 +343,9 @@ function resetGame(canvas, keyboard) {
     world.statusBarFish = new StatusBarFish();
     world.statusBarGun = new StatusBarGun();
     world.StatusBarEndBoss = new StatusBarEndBoss();
+    world.gameWinShowStar = new gameWinShowStar();
+    world.gameWinShowCrystal = new gameWinShowCrystal();
+    world.keyboard = new Keyboard();
     world.ctx.clearRect(0, 0, world.canvas.width, world.canvas.height);
     world.setWorld();
     world.start();

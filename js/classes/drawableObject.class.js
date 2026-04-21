@@ -43,16 +43,16 @@ class DrawableObject {
         });
     }
 
-    /**
-     * Optional debug frame (collision box).
-     *
-     * @param {CanvasRenderingContext2D} ctx - Rendering context of the canvas
-     */
-    drawFrame(ctx) {
-        // ctx.beginPath();
-        // ctx.lineWidth = '5';
-        // ctx.strokeStyle = 'blue';
-        // ctx.rect(this.x, this.y, this.width, this.height);
-        // ctx.stroke();
-    }
+    // /**
+    //  * Optional debug frame (collision box).
+    //  *
+    //  * @param {CanvasRenderingContext2D} ctx - Rendering context of the canvas
+    //  */
+    // drawFrame(ctx) {
+    //     ctx.beginPath();
+    //     ctx.lineWidth = '5';
+    //     ctx.strokeStyle = 'blue';
+    //     ctx.rect(this.x, this.y, this.width, this.height);
+    //     ctx.stroke();
+    // }
 }

@@ -1,15 +1,12 @@
 /** End boss enemy (turtle) with AI behavior, animations, and attack logic. */
 class endBossTurtle extends MovableObject {
 
-    /** Reference to game world. */
     World;
-
-    /** Sprite dimensions. */
     width = 290;
     height = 290;
     lastHitTime = 0;
-    hitCooldown = 50; // ms (0.8 Sekunden)
-    /** Idle animation frames. */
+    hitCooldown = 50;
+
     IMAGES_IDLE = [
         'img/monsters/endboss_turtle/Idle/Idle_00.png',
         'img/monsters/endboss_turtle/Idle/Idle_01.png',
@@ -33,7 +30,6 @@ class endBossTurtle extends MovableObject {
         'img/monsters/endboss_turtle/Idle/Idle_18.png',
     ];
 
-    /** Walk animation frames. */
     IMAGES_WALK = [
         'img/monsters/endboss_turtle/Walk/Walk_00.png',
         'img/monsters/endboss_turtle/Walk/Walk_01.png',
@@ -67,7 +63,6 @@ class endBossTurtle extends MovableObject {
         'img/monsters/endboss_turtle/Walk/Walk_29.png',
     ];
 
-    /** Attack animation frames. */
     IMAGES_ATTACK = [
         'img/monsters/endboss_turtle/Attack/Attack_00.png',
         'img/monsters/endboss_turtle/Attack/Attack_01.png',
@@ -101,7 +96,7 @@ class endBossTurtle extends MovableObject {
         'img/monsters/endboss_turtle/Attack/Attack_29.png',
     ];
 
-    /** Death animation frames. */
+
     DEAD_SPRITE = [
         'img/monsters/DeadSprite/DeadFx_00.png',
         'img/monsters/DeadSprite/DeadFx_01.png',
@@ -125,10 +120,8 @@ class endBossTurtle extends MovableObject {
         'img/monsters/DeadSprite/DeadFx_19.png',
     ];
 
-    /** Current animation frame index. */
     currentImage = 0;
 
-    /** Initializes end boss position, assets, and idle behavior. */
     constructor() {
         super().loadImage('img/monsters/endboss_turtle/Attack/Attack_00.png');
         this.y = 300;
@@ -195,7 +188,7 @@ class endBossTurtle extends MovableObject {
 
     /** Moves boss towards player and triggers music. */
     moveToCharacter(player) {
-        const speed = 2;
+        const speed = 1;
         if (player.x < this.x) {
 
             if (!this.hasPlayedWalkSound) {
