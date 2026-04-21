@@ -19,20 +19,17 @@ class GunShoot extends MovableObject {
      */
     shoot() {
         this.speedX = this.otherDirection ? -12 : 12;
+        const startX = this.x;
+
         this.moveInterval = setInterval(() => {
             this.x += this.speedX;
-
-            // Schuss entfernen wenn er den Bildschirmrand verlässt
-            if (this.x > this.World.character.x + 800 || this.x < this.World.character.x - 800) {
+            const distanceTravelled = Math.abs(this.x - startX);
+            if (distanceTravelled > 1200) {
                 const index = this.World.GunShoot.indexOf(this);
                 if (index > -1) { this.World.GunShoot.splice(index, 1); }
                 clearInterval(this.moveInterval);
             }
-        }, 1000 / 60);
-
-        if (!this.World.isMuted()) {
-            this.World.soundManager.play('shoot_sound');
-        }
+        }, 40);
     }
 
     /**

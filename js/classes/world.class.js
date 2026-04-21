@@ -24,7 +24,7 @@ class World {
     endbossStopX = 5500;
     lastShootTime = 0;
     lastThrowTime = 0;
-    shootCooldown = 300;
+    shootCooldown = 130;
     throwCooldown = 300;
     gameEnd = false;
     gameLost = false;

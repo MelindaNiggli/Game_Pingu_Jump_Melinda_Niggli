@@ -325,7 +325,7 @@ function resetGame() {
     world.gameOverSoundPlayed = false;
     world.lastShootTime = 0;
     world.lastThrowTime = 0;
-    world.shootCooldown = 300;
+    world.shootCooldown = 130;
     world.throwCooldown = 300;
     world.shootTimeouts = [];
     world.endbossTriggerX = 5000;

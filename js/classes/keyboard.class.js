@@ -23,7 +23,10 @@ class Keyboard extends MovableObject {
         if (event.keyCode == 40) this.DOWN = true;
         if (event.keyCode == 32) this.SPACE = true;
         if (event.keyCode == 65) this.A = true;
-        if (event.keyCode == 83) this.S = true;
+        if (event.keyCode == 83) {
+            if (!this.S) this.S_FIRED = true;
+            this.S = true;
+        }
         if (event.keyCode == 68) this.D = true;
     }
 
@@ -34,7 +37,10 @@ class Keyboard extends MovableObject {
         if (event.keyCode == 40) this.DOWN = false;
         if (event.keyCode == 32) this.SPACE = false;
         if (event.keyCode == 65) this.A = false;
-        if (event.keyCode == 83) this.S = false;
+        if (event.keyCode == 83) {
+            this.S = false;
+            this.S_FIRED = false;
+        }
         if (event.keyCode == 68) this.D = false;
     }
 
