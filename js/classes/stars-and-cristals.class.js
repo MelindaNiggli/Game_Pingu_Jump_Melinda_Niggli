@@ -2,7 +2,6 @@ class Star extends MovableObject {
     IMAGES_STAR = ['img/stars/star_10.png'];
     currentImage = 0;
     World;
-
     constructor() {
         super().loadImage('img/stars/star_10.png');
         this.y = 420;
@@ -25,7 +24,6 @@ class Star extends MovableObject {
 
 class Crystal extends MovableObject {
     World;
-
     constructor(imagePath, world) {
         super().loadImage(imagePath);
         this.World = world;

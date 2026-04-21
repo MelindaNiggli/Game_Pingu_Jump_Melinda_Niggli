@@ -1,5 +1,4 @@
 class gameWinShowCrystal extends DrawableObject {
-
     width = 263;
     height = 86;
     currentImage = '';

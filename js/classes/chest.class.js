@@ -8,7 +8,6 @@ class chest extends MovableObject {
 
     width = 250;
     height = 210;
-
     currentImage = 0;
     World;
 

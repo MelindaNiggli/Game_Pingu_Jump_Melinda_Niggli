@@ -128,10 +128,8 @@ class MonsterGreen extends MovableObject {
     attack(character) {
         if (!this.isAttacking) {
             this.isAttacking = true;
-
             this.attackInterval = setInterval(() => {
                 this.playWalkingAnimationImages(this.IMAGES_ATTACK);
-
                 if (!this.isColliding(character)) {
                     this.loadImage('img/monsters/green/Walk/Walk_0.png');
                     this.stopAttack();

@@ -1,8 +1,6 @@
 class gameOver extends DrawableObject {
-
     width = 1280;
     height = 650;
-
     soundPlayed = false;
 
     /**

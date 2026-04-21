@@ -3,7 +3,6 @@ class SoundManager {
     /** Creates sound manager, loads audio assets and applies mute state. */
     constructor() {
         this.muted = localStorage.getItem("muted") === "true";
-
         this.sounds = {
             hitTurtle: new Audio('audio/monsterFlyDeath.mp3'),
             character_walking_sound: new Audio('audio/walk.mp3'),

@@ -1,5 +1,4 @@
 class Platform extends MovableObject {
-
     /**
      * Creates a platform object.
      * @param {string} imagePath - Path to platform image

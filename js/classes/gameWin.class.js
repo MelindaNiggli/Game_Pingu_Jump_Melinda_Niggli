@@ -1,5 +1,4 @@
 class gameWin extends DrawableObject {
-
     width = 1280;
     height = 650;
 

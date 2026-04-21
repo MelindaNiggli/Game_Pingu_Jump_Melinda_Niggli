@@ -1,6 +1,5 @@
 /** End boss enemy (turtle) with AI behavior, animations, and attack logic. */
 class endBossTurtle extends MovableObject {
-
     World;
     width = 290;
     height = 290;
@@ -213,9 +212,7 @@ class endBossTurtle extends MovableObject {
             if (!this.isAttacking) {
                 this.isAttacking = true;
                 this.wasColliding = false;
-
                 this.attackInterval = setInterval(() => {
-
                     const now = Date.now();
                     const colliding = this.isColliding(character);
                     if (colliding && now - this.lastHitTime > this.hitCooldown) {

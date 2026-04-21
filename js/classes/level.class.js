@@ -1,5 +1,4 @@
 class Levels {
-
     clouds;
     enemies;
     endboss;
