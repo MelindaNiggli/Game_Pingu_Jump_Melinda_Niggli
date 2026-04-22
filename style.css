@@ -534,8 +534,8 @@ div#startText {
     cursor: pointer;
     position: relative;
     padding: 5px;
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     font-size: 34px;
     color: white;
     border: 2px solid rgb(255, 255, 255);
@@ -629,6 +629,13 @@ p.powered {
 .fullscreen-ON canvas {
     width: 100%!important;
     border: 3px solid white;
+}
+
+
+#panelMobile button img {
+    height: 20px;
+    width: 20px;
+    object-fit: contain;
 }
 
 
@@ -793,8 +800,9 @@ p.powered {
         flex-direction: column;
     }
     canvas {
-        width: 100%!important;
-        border: 3px solid white;
+        width: 100% !important;
+        border: 2px solid white;
+        border-radius: 15px !important;
     }
     canvas#canvas {
         height: 90vh!important;
@@ -900,7 +908,7 @@ p.powered {
         background: rgb(255 255 255);
         border-radius: 30px;
         position: relative;
-        border: 12px solid rgb(38 98 134);
+        border: 6px solid rgb(38 98 134);
         box-shadow: rgb(0 0 0) 0px 12px 0px;
         justify-content: start;
     }
@@ -1019,7 +1027,7 @@ p.powered {
     #closeFullscreen,
     #muteBtn {
         font-size: 14px!important;
-        padding: 5px;
+        padding: 8px;
     }
     .box-header {
         padding: 0!important;

@@ -4,6 +4,9 @@ class DrawableObject {
     currentImage = 0;
     x = 0;
     y = 100;
+    percentage = 0;
+    THRESHOLDS = [];
+    directIndex = false;
 
     /**
      * Draws the object on the canvas.
@@ -42,7 +45,33 @@ class DrawableObject {
         });
     }
 
-    // /**
+
+  /**
+ * Sets the percentage value and updates the displayed image.
+ * @param {number} percentage - The current value (0–100 or direct index)
+ */
+setPercentage(percentage) {
+    this.percentage = percentage;
+    const path = this.IMAGES[this.resoloveImagesIndex()];
+    this.img = this.imageCache[path];
+}
+
+/**
+ * Resolves the correct image index based on the current percentage (STATUSBARS).
+ * Uses direct index mapping if directIndex is true,
+ * otherwise compares against THRESHOLDS array.
+ * @returns {number} The resolved image index
+ */
+resoloveImagesIndex() {
+    if (this.directIndex) return this.percentage;
+    for (let [threshold, index] of this.THRESHOLDS) {
+        if (this.percentage >= threshold) return index;
+    }
+    return 0;
+}
+
+
+        // /**
     //  * Optional debug frame (collision box).
     //  *
     //  * @param {CanvasRenderingContext2D} ctx - Rendering context of the canvas

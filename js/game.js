@@ -15,24 +15,28 @@ function init() {
     initLevel();
     handleOrientationChange();
     checkOrientation();
-
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
 }
 
 /**
- * Starts or restarts the game and handles UI transitions.
+ * Returns true if the device is a mobile device in portrait orientation.
+ * @returns {boolean}
  */
 function isPortraitMobile() {
     return window.matchMedia("(pointer: coarse) and (orientation: portrait)").matches;
 }
 
+/**
+ * Handles orientation changes by stopping or resuming the game.
+ * Shows flip screen hint in portrait mode, resumes game in landscape.
+ */
 function handleOrientationChange() {
     if (isPortraitMobile()) {
         document.getElementById("flipScreeen").style.display = "flex";
         if (world) {
             world.stopDraw();
-
+            world.soundManager.stopAll();
         }
     } else {
         document.getElementById("flipScreeen").style.display = "none";
@@ -50,7 +54,10 @@ window.addEventListener('resize', () => {
 
 window.addEventListener('orientationchange', handleOrientationChange);
 
-
+/**
+ * Starts or restarts the game and handles UI transitions.
+ * Blocks start if device is in portrait mode.
+ */
 function playGame() {
     if (isPortraitMobile()) {
         document.getElementById("flipScreeen").style.display = "flex";
@@ -59,27 +66,22 @@ function playGame() {
     }
     const canvasInnerWrapper = document.getElementById('canvasInnerWrapper');
     canvasInnerWrapper.style.transform = 'translateY(-1000%)';
-
     if (world) {
         resetGame();
     } else {
         init();
     }
-
     initMuteState();
-
     const canvasWrapper = document.getElementById('canvasWrapper');
     canvasWrapper.classList.add('playnow');
     canvasWrapper.style.display = 'flex';
-
     setTimeout(() => {
         canvasInnerWrapper.style.transform = 'translateY(0)';
     }, 1);
 }
 
-
 /**
- * Opens info overlay.
+ * Opens the info overlay and hides the main UI.
  */
 function openInfo() {
     document.querySelector('.ui.info').classList.add('active');
@@ -89,36 +91,33 @@ function openInfo() {
 }
 
 /**
- * Closes overlay and restores UI.
+ * Closes the active overlay and restores the main UI.
  */
 function closeOverlay() {
     document.getElementById('ui').style.display = "flex";
     document.getElementById('welcomeUi').style.display = "flex";
-
     document.querySelector('.ui.info').classList.remove('active');
     document.querySelector('.overlay').classList.remove('active');
 }
 
 /**
- * Toggles impressum view.
+ * Toggles the impressum section visibility.
  */
 function showImpressum() {
     const impressum = document.getElementById('innerTextImpressum');
     const startText = document.getElementById('startText');
     const button = document.getElementById('buttonImpressum');
-
     const active = impressum.classList.toggle('active');
     startText.classList.toggle('active');
     button.innerText = active ? "Back" : "Impressum";
 }
 
 /**
- * Initializes mute state from localStorage.
+ * Reads mute state from localStorage and applies it to the game and UI.
  */
 function initMuteState() {
     const button = document.getElementById('muteBtn');
     const isMuted = localStorage.getItem("muted") === "true";
-
     if (isMuted) {
         button.classList.add('active');
         button.innerHTML = `<img style="height: 24px;" src="./img/ui/Mute.svg" alt="mute icon">`;
@@ -131,13 +130,12 @@ function initMuteState() {
 }
 
 /**
- * Toggles mute state.
+ * Toggles the mute state and updates the mute button UI.
  */
 function toggleMute() {
     const button = document.getElementById('muteBtn');
     const isMuted = !button.classList.contains('active');
     button.classList.toggle('active');
-
     if (isMuted) {
         button.innerHTML = `<img style="height: 24px;" src="./img/ui/Mute.svg">`;
         world.soundManager.setMuted(true);
@@ -145,7 +143,6 @@ function toggleMute() {
     } else {
         button.innerHTML = `<img style="height: 24px;" src="./img/ui/Mute_Off.svg">`;
         world.soundManager.setMuted(false);
-
         if (!world.gameEnd && !world.gameWIN) {
             world.soundManager.playMusic('backgroundMusic');
         }
@@ -153,7 +150,8 @@ function toggleMute() {
 }
 
 /**
- * Checks if device is iOS.
+ * Returns true if the current device is running iOS.
+ * @returns {boolean}
  */
 function isIOS() {
     return /iPad|iPhone|iPod/.test(navigator.userAgent) ||
@@ -161,7 +159,7 @@ function isIOS() {
 }
 
 /**
- * Enters fullscreen mode.
+ * Opens fullscreen mode for the canvas wrapper element.
  */
 function openFullscreen() {
     const wrapper = document.getElementById('canvasWrapper');
@@ -176,37 +174,36 @@ function closeFullscreen() {
 }
 
 /**
- * Requests fullscreen for element.
+ * Requests fullscreen for the given element.
+ * Falls back to a CSS-based fullscreen on iOS.
+ * @param {HTMLElement} element - The element to display in fullscreen
  */
 function enterFullscreen(element) {
     element.classList.add("fullscreen-ON");
-
     if (!isIOS() && element.requestFullscreen) {
         element.requestFullscreen();
     } else {
         element.classList.add("fullscreen-mobile");
         document.body.style.overflow = "hidden";
     }
-
     document.getElementById('openFullscreen').style.display = "none";
     document.getElementById('closeFullscreen').style.display = "flex";
 }
 
 /**
- * Exits fullscreen mode.
+ * Exits native fullscreen and removes fullscreen CSS classes.
  */
 function exitFullscreen() {
     if (document.exitFullscreen) {
         document.exitFullscreen();
     }
-
     document.getElementById('canvasWrapper').classList.remove("fullscreen-mobile");
     document.getElementById('canvasWrapper').classList.remove("fullscreen-ON");
     document.body.style.overflow = "";
 }
 
 /**
- * Fullscreen change listener.
+ * Listens for fullscreen changes and updates the fullscreen button visibility.
  */
 document.addEventListener("fullscreenchange", () => {
     if (!document.fullscreenElement) {
@@ -216,14 +213,14 @@ document.addEventListener("fullscreenchange", () => {
 });
 
 /**
- * Shows main dashboard UI.
+ * Slides the main dashboard UI into view.
  */
 function loadDash() {
     document.getElementById('ui').style.transform = 'translateY(0)';
 }
 
 /**
- * Returns to home screen and stops game.
+ * Returns to the home screen and fully stops the game.
  */
 function goHome() {
     if (world) {
@@ -231,21 +228,16 @@ function goHome() {
         world.soundManager.stopAll();
         world.stopDraw();
     }
-
     const canvasWrapper = document.getElementById('canvasWrapper');
-    if (canvasWrapper) {
-        canvasWrapper.style.display = "none";
-    }
-
+    if (canvasWrapper) canvasWrapper.style.display = "none";
     const ui = document.getElementById('ui');
     const welcome = document.getElementById('welcomeUi');
-
     if (ui) ui.style.display = "flex";
     if (welcome) welcome.style.display = "flex";
 }
 
 /**
- * Resizes canvas to full screen.
+ * Resizes the canvas to fill the full window.
  */
 function resizeCanvas() {
     const canvas = document.getElementById('canvas');
@@ -254,17 +246,15 @@ function resizeCanvas() {
 }
 
 /**
- * Adjusts canvas based on orientation.
+ * Adjusts canvas size based on current device orientation and fullscreen state.
  */
 function checkOrientation() {
     const canvas = document.getElementById('canvas');
     const wrapper = document.getElementById('canvasWrapper');
-
     if (wrapper.classList.contains('fullscreen-mobile')) {
         canvas.style.height = '90dvh';
         return;
     }
-
     if (window.matchMedia("(orientation: landscape)").matches) {
         if (window.innerHeight < 450) {
             canvas.style.height = `${window.innerHeight}px`;
@@ -275,8 +265,10 @@ function checkOrientation() {
     }
 }
 
-
-
+/**
+ * Stops all active intervals, sounds, projectiles, and level object loops.
+ * Does not reset game state — use resetGame() for a full restart.
+ */
 function clearIntervallAndStopBackgroundMusic() {
     world.soundManager.reset();
     world.intervalIds.forEach(id => clearInterval(id));
@@ -295,25 +287,21 @@ function clearIntervallAndStopBackgroundMusic() {
     world.GunShootL = [];
     world.ThrowableObjects = [];
     world.ThrowableObjectsL = [];
-    if (world.level && world.level.clouds) {
-        world.level.clouds.forEach(cloud => {
-            if (cloud.stopCloud) cloud.stopCloud();
-        });
+    if (world.level?.clouds) {
+        world.level.clouds.forEach(cloud => { if (cloud.stopCloud) cloud.stopCloud(); });
     }
-
-    if (world.level && world.level.endboss) {
-        world.level.endboss.forEach(endboss => {
-            if (endboss.stop) endboss.stop();
-        });
+    if (world.level?.endboss) {
+        world.level.endboss.forEach(endboss => { if (endboss.stop) endboss.stop(); });
     }
-
-    if (world.level && world.level.enemies) {
-        world.level.enemies.forEach(enemy => {
-            if (enemy.stop) enemy.stop();
-        });
+    if (world.level?.enemies) {
+        world.level.enemies.forEach(enemy => { if (enemy.stop) enemy.stop(); });
     }
 }
 
+/**
+ * Fully resets the game state and restarts all systems.
+ * Destroys the old keyboard, stops all loops, reinitializes all objects.
+ */
 function resetGame() {
     if (world.keyboard) world.keyboard.destroy();
     world.stopDraw();
@@ -349,6 +337,7 @@ function resetGame() {
     world.ctx.clearRect(0, 0, world.canvas.width, world.canvas.height);
     world.setWorld();
     world.start();
+    world.startBackgroundMusic();
     world.intervalIds.push(
         setInterval(() => {
             world.CheckColisionsAndThrowObjects();

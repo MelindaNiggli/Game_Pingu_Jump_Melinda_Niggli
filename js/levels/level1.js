@@ -49,6 +49,13 @@ function initLevel() {
             new MonsterGreen(),
             new MonsterTurtle(),
             new MonsterFly(),
+            new MonsterBlue(),
+            new MonsterGreen(),
+            new MonsterTurtle(),
+            new MonsterFly(),
+            new MonsterGreen(),
+            new MonsterTurtle(),
+            new MonsterFly(),
         ], [new endBossTurtle()], [new chest()], [
             new BackgroundObject('img/backgrounds/02/layers/l1_sky.png', -1200),
             new BackgroundObject('img/backgrounds/02/layers/l2_mountains.png', -1200),

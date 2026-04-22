@@ -12,7 +12,7 @@
     <script src="./js/levels/level1.js"></script>
     <script src="./js/game.js"></script>
     <script src="./js/classes/drawableObject.class.js"></script>
-    <script src="./js/classes/movable-object.class.js"></script>
+    <script src="./js/classes/movableObjects.class.js"></script>
     <script src="./js/classes/character.class.js"></script>
     <script src="./js/classes/throwalbleObject.class.js"></script>
     <script src="./js/classes/enemyBlue.class.js"></script>
@@ -20,12 +20,12 @@
     <script src="./js/classes/enemyFly.class.js"></script>
     <script src="./js/classes/enemyGreen.class.js"></script>
     <script src="./js/classes/cloud.class.js"></script>
-    <script src="./js/classes/stars-and-cristals.class.js"></script>
+    <script src="./js/classes/starsAndCrystals.class.js"></script>
     <script src="./js/classes/endboss.class.js"></script>
     <script src="./js/classes/chest.class.js"></script>
     <script src="./js/classes/platform.class.js"></script>
     <script src="./js/classes/StatusBar.class.js"></script>
-    <script src="./js/classes/background-object.class.js"></script>
+    <script src="./js/classes/backgroundObjects.class.js"></script>
     <script src="./js/classes/gameOver.class.js"></script>
     <script src="./js/classes/gameWin.class.js"></script>
     <script src="./js/classes/gameWinShowStar.class.js"></script>
@@ -34,7 +34,6 @@
     <script src="./js/classes/soundManager.class.js"></script>
     <script src="./js/classes/checkGameStatus.class.js"></script>
     <script src="./js/classes/world.class.js"></script>
-
 </head>
 
 <body onload="loadDash()">
@@ -57,7 +56,7 @@
                         <p>Drücke <span>S</span> um zu schiessen.</p>
                         <p>Drücke <span>D</span> um einen Fisch zu werfen.</p>
                         <h2>Spielregel</h2>
-                        <p>Du hast insgesamt jeweils <span>13</span> Schüsse und Fische. Sobald alle Schüsse abgefeuert und alle Fische geworfen wurden, ist das Spiel beendet.</p>
+                        <p>Du hast insgesamt jeweils <span>5</span> Schüsse und Fische. Sobald alle Schüsse abgefeuert und alle Fische geworfen wurden, ist das Spiel beendet.</p>
                     </div>
                 </div>
             </div>
@@ -116,13 +115,13 @@
             </div>
             <div id="panelMobile">
                 <div>
-                    <button id="btnLeft"><</button>
-                    <button id="btnShoot"><img src="./img/pinguin/TurbineFx/TurbineFx_00.png" alt=""></button>
+                    <button id="btnLeft"><img src="./img/ui/Prev_icon.svg" alt="Prev Icon"></button>
+                    <button id="btnShoot"><img src="./img/pinguin/TurbineFx/TurbineFx_00.png" alt="Shoot Icon"></button>
                     <button id="btnThrow"><img src="./img/ui/fishThrow.svg" alt=""></button>
                 </div>
                 <div>
-                    <button id="btnUp">></button>
-                    <button id="btnRight">></button>
+                    <button id="btnUp"><img src="./img/ui/Up_icon.svg" alt="Up Icon"></button>
+                    <button id="btnRight"><img src="./img/ui/Next_icon.svg" alt="Next Icon"></button>
                 </div>
             </div>
             <canvas id="canvas" width="1200" height="650"></canvas>

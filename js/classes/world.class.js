@@ -187,7 +187,7 @@ class World {
     /** Handles fish throwing input with cooldown and limit. */
     checkThrowObjects() {
         let now = Date.now();
-        if (this.ThrowableObjectsL.length < 13 && this.keyboard.D && now - this.lastThrowTime > this.throwCooldown) {
+        if (this.ThrowableObjectsL.length < 5 && this.keyboard.D && now - this.lastThrowTime > this.throwCooldown) {
             this.lastThrowTime = now;
             let fish;
             if (this.character.otherDirection) {
@@ -205,7 +205,7 @@ class World {
     /** Handles shooting input with cooldown and limit. */
     shootOnlyKeydownS() {
         let now = Date.now();
-        if (this.GunShootL.length < 13 && this.keyboard.S && now - this.lastShootTime > this.shootCooldown) {
+        if (this.GunShootL.length < 5 && this.keyboard.S && now - this.lastShootTime > this.shootCooldown) {
             this.lastShootTime = now;
             let shoot;
             if (this.character.otherDirection) {
