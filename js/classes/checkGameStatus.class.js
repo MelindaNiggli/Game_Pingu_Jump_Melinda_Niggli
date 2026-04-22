@@ -1,6 +1,6 @@
 /** Ends the game if the weapon limit is reached.*/
 function gameOverWhenMaxWeaponsNow(world) {
-    if (world.GunShootL.length >= 13 && world.ThrowableObjectsL.length >= 13 && !world.gameEnd) {
+    if (world.GunShootL.length >= 5 && world.ThrowableObjectsL.length >= 5 && !world.gameEnd) {
         world.gameEnd = true;
         world.soundManager.stopMusic();
         world.soundManager.stopEndbossMusic();
