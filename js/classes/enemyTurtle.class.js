@@ -149,10 +149,8 @@ class MonsterTurtle extends MovableObject {
     attack(character) {
         if (!this.isAttacking) {
             this.isAttacking = true;
-
             this.attackInterval = setInterval(() => {
                 this.playWalkingAnimationImages(this.IMAGES_ATTACK);
-
                 if (!this.isColliding(character)) {
                     this.loadImage('img/monsters/turtle/Walk/Walk_00.png');
                     this.stopAttack();

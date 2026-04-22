@@ -2,7 +2,7 @@
 
 Ein browserbasiertes Jump-and-Run-Spiel von **Melinda Niggli (2026)**.
 
-Hilf Pingu dabei, Hindernisse zu überwinden, Gegner zu besiegen und die Schatztruhe zu erreichen!
+Das grosse Abenteuer beginnt Stell dich der grossen Schildkröte, sammle funkelnde Sterne und wertvolle Kristalle und sichere dir am Ende die geheimnisvolle Schatztruhe! Führe den kleinen Pingu geschickt über Hindernisse und meistere jeden Sprung. Perfektes Timing entscheidet – wie viele Schätze kannst du ergattern und wie weit kommst du?
 
 ---
 

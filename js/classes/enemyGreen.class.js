@@ -80,11 +80,9 @@ class MonsterGreen extends MovableObject {
         this.x = 200 + Math.random() * 7000;
         this.width = 260;
         this.height = 250;
-
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_ATTACK);
         this.loadImages(this.DEAD_SPRITE);
-
         this.speed = 0.30 + Math.random() * 3;
     }
 
@@ -114,7 +112,6 @@ class MonsterGreen extends MovableObject {
         this.moveInterval = setInterval(() => {
             this.moveLeft();
         }, 1000 / 60);
-
         this.animationInterval = setInterval(() => {
             this.playWalkingAnimationImages(this.IMAGES_WALKING);
         }, 30);

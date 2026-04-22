@@ -66,7 +66,6 @@ class MonsterFly extends MovableObject {
         this.x = 200 + Math.random() * 7000;
         this.width = 65;
         this.height = 90;
-
         this.loadImages(this.IMAGES_FLYING);
         this.loadImages(this.IMAGES_ATTACK);
         this.loadImages(this.DEAD_SPRITE);
@@ -100,7 +99,6 @@ class MonsterFly extends MovableObject {
         this.moveInterval = setInterval(() => {
             this.moveLeft();
         }, 1000 / 60);
-
         this.animationInterval = setInterval(() => {
             this.playWalkingAnimationImages(this.IMAGES_FLYING);
         }, 30);

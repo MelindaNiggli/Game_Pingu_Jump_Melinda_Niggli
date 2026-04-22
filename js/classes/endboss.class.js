@@ -144,7 +144,6 @@ class endBossTurtle extends MovableObject {
 
     /** Starts idle behavior loop and state updates. */
     startIdle() {
-
         this.idleInterval = setInterval(() => {
             if (this.animationState !== 'idle') {
                 this.animationState = 'idle';
@@ -171,15 +170,11 @@ class endBossTurtle extends MovableObject {
     /** Updates AI behavior based on player position. */
     updateBehavior() {
         if (!this.World || !this.World.character) return;
-
         let player = this.World.character;
-
         const triggerX = 6500;
-
         if (player.x > triggerX) {
             this.isTriggered = true;
         }
-
         if (this.isTriggered) {
             this.moveToCharacter(player);
         }
@@ -189,7 +184,6 @@ class endBossTurtle extends MovableObject {
     moveToCharacter(player) {
         const speed = 1;
         if (player.x < this.x) {
-
             if (!this.hasPlayedWalkSound) {
                 this.hasPlayedWalkSound = true;
 
@@ -201,7 +195,6 @@ class endBossTurtle extends MovableObject {
                 this.animationState = 'walk';
                 this.playWalkingAnimationImages(this.IMAGES_WALK);
             }
-
             this.x -= speed;
             this.otherDirection = false;
         }
@@ -219,7 +212,6 @@ class endBossTurtle extends MovableObject {
                         world.character.hit();
                         this.lastHitTime = now;
                     }
-
                     this.playWalkingAnimationImages(this.IMAGES_ATTACK);
                     if (!colliding) {
                         this.stopAttack();
